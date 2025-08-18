@@ -1,0 +1,9 @@
+EMAIL_TEMPLATE_TYPE: professional
+HUNTER_API_KEY: your_hunter_api_key_here
+HUNTER_REQUESTS_PER_MINUTE: '10'
+MAX_PRODUCTS_PER_RUN: '50'
+MAX_PROSPECTS_PER_COMPANY: '10'
+NOTION_TOKEN: your_notion_token_here
+OPENAI_API_KEY: your_openai_api_key_here
+PERSONALIZATION_LEVEL: medium
+SCRAPING_DELAY: '2.0'

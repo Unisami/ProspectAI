@@ -1,0 +1,46 @@
+# Import Organization Report
+==================================================
+
+Files processed: 38
+Files organized: 38
+Errors: 0
+
+## Organized Files:
+- services\ai_parser.py
+- services\ai_service.py
+- services\ai_team_extractor.py
+- services\caching_service.py
+- services\domain_validator.py
+- services\email_finder.py
+- services\email_generator.py
+- services\email_sender.py
+- services\interactive_controls.py
+- services\linkedin_finder.py
+- services\linkedin_scraper.py
+- services\notification_manager.py
+- services\notion_manager.py
+- services\notion_progress_tracker.py
+- services\openai_client_manager.py
+- services\parallel_processor.py
+- services\product_analyzer.py
+- services\product_hunt_scraper.py
+- services\sender_profile_manager.py
+- services\website_extractor.py
+- utils\api_monitor.py
+- utils\base_service.py
+- utils\config.py
+- utils\configuration_service.py
+- utils\error_handling.py
+- utils\error_handling_enhanced.py
+- utils\error_reporting.py
+- utils\import_analyzer.py
+- utils\import_cleaner.py
+- utils\import_organizer.py
+- utils\logging_config.py
+- utils\rate_limiting.py
+- utils\validation_framework.py
+- utils\webdriver_manager.py
+- controllers\prospect_automation_controller.py
+- models\data_models.py
+- cli.py
+- main.py

@@ -1,0 +1,1 @@
+{"timestamp": "2025-07-17T09:05:24.569589", "error_id": "demo_service_validation_test_1752725124", "service": "demo_service", "operation": "validation_test", "category": "data_validation", "severity": "medium", "message": "This is a test validation error", "context": {"input_data": "invalid_format"}}

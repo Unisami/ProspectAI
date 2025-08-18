@@ -1,0 +1,2079 @@
+{
+  "errors": [
+    {
+      "error_id": "hunter_io_email-finder_1754188343",
+      "timestamp": "2025-08-03T07:32:23.326729",
+      "category": "api_rate_limit",
+      "severity": "medium",
+      "service": "hunter_io",
+      "operation": "email-finder",
+      "error_type": "Exception",
+      "error_message": "Rate limit exceeded for hunter_io",
+      "context": {},
+      "retry_count": 0
+    },
+    {
+      "error_id": "hunter_io_find_person_email_1754188343",
+      "timestamp": "2025-08-03T07:32:23.336123",
+      "category": "network",
+      "severity": "low",
+      "service": "hunter_io",
+      "operation": "find_person_email",
+      "error_type": "HTTPError",
+      "error_message": "429 Client Error: Too Many Requests for url: https://api.hunter.io/v2/email-finder?domain=zinq.ai&first_name=Nachiket&last_name=Patel&api_key=bd6eedb2c639840d083b5905de41e0540e90cd25",
+      "context": {
+        "name": "Nachiket Patel",
+        "domain": "zinq.ai"
+      },
+      "retry_count": 0
+    },
+    {
+      "error_id": "services.email_finder_find_person_email_1754188343",
+      "timestamp": "2025-08-03T07:32:23.352370",
+      "category": "api_rate_limit",
+      "severity": "medium",
+      "service": "services.email_finder",
+      "operation": "find_person_email",
+      "error_type": "HTTPError",
+      "error_message": "429 Client Error: Too Many Requests for url: https://api.hunter.io/v2/email-finder?domain=zinq.ai&first_name=Nachiket&last_name=Patel&api_key=bd6eedb2c639840d083b5905de41e0540e90cd25",
+      "context": {
+        "attempt": 1,
+        "max_attempts": 5
+      },
+      "retry_count": 1
+    },
+    {
+      "error_id": "hunter_io_email-finder_1754188349",
+      "timestamp": "2025-08-03T07:32:29.079815",
+      "category": "api_rate_limit",
+      "severity": "medium",
+      "service": "hunter_io",
+      "operation": "email-finder",
+      "error_type": "Exception",
+      "error_message": "Rate limit exceeded for hunter_io",
+      "context": {},
+      "retry_count": 0
+    },
+    {
+      "error_id": "hunter_io_find_person_email_1754188349",
+      "timestamp": "2025-08-03T07:32:29.082206",
+      "category": "network",
+      "severity": "low",
+      "service": "hunter_io",
+      "operation": "find_person_email",
+      "error_type": "HTTPError",
+      "error_message": "429 Client Error: Too Many Requests for url: https://api.hunter.io/v2/email-finder?domain=zinq.ai&first_name=Nachiket&last_name=Patel&api_key=bd6eedb2c639840d083b5905de41e0540e90cd25",
+      "context": {
+        "name": "Nachiket Patel",
+        "domain": "zinq.ai"
+      },
+      "retry_count": 0
+    },
+    {
+      "error_id": "services.email_finder_find_person_email_1754188349",
+      "timestamp": "2025-08-03T07:32:29.085032",
+      "category": "api_rate_limit",
+      "severity": "medium",
+      "service": "services.email_finder",
+      "operation": "find_person_email",
+      "error_type": "HTTPError",
+      "error_message": "429 Client Error: Too Many Requests for url: https://api.hunter.io/v2/email-finder?domain=zinq.ai&first_name=Nachiket&last_name=Patel&api_key=bd6eedb2c639840d083b5905de41e0540e90cd25",
+      "context": {
+        "attempt": 2,
+        "max_attempts": 5
+      },
+      "retry_count": 2
+    },
+    {
+      "error_id": "hunter_io_email-finder_1754188358",
+      "timestamp": "2025-08-03T07:32:38.254056",
+      "category": "api_rate_limit",
+      "severity": "medium",
+      "service": "hunter_io",
+      "operation": "email-finder",
+      "error_type": "Exception",
+      "error_message": "Rate limit exceeded for hunter_io",
+      "context": {},
+      "retry_count": 0
+    },
+    {
+      "error_id": "hunter_io_find_person_email_1754188358",
+      "timestamp": "2025-08-03T07:32:38.258039",
+      "category": "network",
+      "severity": "low",
+      "service": "hunter_io",
+      "operation": "find_person_email",
+      "error_type": "HTTPError",
+      "error_message": "429 Client Error: Too Many Requests for url: https://api.hunter.io/v2/email-finder?domain=zinq.ai&first_name=Nachiket&last_name=Patel&api_key=bd6eedb2c639840d083b5905de41e0540e90cd25",
+      "context": {
+        "name": "Nachiket Patel",
+        "domain": "zinq.ai"
+      },
+      "retry_count": 0
+    },
+    {
+      "error_id": "services.email_finder_find_person_email_1754188358",
+      "timestamp": "2025-08-03T07:32:38.262662",
+      "category": "api_rate_limit",
+      "severity": "medium",
+      "service": "services.email_finder",
+      "operation": "find_person_email",
+      "error_type": "HTTPError",
+      "error_message": "429 Client Error: Too Many Requests for url: https://api.hunter.io/v2/email-finder?domain=zinq.ai&first_name=Nachiket&last_name=Patel&api_key=bd6eedb2c639840d083b5905de41e0540e90cd25",
+      "context": {
+        "attempt": 3,
+        "max_attempts": 5
+      },
+      "retry_count": 3
+    },
+    {
+      "error_id": "hunter_io_email-finder_1754188377",
+      "timestamp": "2025-08-03T07:32:57.011282",
+      "category": "api_rate_limit",
+      "severity": "medium",
+      "service": "hunter_io",
+      "operation": "email-finder",
+      "error_type": "Exception",
+      "error_message": "Rate limit exceeded for hunter_io",
+      "context": {},
+      "retry_count": 0
+    },
+    {
+      "error_id": "hunter_io_find_person_email_1754188377",
+      "timestamp": "2025-08-03T07:32:57.015956",
+      "category": "network",
+      "severity": "low",
+      "service": "hunter_io",
+      "operation": "find_person_email",
+      "error_type": "HTTPError",
+      "error_message": "429 Client Error: Too Many Requests for url: https://api.hunter.io/v2/email-finder?domain=zinq.ai&first_name=Nachiket&last_name=Patel&api_key=bd6eedb2c639840d083b5905de41e0540e90cd25",
+      "context": {
+        "name": "Nachiket Patel",
+        "domain": "zinq.ai"
+      },
+      "retry_count": 0
+    },
+    {
+      "error_id": "services.email_finder_find_person_email_1754188377",
+      "timestamp": "2025-08-03T07:32:57.019293",
+      "category": "api_rate_limit",
+      "severity": "medium",
+      "service": "services.email_finder",
+      "operation": "find_person_email",
+      "error_type": "HTTPError",
+      "error_message": "429 Client Error: Too Many Requests for url: https://api.hunter.io/v2/email-finder?domain=zinq.ai&first_name=Nachiket&last_name=Patel&api_key=bd6eedb2c639840d083b5905de41e0540e90cd25",
+      "context": {
+        "attempt": 4,
+        "max_attempts": 5
+      },
+      "retry_count": 4
+    },
+    {
+      "error_id": "hunter_io_email-finder_1754188406",
+      "timestamp": "2025-08-03T07:33:26.797187",
+      "category": "api_rate_limit",
+      "severity": "medium",
+      "service": "hunter_io",
+      "operation": "email-finder",
+      "error_type": "Exception",
+      "error_message": "Rate limit exceeded for hunter_io",
+      "context": {},
+      "retry_count": 0
+    },
+    {
+      "error_id": "hunter_io_find_person_email_1754188406",
+      "timestamp": "2025-08-03T07:33:26.800570",
+      "category": "network",
+      "severity": "low",
+      "service": "hunter_io",
+      "operation": "find_person_email",
+      "error_type": "HTTPError",
+      "error_message": "429 Client Error: Too Many Requests for url: https://api.hunter.io/v2/email-finder?domain=zinq.ai&first_name=Nachiket&last_name=Patel&api_key=bd6eedb2c639840d083b5905de41e0540e90cd25",
+      "context": {
+        "name": "Nachiket Patel",
+        "domain": "zinq.ai"
+      },
+      "retry_count": 0
+    },
+    {
+      "error_id": "services.email_finder_find_person_email_1754188406",
+      "timestamp": "2025-08-03T07:33:26.804110",
+      "category": "api_rate_limit",
+      "severity": "medium",
+      "service": "services.email_finder",
+      "operation": "find_person_email",
+      "error_type": "HTTPError",
+      "error_message": "429 Client Error: Too Many Requests for url: https://api.hunter.io/v2/email-finder?domain=zinq.ai&first_name=Nachiket&last_name=Patel&api_key=bd6eedb2c639840d083b5905de41e0540e90cd25",
+      "context": {
+        "attempt": 5,
+        "max_attempts": 5
+      },
+      "retry_count": 5
+    },
+    {
+      "error_id": "hunter_io_email-finder_1754188698",
+      "timestamp": "2025-08-03T07:38:18.657615",
+      "category": "api_rate_limit",
+      "severity": "medium",
+      "service": "hunter_io",
+      "operation": "email-finder",
+      "error_type": "Exception",
+      "error_message": "Rate limit exceeded for hunter_io",
+      "context": {},
+      "retry_count": 0
+    },
+    {
+      "error_id": "hunter_io_find_person_email_1754188698",
+      "timestamp": "2025-08-03T07:38:18.660693",
+      "category": "network",
+      "severity": "low",
+      "service": "hunter_io",
+      "operation": "find_person_email",
+      "error_type": "HTTPError",
+      "error_message": "429 Client Error: Too Many Requests for url: https://api.hunter.io/v2/email-finder?domain=google.com&first_name=Chris&last_name=Messina&api_key=bd6eedb2c639840d083b5905de41e0540e90cd25",
+      "context": {
+        "name": "Chris Messina",
+        "domain": "google.com"
+      },
+      "retry_count": 0
+    },
+    {
+      "error_id": "services.email_finder_find_person_email_1754188698",
+      "timestamp": "2025-08-03T07:38:18.663853",
+      "category": "api_rate_limit",
+      "severity": "medium",
+      "service": "services.email_finder",
+      "operation": "find_person_email",
+      "error_type": "HTTPError",
+      "error_message": "429 Client Error: Too Many Requests for url: https://api.hunter.io/v2/email-finder?domain=google.com&first_name=Chris&last_name=Messina&api_key=bd6eedb2c639840d083b5905de41e0540e90cd25",
+      "context": {
+        "attempt": 1,
+        "max_attempts": 5
+      },
+      "retry_count": 1
+    },
+    {
+      "error_id": "hunter_io_email-finder_1754188704",
+      "timestamp": "2025-08-03T07:38:24.616418",
+      "category": "api_rate_limit",
+      "severity": "medium",
+      "service": "hunter_io",
+      "operation": "email-finder",
+      "error_type": "Exception",
+      "error_message": "Rate limit exceeded for hunter_io",
+      "context": {},
+      "retry_count": 0
+    },
+    {
+      "error_id": "hunter_io_find_person_email_1754188704",
+      "timestamp": "2025-08-03T07:38:24.619769",
+      "category": "network",
+      "severity": "low",
+      "service": "hunter_io",
+      "operation": "find_person_email",
+      "error_type": "HTTPError",
+      "error_message": "429 Client Error: Too Many Requests for url: https://api.hunter.io/v2/email-finder?domain=google.com&first_name=Chris&last_name=Messina&api_key=bd6eedb2c639840d083b5905de41e0540e90cd25",
+      "context": {
+        "name": "Chris Messina",
+        "domain": "google.com"
+      },
+      "retry_count": 0
+    },
+    {
+      "error_id": "services.email_finder_find_person_email_1754188704",
+      "timestamp": "2025-08-03T07:38:24.623783",
+      "category": "api_rate_limit",
+      "severity": "medium",
+      "service": "services.email_finder",
+      "operation": "find_person_email",
+      "error_type": "HTTPError",
+      "error_message": "429 Client Error: Too Many Requests for url: https://api.hunter.io/v2/email-finder?domain=google.com&first_name=Chris&last_name=Messina&api_key=bd6eedb2c639840d083b5905de41e0540e90cd25",
+      "context": {
+        "attempt": 2,
+        "max_attempts": 5
+      },
+      "retry_count": 2
+    },
+    {
+      "error_id": "hunter_io_email-finder_1754188714",
+      "timestamp": "2025-08-03T07:38:34.793695",
+      "category": "api_rate_limit",
+      "severity": "medium",
+      "service": "hunter_io",
+      "operation": "email-finder",
+      "error_type": "Exception",
+      "error_message": "Rate limit exceeded for hunter_io",
+      "context": {},
+      "retry_count": 0
+    },
+    {
+      "error_id": "hunter_io_find_person_email_1754188714",
+      "timestamp": "2025-08-03T07:38:34.796963",
+      "category": "network",
+      "severity": "low",
+      "service": "hunter_io",
+      "operation": "find_person_email",
+      "error_type": "HTTPError",
+      "error_message": "429 Client Error: Too Many Requests for url: https://api.hunter.io/v2/email-finder?domain=google.com&first_name=Chris&last_name=Messina&api_key=bd6eedb2c639840d083b5905de41e0540e90cd25",
+      "context": {
+        "name": "Chris Messina",
+        "domain": "google.com"
+      },
+      "retry_count": 0
+    },
+    {
+      "error_id": "services.email_finder_find_person_email_1754188714",
+      "timestamp": "2025-08-03T07:38:34.800296",
+      "category": "api_rate_limit",
+      "severity": "medium",
+      "service": "services.email_finder",
+      "operation": "find_person_email",
+      "error_type": "HTTPError",
+      "error_message": "429 Client Error: Too Many Requests for url: https://api.hunter.io/v2/email-finder?domain=google.com&first_name=Chris&last_name=Messina&api_key=bd6eedb2c639840d083b5905de41e0540e90cd25",
+      "context": {
+        "attempt": 3,
+        "max_attempts": 5
+      },
+      "retry_count": 3
+    },
+    {
+      "error_id": "hunter_io_email-finder_1754188733",
+      "timestamp": "2025-08-03T07:38:53.409998",
+      "category": "api_rate_limit",
+      "severity": "medium",
+      "service": "hunter_io",
+      "operation": "email-finder",
+      "error_type": "Exception",
+      "error_message": "Rate limit exceeded for hunter_io",
+      "context": {},
+      "retry_count": 0
+    },
+    {
+      "error_id": "hunter_io_find_person_email_1754188733",
+      "timestamp": "2025-08-03T07:38:53.415161",
+      "category": "network",
+      "severity": "low",
+      "service": "hunter_io",
+      "operation": "find_person_email",
+      "error_type": "HTTPError",
+      "error_message": "429 Client Error: Too Many Requests for url: https://api.hunter.io/v2/email-finder?domain=google.com&first_name=Chris&last_name=Messina&api_key=bd6eedb2c639840d083b5905de41e0540e90cd25",
+      "context": {
+        "name": "Chris Messina",
+        "domain": "google.com"
+      },
+      "retry_count": 0
+    },
+    {
+      "error_id": "services.email_finder_find_person_email_1754188733",
+      "timestamp": "2025-08-03T07:38:53.418760",
+      "category": "api_rate_limit",
+      "severity": "medium",
+      "service": "services.email_finder",
+      "operation": "find_person_email",
+      "error_type": "HTTPError",
+      "error_message": "429 Client Error: Too Many Requests for url: https://api.hunter.io/v2/email-finder?domain=google.com&first_name=Chris&last_name=Messina&api_key=bd6eedb2c639840d083b5905de41e0540e90cd25",
+      "context": {
+        "attempt": 4,
+        "max_attempts": 5
+      },
+      "retry_count": 4
+    },
+    {
+      "error_id": "hunter_io_email-finder_1754188774",
+      "timestamp": "2025-08-03T07:39:34.051758",
+      "category": "api_rate_limit",
+      "severity": "medium",
+      "service": "hunter_io",
+      "operation": "email-finder",
+      "error_type": "Exception",
+      "error_message": "Rate limit exceeded for hunter_io",
+      "context": {},
+      "retry_count": 0
+    },
+    {
+      "error_id": "hunter_io_find_person_email_1754188774",
+      "timestamp": "2025-08-03T07:39:34.055497",
+      "category": "network",
+      "severity": "low",
+      "service": "hunter_io",
+      "operation": "find_person_email",
+      "error_type": "HTTPError",
+      "error_message": "429 Client Error: Too Many Requests for url: https://api.hunter.io/v2/email-finder?domain=google.com&first_name=Chris&last_name=Messina&api_key=bd6eedb2c639840d083b5905de41e0540e90cd25",
+      "context": {
+        "name": "Chris Messina",
+        "domain": "google.com"
+      },
+      "retry_count": 0
+    },
+    {
+      "error_id": "services.email_finder_find_person_email_1754188774",
+      "timestamp": "2025-08-03T07:39:34.059094",
+      "category": "api_rate_limit",
+      "severity": "medium",
+      "service": "services.email_finder",
+      "operation": "find_person_email",
+      "error_type": "HTTPError",
+      "error_message": "429 Client Error: Too Many Requests for url: https://api.hunter.io/v2/email-finder?domain=google.com&first_name=Chris&last_name=Messina&api_key=bd6eedb2c639840d083b5905de41e0540e90cd25",
+      "context": {
+        "attempt": 5,
+        "max_attempts": 5
+      },
+      "retry_count": 5
+    },
+    {
+      "error_id": "hunter_io_email-finder_1754188778",
+      "timestamp": "2025-08-03T07:39:38.423214",
+      "category": "api_rate_limit",
+      "severity": "medium",
+      "service": "hunter_io",
+      "operation": "email-finder",
+      "error_type": "Exception",
+      "error_message": "Rate limit exceeded for hunter_io",
+      "context": {},
+      "retry_count": 0
+    },
+    {
+      "error_id": "hunter_io_find_person_email_1754188778",
+      "timestamp": "2025-08-03T07:39:38.426805",
+      "category": "network",
+      "severity": "low",
+      "service": "hunter_io",
+      "operation": "find_person_email",
+      "error_type": "HTTPError",
+      "error_message": "429 Client Error: Too Many Requests for url: https://api.hunter.io/v2/email-finder?domain=google.com&first_name=Rohan&last_name=Gayen&api_key=bd6eedb2c639840d083b5905de41e0540e90cd25",
+      "context": {
+        "name": "Rohan Gayen",
+        "domain": "google.com"
+      },
+      "retry_count": 0
+    },
+    {
+      "error_id": "services.email_finder_find_person_email_1754188778",
+      "timestamp": "2025-08-03T07:39:38.430712",
+      "category": "api_rate_limit",
+      "severity": "medium",
+      "service": "services.email_finder",
+      "operation": "find_person_email",
+      "error_type": "HTTPError",
+      "error_message": "429 Client Error: Too Many Requests for url: https://api.hunter.io/v2/email-finder?domain=google.com&first_name=Rohan&last_name=Gayen&api_key=bd6eedb2c639840d083b5905de41e0540e90cd25",
+      "context": {
+        "attempt": 1,
+        "max_attempts": 5
+      },
+      "retry_count": 1
+    },
+    {
+      "error_id": "hunter_io_email-finder_1754188784",
+      "timestamp": "2025-08-03T07:39:44.440256",
+      "category": "api_rate_limit",
+      "severity": "medium",
+      "service": "hunter_io",
+      "operation": "email-finder",
+      "error_type": "Exception",
+      "error_message": "Rate limit exceeded for hunter_io",
+      "context": {},
+      "retry_count": 0
+    },
+    {
+      "error_id": "hunter_io_find_person_email_1754188784",
+      "timestamp": "2025-08-03T07:39:44.443836",
+      "category": "network",
+      "severity": "low",
+      "service": "hunter_io",
+      "operation": "find_person_email",
+      "error_type": "HTTPError",
+      "error_message": "429 Client Error: Too Many Requests for url: https://api.hunter.io/v2/email-finder?domain=google.com&first_name=Rohan&last_name=Gayen&api_key=bd6eedb2c639840d083b5905de41e0540e90cd25",
+      "context": {
+        "name": "Rohan Gayen",
+        "domain": "google.com"
+      },
+      "retry_count": 0
+    },
+    {
+      "error_id": "services.email_finder_find_person_email_1754188784",
+      "timestamp": "2025-08-03T07:39:44.447505",
+      "category": "api_rate_limit",
+      "severity": "medium",
+      "service": "services.email_finder",
+      "operation": "find_person_email",
+      "error_type": "HTTPError",
+      "error_message": "429 Client Error: Too Many Requests for url: https://api.hunter.io/v2/email-finder?domain=google.com&first_name=Rohan&last_name=Gayen&api_key=bd6eedb2c639840d083b5905de41e0540e90cd25",
+      "context": {
+        "attempt": 2,
+        "max_attempts": 5
+      },
+      "retry_count": 2
+    },
+    {
+      "error_id": "hunter_io_email-finder_1754188792",
+      "timestamp": "2025-08-03T07:39:52.155586",
+      "category": "api_rate_limit",
+      "severity": "medium",
+      "service": "hunter_io",
+      "operation": "email-finder",
+      "error_type": "Exception",
+      "error_message": "Rate limit exceeded for hunter_io",
+      "context": {},
+      "retry_count": 0
+    },
+    {
+      "error_id": "hunter_io_find_person_email_1754188792",
+      "timestamp": "2025-08-03T07:39:52.159115",
+      "category": "network",
+      "severity": "low",
+      "service": "hunter_io",
+      "operation": "find_person_email",
+      "error_type": "HTTPError",
+      "error_message": "429 Client Error: Too Many Requests for url: https://api.hunter.io/v2/email-finder?domain=google.com&first_name=Rohan&last_name=Gayen&api_key=bd6eedb2c639840d083b5905de41e0540e90cd25",
+      "context": {
+        "name": "Rohan Gayen",
+        "domain": "google.com"
+      },
+      "retry_count": 0
+    },
+    {
+      "error_id": "services.email_finder_find_person_email_1754188792",
+      "timestamp": "2025-08-03T07:39:52.163237",
+      "category": "api_rate_limit",
+      "severity": "medium",
+      "service": "services.email_finder",
+      "operation": "find_person_email",
+      "error_type": "HTTPError",
+      "error_message": "429 Client Error: Too Many Requests for url: https://api.hunter.io/v2/email-finder?domain=google.com&first_name=Rohan&last_name=Gayen&api_key=bd6eedb2c639840d083b5905de41e0540e90cd25",
+      "context": {
+        "attempt": 3,
+        "max_attempts": 5
+      },
+      "retry_count": 3
+    },
+    {
+      "error_id": "hunter_io_email-finder_1754188810",
+      "timestamp": "2025-08-03T07:40:10.825632",
+      "category": "api_rate_limit",
+      "severity": "medium",
+      "service": "hunter_io",
+      "operation": "email-finder",
+      "error_type": "Exception",
+      "error_message": "Rate limit exceeded for hunter_io",
+      "context": {},
+      "retry_count": 0
+    },
+    {
+      "error_id": "hunter_io_find_person_email_1754188810",
+      "timestamp": "2025-08-03T07:40:10.832255",
+      "category": "network",
+      "severity": "low",
+      "service": "hunter_io",
+      "operation": "find_person_email",
+      "error_type": "HTTPError",
+      "error_message": "429 Client Error: Too Many Requests for url: https://api.hunter.io/v2/email-finder?domain=google.com&first_name=Rohan&last_name=Gayen&api_key=bd6eedb2c639840d083b5905de41e0540e90cd25",
+      "context": {
+        "name": "Rohan Gayen",
+        "domain": "google.com"
+      },
+      "retry_count": 0
+    },
+    {
+      "error_id": "services.email_finder_find_person_email_1754188810",
+      "timestamp": "2025-08-03T07:40:10.836441",
+      "category": "api_rate_limit",
+      "severity": "medium",
+      "service": "services.email_finder",
+      "operation": "find_person_email",
+      "error_type": "HTTPError",
+      "error_message": "429 Client Error: Too Many Requests for url: https://api.hunter.io/v2/email-finder?domain=google.com&first_name=Rohan&last_name=Gayen&api_key=bd6eedb2c639840d083b5905de41e0540e90cd25",
+      "context": {
+        "attempt": 4,
+        "max_attempts": 5
+      },
+      "retry_count": 4
+    },
+    {
+      "error_id": "hunter_io_email-finder_1754188838",
+      "timestamp": "2025-08-03T07:40:38.213898",
+      "category": "api_rate_limit",
+      "severity": "medium",
+      "service": "hunter_io",
+      "operation": "email-finder",
+      "error_type": "Exception",
+      "error_message": "Rate limit exceeded for hunter_io",
+      "context": {},
+      "retry_count": 0
+    },
+    {
+      "error_id": "hunter_io_find_person_email_1754188838",
+      "timestamp": "2025-08-03T07:40:38.217979",
+      "category": "network",
+      "severity": "low",
+      "service": "hunter_io",
+      "operation": "find_person_email",
+      "error_type": "HTTPError",
+      "error_message": "429 Client Error: Too Many Requests for url: https://api.hunter.io/v2/email-finder?domain=google.com&first_name=Rohan&last_name=Gayen&api_key=bd6eedb2c639840d083b5905de41e0540e90cd25",
+      "context": {
+        "name": "Rohan Gayen",
+        "domain": "google.com"
+      },
+      "retry_count": 0
+    },
+    {
+      "error_id": "services.email_finder_find_person_email_1754188838",
+      "timestamp": "2025-08-03T07:40:38.222048",
+      "category": "api_rate_limit",
+      "severity": "medium",
+      "service": "services.email_finder",
+      "operation": "find_person_email",
+      "error_type": "HTTPError",
+      "error_message": "429 Client Error: Too Many Requests for url: https://api.hunter.io/v2/email-finder?domain=google.com&first_name=Rohan&last_name=Gayen&api_key=bd6eedb2c639840d083b5905de41e0540e90cd25",
+      "context": {
+        "attempt": 5,
+        "max_attempts": 5
+      },
+      "retry_count": 5
+    },
+    {
+      "error_id": "hunter_io_email-finder_1754188843",
+      "timestamp": "2025-08-03T07:40:43.960539",
+      "category": "api_rate_limit",
+      "severity": "medium",
+      "service": "hunter_io",
+      "operation": "email-finder",
+      "error_type": "Exception",
+      "error_message": "Rate limit exceeded for hunter_io",
+      "context": {},
+      "retry_count": 0
+    },
+    {
+      "error_id": "hunter_io_find_person_email_1754188843",
+      "timestamp": "2025-08-03T07:40:43.964363",
+      "category": "network",
+      "severity": "low",
+      "service": "hunter_io",
+      "operation": "find_person_email",
+      "error_type": "HTTPError",
+      "error_message": "429 Client Error: Too Many Requests for url: https://api.hunter.io/v2/email-finder?domain=google.com&first_name=Anatolii&last_name=Zhadan&api_key=bd6eedb2c639840d083b5905de41e0540e90cd25",
+      "context": {
+        "name": "Anatolii Zhadan",
+        "domain": "google.com"
+      },
+      "retry_count": 0
+    },
+    {
+      "error_id": "services.email_finder_find_person_email_1754188843",
+      "timestamp": "2025-08-03T07:40:43.968521",
+      "category": "api_rate_limit",
+      "severity": "medium",
+      "service": "services.email_finder",
+      "operation": "find_person_email",
+      "error_type": "HTTPError",
+      "error_message": "429 Client Error: Too Many Requests for url: https://api.hunter.io/v2/email-finder?domain=google.com&first_name=Anatolii&last_name=Zhadan&api_key=bd6eedb2c639840d083b5905de41e0540e90cd25",
+      "context": {
+        "attempt": 1,
+        "max_attempts": 5
+      },
+      "retry_count": 1
+    },
+    {
+      "error_id": "hunter_io_email-finder_1754188850",
+      "timestamp": "2025-08-03T07:40:50.184457",
+      "category": "api_rate_limit",
+      "severity": "medium",
+      "service": "hunter_io",
+      "operation": "email-finder",
+      "error_type": "Exception",
+      "error_message": "Rate limit exceeded for hunter_io",
+      "context": {},
+      "retry_count": 0
+    },
+    {
+      "error_id": "hunter_io_find_person_email_1754188850",
+      "timestamp": "2025-08-03T07:40:50.188947",
+      "category": "network",
+      "severity": "low",
+      "service": "hunter_io",
+      "operation": "find_person_email",
+      "error_type": "HTTPError",
+      "error_message": "429 Client Error: Too Many Requests for url: https://api.hunter.io/v2/email-finder?domain=google.com&first_name=Anatolii&last_name=Zhadan&api_key=bd6eedb2c639840d083b5905de41e0540e90cd25",
+      "context": {
+        "name": "Anatolii Zhadan",
+        "domain": "google.com"
+      },
+      "retry_count": 0
+    },
+    {
+      "error_id": "services.email_finder_find_person_email_1754188850",
+      "timestamp": "2025-08-03T07:40:50.192961",
+      "category": "api_rate_limit",
+      "severity": "medium",
+      "service": "services.email_finder",
+      "operation": "find_person_email",
+      "error_type": "HTTPError",
+      "error_message": "429 Client Error: Too Many Requests for url: https://api.hunter.io/v2/email-finder?domain=google.com&first_name=Anatolii&last_name=Zhadan&api_key=bd6eedb2c639840d083b5905de41e0540e90cd25",
+      "context": {
+        "attempt": 2,
+        "max_attempts": 5
+      },
+      "retry_count": 2
+    },
+    {
+      "error_id": "hunter_io_email-finder_1754188856",
+      "timestamp": "2025-08-03T07:40:56.194879",
+      "category": "api_rate_limit",
+      "severity": "medium",
+      "service": "hunter_io",
+      "operation": "email-finder",
+      "error_type": "Exception",
+      "error_message": "Rate limit exceeded for hunter_io",
+      "context": {},
+      "retry_count": 0
+    },
+    {
+      "error_id": "hunter_io_find_person_email_1754188856",
+      "timestamp": "2025-08-03T07:40:56.198884",
+      "category": "network",
+      "severity": "low",
+      "service": "hunter_io",
+      "operation": "find_person_email",
+      "error_type": "HTTPError",
+      "error_message": "429 Client Error: Too Many Requests for url: https://api.hunter.io/v2/email-finder?domain=google.com&first_name=Anatolii&last_name=Zhadan&api_key=bd6eedb2c639840d083b5905de41e0540e90cd25",
+      "context": {
+        "name": "Anatolii Zhadan",
+        "domain": "google.com"
+      },
+      "retry_count": 0
+    },
+    {
+      "error_id": "services.email_finder_find_person_email_1754188856",
+      "timestamp": "2025-08-03T07:40:56.203115",
+      "category": "api_rate_limit",
+      "severity": "medium",
+      "service": "services.email_finder",
+      "operation": "find_person_email",
+      "error_type": "HTTPError",
+      "error_message": "429 Client Error: Too Many Requests for url: https://api.hunter.io/v2/email-finder?domain=google.com&first_name=Anatolii&last_name=Zhadan&api_key=bd6eedb2c639840d083b5905de41e0540e90cd25",
+      "context": {
+        "attempt": 3,
+        "max_attempts": 5
+      },
+      "retry_count": 3
+    },
+    {
+      "error_id": "hunter_io_email-finder_1754188873",
+      "timestamp": "2025-08-03T07:41:13.939530",
+      "category": "api_rate_limit",
+      "severity": "medium",
+      "service": "hunter_io",
+      "operation": "email-finder",
+      "error_type": "Exception",
+      "error_message": "Rate limit exceeded for hunter_io",
+      "context": {},
+      "retry_count": 0
+    },
+    {
+      "error_id": "hunter_io_find_person_email_1754188873",
+      "timestamp": "2025-08-03T07:41:13.946019",
+      "category": "network",
+      "severity": "low",
+      "service": "hunter_io",
+      "operation": "find_person_email",
+      "error_type": "HTTPError",
+      "error_message": "429 Client Error: Too Many Requests for url: https://api.hunter.io/v2/email-finder?domain=google.com&first_name=Anatolii&last_name=Zhadan&api_key=bd6eedb2c639840d083b5905de41e0540e90cd25",
+      "context": {
+        "name": "Anatolii Zhadan",
+        "domain": "google.com"
+      },
+      "retry_count": 0
+    },
+    {
+      "error_id": "services.email_finder_find_person_email_1754188873",
+      "timestamp": "2025-08-03T07:41:13.950241",
+      "category": "api_rate_limit",
+      "severity": "medium",
+      "service": "services.email_finder",
+      "operation": "find_person_email",
+      "error_type": "HTTPError",
+      "error_message": "429 Client Error: Too Many Requests for url: https://api.hunter.io/v2/email-finder?domain=google.com&first_name=Anatolii&last_name=Zhadan&api_key=bd6eedb2c639840d083b5905de41e0540e90cd25",
+      "context": {
+        "attempt": 4,
+        "max_attempts": 5
+      },
+      "retry_count": 4
+    },
+    {
+      "error_id": "hunter_io_email-finder_1754188906",
+      "timestamp": "2025-08-03T07:41:46.204231",
+      "category": "api_rate_limit",
+      "severity": "medium",
+      "service": "hunter_io",
+      "operation": "email-finder",
+      "error_type": "Exception",
+      "error_message": "Rate limit exceeded for hunter_io",
+      "context": {},
+      "retry_count": 0
+    },
+    {
+      "error_id": "hunter_io_find_person_email_1754188906",
+      "timestamp": "2025-08-03T07:41:46.208524",
+      "category": "network",
+      "severity": "low",
+      "service": "hunter_io",
+      "operation": "find_person_email",
+      "error_type": "HTTPError",
+      "error_message": "429 Client Error: Too Many Requests for url: https://api.hunter.io/v2/email-finder?domain=google.com&first_name=Anatolii&last_name=Zhadan&api_key=bd6eedb2c639840d083b5905de41e0540e90cd25",
+      "context": {
+        "name": "Anatolii Zhadan",
+        "domain": "google.com"
+      },
+      "retry_count": 0
+    },
+    {
+      "error_id": "services.email_finder_find_person_email_1754188906",
+      "timestamp": "2025-08-03T07:41:46.212909",
+      "category": "api_rate_limit",
+      "severity": "medium",
+      "service": "services.email_finder",
+      "operation": "find_person_email",
+      "error_type": "HTTPError",
+      "error_message": "429 Client Error: Too Many Requests for url: https://api.hunter.io/v2/email-finder?domain=google.com&first_name=Anatolii&last_name=Zhadan&api_key=bd6eedb2c639840d083b5905de41e0540e90cd25",
+      "context": {
+        "attempt": 5,
+        "max_attempts": 5
+      },
+      "retry_count": 5
+    },
+    {
+      "error_id": "hunter_io_email-finder_1754188912",
+      "timestamp": "2025-08-03T07:41:52.149173",
+      "category": "api_rate_limit",
+      "severity": "medium",
+      "service": "hunter_io",
+      "operation": "email-finder",
+      "error_type": "Exception",
+      "error_message": "Rate limit exceeded for hunter_io",
+      "context": {},
+      "retry_count": 0
+    },
+    {
+      "error_id": "hunter_io_find_person_email_1754188912",
+      "timestamp": "2025-08-03T07:41:52.153619",
+      "category": "network",
+      "severity": "low",
+      "service": "hunter_io",
+      "operation": "find_person_email",
+      "error_type": "HTTPError",
+      "error_message": "429 Client Error: Too Many Requests for url: https://api.hunter.io/v2/email-finder?domain=aijinglemaker.com&first_name=Fr%C3%A9d%C3%A9rick&last_name=Tubiermont&api_key=bd6eedb2c639840d083b5905de41e0540e90cd25",
+      "context": {
+        "name": "Fr\u00e9d\u00e9rick Tubiermont",
+        "domain": "aijinglemaker.com"
+      },
+      "retry_count": 0
+    },
+    {
+      "error_id": "services.email_finder_find_person_email_1754188912",
+      "timestamp": "2025-08-03T07:41:52.158439",
+      "category": "api_rate_limit",
+      "severity": "medium",
+      "service": "services.email_finder",
+      "operation": "find_person_email",
+      "error_type": "HTTPError",
+      "error_message": "429 Client Error: Too Many Requests for url: https://api.hunter.io/v2/email-finder?domain=aijinglemaker.com&first_name=Fr%C3%A9d%C3%A9rick&last_name=Tubiermont&api_key=bd6eedb2c639840d083b5905de41e0540e90cd25",
+      "context": {
+        "attempt": 1,
+        "max_attempts": 5
+      },
+      "retry_count": 1
+    },
+    {
+      "error_id": "hunter_io_email-finder_1754188918",
+      "timestamp": "2025-08-03T07:41:58.186021",
+      "category": "api_rate_limit",
+      "severity": "medium",
+      "service": "hunter_io",
+      "operation": "email-finder",
+      "error_type": "Exception",
+      "error_message": "Rate limit exceeded for hunter_io",
+      "context": {},
+      "retry_count": 0
+    },
+    {
+      "error_id": "hunter_io_find_person_email_1754188918",
+      "timestamp": "2025-08-03T07:41:58.190152",
+      "category": "network",
+      "severity": "low",
+      "service": "hunter_io",
+      "operation": "find_person_email",
+      "error_type": "HTTPError",
+      "error_message": "429 Client Error: Too Many Requests for url: https://api.hunter.io/v2/email-finder?domain=aijinglemaker.com&first_name=Fr%C3%A9d%C3%A9rick&last_name=Tubiermont&api_key=bd6eedb2c639840d083b5905de41e0540e90cd25",
+      "context": {
+        "name": "Fr\u00e9d\u00e9rick Tubiermont",
+        "domain": "aijinglemaker.com"
+      },
+      "retry_count": 0
+    },
+    {
+      "error_id": "services.email_finder_find_person_email_1754188918",
+      "timestamp": "2025-08-03T07:41:58.194465",
+      "category": "api_rate_limit",
+      "severity": "medium",
+      "service": "services.email_finder",
+      "operation": "find_person_email",
+      "error_type": "HTTPError",
+      "error_message": "429 Client Error: Too Many Requests for url: https://api.hunter.io/v2/email-finder?domain=aijinglemaker.com&first_name=Fr%C3%A9d%C3%A9rick&last_name=Tubiermont&api_key=bd6eedb2c639840d083b5905de41e0540e90cd25",
+      "context": {
+        "attempt": 2,
+        "max_attempts": 5
+      },
+      "retry_count": 2
+    },
+    {
+      "error_id": "hunter_io_email-finder_1754188927",
+      "timestamp": "2025-08-03T07:42:07.725476",
+      "category": "api_rate_limit",
+      "severity": "medium",
+      "service": "hunter_io",
+      "operation": "email-finder",
+      "error_type": "Exception",
+      "error_message": "Rate limit exceeded for hunter_io",
+      "context": {},
+      "retry_count": 0
+    },
+    {
+      "error_id": "hunter_io_find_person_email_1754188927",
+      "timestamp": "2025-08-03T07:42:07.729963",
+      "category": "network",
+      "severity": "low",
+      "service": "hunter_io",
+      "operation": "find_person_email",
+      "error_type": "HTTPError",
+      "error_message": "429 Client Error: Too Many Requests for url: https://api.hunter.io/v2/email-finder?domain=aijinglemaker.com&first_name=Fr%C3%A9d%C3%A9rick&last_name=Tubiermont&api_key=bd6eedb2c639840d083b5905de41e0540e90cd25",
+      "context": {
+        "name": "Fr\u00e9d\u00e9rick Tubiermont",
+        "domain": "aijinglemaker.com"
+      },
+      "retry_count": 0
+    },
+    {
+      "error_id": "services.email_finder_find_person_email_1754188927",
+      "timestamp": "2025-08-03T07:42:07.734770",
+      "category": "api_rate_limit",
+      "severity": "medium",
+      "service": "services.email_finder",
+      "operation": "find_person_email",
+      "error_type": "HTTPError",
+      "error_message": "429 Client Error: Too Many Requests for url: https://api.hunter.io/v2/email-finder?domain=aijinglemaker.com&first_name=Fr%C3%A9d%C3%A9rick&last_name=Tubiermont&api_key=bd6eedb2c639840d083b5905de41e0540e90cd25",
+      "context": {
+        "attempt": 3,
+        "max_attempts": 5
+      },
+      "retry_count": 3
+    },
+    {
+      "error_id": "hunter_io_email-finder_1754188939",
+      "timestamp": "2025-08-03T07:42:19.438078",
+      "category": "api_rate_limit",
+      "severity": "medium",
+      "service": "hunter_io",
+      "operation": "email-finder",
+      "error_type": "Exception",
+      "error_message": "Rate limit exceeded for hunter_io",
+      "context": {},
+      "retry_count": 0
+    },
+    {
+      "error_id": "hunter_io_find_person_email_1754188939",
+      "timestamp": "2025-08-03T07:42:19.444866",
+      "category": "network",
+      "severity": "low",
+      "service": "hunter_io",
+      "operation": "find_person_email",
+      "error_type": "HTTPError",
+      "error_message": "429 Client Error: Too Many Requests for url: https://api.hunter.io/v2/email-finder?domain=aijinglemaker.com&first_name=Fr%C3%A9d%C3%A9rick&last_name=Tubiermont&api_key=bd6eedb2c639840d083b5905de41e0540e90cd25",
+      "context": {
+        "name": "Fr\u00e9d\u00e9rick Tubiermont",
+        "domain": "aijinglemaker.com"
+      },
+      "retry_count": 0
+    },
+    {
+      "error_id": "services.email_finder_find_person_email_1754188939",
+      "timestamp": "2025-08-03T07:42:19.449631",
+      "category": "api_rate_limit",
+      "severity": "medium",
+      "service": "services.email_finder",
+      "operation": "find_person_email",
+      "error_type": "HTTPError",
+      "error_message": "429 Client Error: Too Many Requests for url: https://api.hunter.io/v2/email-finder?domain=aijinglemaker.com&first_name=Fr%C3%A9d%C3%A9rick&last_name=Tubiermont&api_key=bd6eedb2c639840d083b5905de41e0540e90cd25",
+      "context": {
+        "attempt": 4,
+        "max_attempts": 5
+      },
+      "retry_count": 4
+    },
+    {
+      "error_id": "hunter_io_email-finder_1754188960",
+      "timestamp": "2025-08-03T07:42:40.702299",
+      "category": "api_rate_limit",
+      "severity": "medium",
+      "service": "hunter_io",
+      "operation": "email-finder",
+      "error_type": "Exception",
+      "error_message": "Rate limit exceeded for hunter_io",
+      "context": {},
+      "retry_count": 0
+    },
+    {
+      "error_id": "hunter_io_find_person_email_1754188960",
+      "timestamp": "2025-08-03T07:42:40.706721",
+      "category": "network",
+      "severity": "low",
+      "service": "hunter_io",
+      "operation": "find_person_email",
+      "error_type": "HTTPError",
+      "error_message": "429 Client Error: Too Many Requests for url: https://api.hunter.io/v2/email-finder?domain=aijinglemaker.com&first_name=Fr%C3%A9d%C3%A9rick&last_name=Tubiermont&api_key=bd6eedb2c639840d083b5905de41e0540e90cd25",
+      "context": {
+        "name": "Fr\u00e9d\u00e9rick Tubiermont",
+        "domain": "aijinglemaker.com"
+      },
+      "retry_count": 0
+    },
+    {
+      "error_id": "services.email_finder_find_person_email_1754188960",
+      "timestamp": "2025-08-03T07:42:40.711400",
+      "category": "api_rate_limit",
+      "severity": "medium",
+      "service": "services.email_finder",
+      "operation": "find_person_email",
+      "error_type": "HTTPError",
+      "error_message": "429 Client Error: Too Many Requests for url: https://api.hunter.io/v2/email-finder?domain=aijinglemaker.com&first_name=Fr%C3%A9d%C3%A9rick&last_name=Tubiermont&api_key=bd6eedb2c639840d083b5905de41e0540e90cd25",
+      "context": {
+        "attempt": 5,
+        "max_attempts": 5
+      },
+      "retry_count": 5
+    },
+    {
+      "error_id": "hunter_io_email-finder_1754188966",
+      "timestamp": "2025-08-03T07:42:46.694753",
+      "category": "api_rate_limit",
+      "severity": "medium",
+      "service": "hunter_io",
+      "operation": "email-finder",
+      "error_type": "Exception",
+      "error_message": "Rate limit exceeded for hunter_io",
+      "context": {},
+      "retry_count": 0
+    },
+    {
+      "error_id": "hunter_io_find_person_email_1754188966",
+      "timestamp": "2025-08-03T07:42:46.699357",
+      "category": "network",
+      "severity": "low",
+      "service": "hunter_io",
+      "operation": "find_person_email",
+      "error_type": "HTTPError",
+      "error_message": "429 Client Error: Too Many Requests for url: https://api.hunter.io/v2/email-finder?domain=aijinglemaker.com&first_name=Emily&last_name=Wheeler&api_key=bd6eedb2c639840d083b5905de41e0540e90cd25",
+      "context": {
+        "name": "Emily Wheeler",
+        "domain": "aijinglemaker.com"
+      },
+      "retry_count": 0
+    },
+    {
+      "error_id": "services.email_finder_find_person_email_1754188966",
+      "timestamp": "2025-08-03T07:42:46.704114",
+      "category": "api_rate_limit",
+      "severity": "medium",
+      "service": "services.email_finder",
+      "operation": "find_person_email",
+      "error_type": "HTTPError",
+      "error_message": "429 Client Error: Too Many Requests for url: https://api.hunter.io/v2/email-finder?domain=aijinglemaker.com&first_name=Emily&last_name=Wheeler&api_key=bd6eedb2c639840d083b5905de41e0540e90cd25",
+      "context": {
+        "attempt": 1,
+        "max_attempts": 5
+      },
+      "retry_count": 1
+    },
+    {
+      "error_id": "hunter_io_email-finder_1754188972",
+      "timestamp": "2025-08-03T07:42:52.962278",
+      "category": "api_rate_limit",
+      "severity": "medium",
+      "service": "hunter_io",
+      "operation": "email-finder",
+      "error_type": "Exception",
+      "error_message": "Rate limit exceeded for hunter_io",
+      "context": {},
+      "retry_count": 0
+    },
+    {
+      "error_id": "hunter_io_find_person_email_1754188972",
+      "timestamp": "2025-08-03T07:42:52.967069",
+      "category": "network",
+      "severity": "low",
+      "service": "hunter_io",
+      "operation": "find_person_email",
+      "error_type": "HTTPError",
+      "error_message": "429 Client Error: Too Many Requests for url: https://api.hunter.io/v2/email-finder?domain=aijinglemaker.com&first_name=Emily&last_name=Wheeler&api_key=bd6eedb2c639840d083b5905de41e0540e90cd25",
+      "context": {
+        "name": "Emily Wheeler",
+        "domain": "aijinglemaker.com"
+      },
+      "retry_count": 0
+    },
+    {
+      "error_id": "services.email_finder_find_person_email_1754188972",
+      "timestamp": "2025-08-03T07:42:52.972010",
+      "category": "api_rate_limit",
+      "severity": "medium",
+      "service": "services.email_finder",
+      "operation": "find_person_email",
+      "error_type": "HTTPError",
+      "error_message": "429 Client Error: Too Many Requests for url: https://api.hunter.io/v2/email-finder?domain=aijinglemaker.com&first_name=Emily&last_name=Wheeler&api_key=bd6eedb2c639840d083b5905de41e0540e90cd25",
+      "context": {
+        "attempt": 2,
+        "max_attempts": 5
+      },
+      "retry_count": 2
+    },
+    {
+      "error_id": "hunter_io_email-finder_1754188979",
+      "timestamp": "2025-08-03T07:42:59.417571",
+      "category": "api_rate_limit",
+      "severity": "medium",
+      "service": "hunter_io",
+      "operation": "email-finder",
+      "error_type": "Exception",
+      "error_message": "Rate limit exceeded for hunter_io",
+      "context": {},
+      "retry_count": 0
+    },
+    {
+      "error_id": "hunter_io_find_person_email_1754188979",
+      "timestamp": "2025-08-03T07:42:59.422571",
+      "category": "network",
+      "severity": "low",
+      "service": "hunter_io",
+      "operation": "find_person_email",
+      "error_type": "HTTPError",
+      "error_message": "429 Client Error: Too Many Requests for url: https://api.hunter.io/v2/email-finder?domain=aijinglemaker.com&first_name=Emily&last_name=Wheeler&api_key=bd6eedb2c639840d083b5905de41e0540e90cd25",
+      "context": {
+        "name": "Emily Wheeler",
+        "domain": "aijinglemaker.com"
+      },
+      "retry_count": 0
+    },
+    {
+      "error_id": "services.email_finder_find_person_email_1754188979",
+      "timestamp": "2025-08-03T07:42:59.427421",
+      "category": "api_rate_limit",
+      "severity": "medium",
+      "service": "services.email_finder",
+      "operation": "find_person_email",
+      "error_type": "HTTPError",
+      "error_message": "429 Client Error: Too Many Requests for url: https://api.hunter.io/v2/email-finder?domain=aijinglemaker.com&first_name=Emily&last_name=Wheeler&api_key=bd6eedb2c639840d083b5905de41e0540e90cd25",
+      "context": {
+        "attempt": 3,
+        "max_attempts": 5
+      },
+      "retry_count": 3
+    },
+    {
+      "error_id": "hunter_io_email-finder_1754188995",
+      "timestamp": "2025-08-03T07:43:15.039674",
+      "category": "api_rate_limit",
+      "severity": "medium",
+      "service": "hunter_io",
+      "operation": "email-finder",
+      "error_type": "Exception",
+      "error_message": "Rate limit exceeded for hunter_io",
+      "context": {},
+      "retry_count": 0
+    },
+    {
+      "error_id": "hunter_io_find_person_email_1754188995",
+      "timestamp": "2025-08-03T07:43:15.047081",
+      "category": "network",
+      "severity": "low",
+      "service": "hunter_io",
+      "operation": "find_person_email",
+      "error_type": "HTTPError",
+      "error_message": "429 Client Error: Too Many Requests for url: https://api.hunter.io/v2/email-finder?domain=aijinglemaker.com&first_name=Emily&last_name=Wheeler&api_key=bd6eedb2c639840d083b5905de41e0540e90cd25",
+      "context": {
+        "name": "Emily Wheeler",
+        "domain": "aijinglemaker.com"
+      },
+      "retry_count": 0
+    },
+    {
+      "error_id": "services.email_finder_find_person_email_1754188995",
+      "timestamp": "2025-08-03T07:43:15.051960",
+      "category": "api_rate_limit",
+      "severity": "medium",
+      "service": "services.email_finder",
+      "operation": "find_person_email",
+      "error_type": "HTTPError",
+      "error_message": "429 Client Error: Too Many Requests for url: https://api.hunter.io/v2/email-finder?domain=aijinglemaker.com&first_name=Emily&last_name=Wheeler&api_key=bd6eedb2c639840d083b5905de41e0540e90cd25",
+      "context": {
+        "attempt": 4,
+        "max_attempts": 5
+      },
+      "retry_count": 4
+    },
+    {
+      "error_id": "hunter_io_email-finder_1754189029",
+      "timestamp": "2025-08-03T07:43:49.607075",
+      "category": "api_rate_limit",
+      "severity": "medium",
+      "service": "hunter_io",
+      "operation": "email-finder",
+      "error_type": "Exception",
+      "error_message": "Rate limit exceeded for hunter_io",
+      "context": {},
+      "retry_count": 0
+    },
+    {
+      "error_id": "hunter_io_find_person_email_1754189029",
+      "timestamp": "2025-08-03T07:43:49.611914",
+      "category": "network",
+      "severity": "low",
+      "service": "hunter_io",
+      "operation": "find_person_email",
+      "error_type": "HTTPError",
+      "error_message": "429 Client Error: Too Many Requests for url: https://api.hunter.io/v2/email-finder?domain=aijinglemaker.com&first_name=Emily&last_name=Wheeler&api_key=bd6eedb2c639840d083b5905de41e0540e90cd25",
+      "context": {
+        "name": "Emily Wheeler",
+        "domain": "aijinglemaker.com"
+      },
+      "retry_count": 0
+    },
+    {
+      "error_id": "services.email_finder_find_person_email_1754189029",
+      "timestamp": "2025-08-03T07:43:49.617500",
+      "category": "api_rate_limit",
+      "severity": "medium",
+      "service": "services.email_finder",
+      "operation": "find_person_email",
+      "error_type": "HTTPError",
+      "error_message": "429 Client Error: Too Many Requests for url: https://api.hunter.io/v2/email-finder?domain=aijinglemaker.com&first_name=Emily&last_name=Wheeler&api_key=bd6eedb2c639840d083b5905de41e0540e90cd25",
+      "context": {
+        "attempt": 5,
+        "max_attempts": 5
+      },
+      "retry_count": 5
+    },
+    {
+      "error_id": "hunter_io_email-finder_1754189035",
+      "timestamp": "2025-08-03T07:43:55.811922",
+      "category": "api_rate_limit",
+      "severity": "medium",
+      "service": "hunter_io",
+      "operation": "email-finder",
+      "error_type": "Exception",
+      "error_message": "Rate limit exceeded for hunter_io",
+      "context": {},
+      "retry_count": 0
+    },
+    {
+      "error_id": "hunter_io_find_person_email_1754189035",
+      "timestamp": "2025-08-03T07:43:55.817029",
+      "category": "network",
+      "severity": "low",
+      "service": "hunter_io",
+      "operation": "find_person_email",
+      "error_type": "HTTPError",
+      "error_message": "429 Client Error: Too Many Requests for url: https://api.hunter.io/v2/email-finder?domain=aijinglemaker.com&first_name=Santosh&last_name=Kumar&api_key=bd6eedb2c639840d083b5905de41e0540e90cd25",
+      "context": {
+        "name": "Santosh Kumar",
+        "domain": "aijinglemaker.com"
+      },
+      "retry_count": 0
+    },
+    {
+      "error_id": "services.email_finder_find_person_email_1754189035",
+      "timestamp": "2025-08-03T07:43:55.822275",
+      "category": "api_rate_limit",
+      "severity": "medium",
+      "service": "services.email_finder",
+      "operation": "find_person_email",
+      "error_type": "HTTPError",
+      "error_message": "429 Client Error: Too Many Requests for url: https://api.hunter.io/v2/email-finder?domain=aijinglemaker.com&first_name=Santosh&last_name=Kumar&api_key=bd6eedb2c639840d083b5905de41e0540e90cd25",
+      "context": {
+        "attempt": 1,
+        "max_attempts": 5
+      },
+      "retry_count": 1
+    },
+    {
+      "error_id": "hunter_io_email-finder_1754189041",
+      "timestamp": "2025-08-03T07:44:01.802608",
+      "category": "api_rate_limit",
+      "severity": "medium",
+      "service": "hunter_io",
+      "operation": "email-finder",
+      "error_type": "Exception",
+      "error_message": "Rate limit exceeded for hunter_io",
+      "context": {},
+      "retry_count": 0
+    },
+    {
+      "error_id": "hunter_io_find_person_email_1754189041",
+      "timestamp": "2025-08-03T07:44:01.809207",
+      "category": "network",
+      "severity": "low",
+      "service": "hunter_io",
+      "operation": "find_person_email",
+      "error_type": "HTTPError",
+      "error_message": "429 Client Error: Too Many Requests for url: https://api.hunter.io/v2/email-finder?domain=aijinglemaker.com&first_name=Santosh&last_name=Kumar&api_key=bd6eedb2c639840d083b5905de41e0540e90cd25",
+      "context": {
+        "name": "Santosh Kumar",
+        "domain": "aijinglemaker.com"
+      },
+      "retry_count": 0
+    },
+    {
+      "error_id": "services.email_finder_find_person_email_1754189041",
+      "timestamp": "2025-08-03T07:44:01.814961",
+      "category": "api_rate_limit",
+      "severity": "medium",
+      "service": "services.email_finder",
+      "operation": "find_person_email",
+      "error_type": "HTTPError",
+      "error_message": "429 Client Error: Too Many Requests for url: https://api.hunter.io/v2/email-finder?domain=aijinglemaker.com&first_name=Santosh&last_name=Kumar&api_key=bd6eedb2c639840d083b5905de41e0540e90cd25",
+      "context": {
+        "attempt": 2,
+        "max_attempts": 5
+      },
+      "retry_count": 2
+    },
+    {
+      "error_id": "hunter_io_email-finder_1754189050",
+      "timestamp": "2025-08-03T07:44:10.058610",
+      "category": "api_rate_limit",
+      "severity": "medium",
+      "service": "hunter_io",
+      "operation": "email-finder",
+      "error_type": "Exception",
+      "error_message": "Rate limit exceeded for hunter_io",
+      "context": {},
+      "retry_count": 0
+    },
+    {
+      "error_id": "hunter_io_find_person_email_1754189050",
+      "timestamp": "2025-08-03T07:44:10.064695",
+      "category": "network",
+      "severity": "low",
+      "service": "hunter_io",
+      "operation": "find_person_email",
+      "error_type": "HTTPError",
+      "error_message": "429 Client Error: Too Many Requests for url: https://api.hunter.io/v2/email-finder?domain=aijinglemaker.com&first_name=Santosh&last_name=Kumar&api_key=bd6eedb2c639840d083b5905de41e0540e90cd25",
+      "context": {
+        "name": "Santosh Kumar",
+        "domain": "aijinglemaker.com"
+      },
+      "retry_count": 0
+    },
+    {
+      "error_id": "services.email_finder_find_person_email_1754189050",
+      "timestamp": "2025-08-03T07:44:10.070434",
+      "category": "api_rate_limit",
+      "severity": "medium",
+      "service": "services.email_finder",
+      "operation": "find_person_email",
+      "error_type": "HTTPError",
+      "error_message": "429 Client Error: Too Many Requests for url: https://api.hunter.io/v2/email-finder?domain=aijinglemaker.com&first_name=Santosh&last_name=Kumar&api_key=bd6eedb2c639840d083b5905de41e0540e90cd25",
+      "context": {
+        "attempt": 3,
+        "max_attempts": 5
+      },
+      "retry_count": 3
+    },
+    {
+      "error_id": "hunter_io_email-finder_1754189067",
+      "timestamp": "2025-08-03T07:44:27.937133",
+      "category": "api_rate_limit",
+      "severity": "medium",
+      "service": "hunter_io",
+      "operation": "email-finder",
+      "error_type": "Exception",
+      "error_message": "Rate limit exceeded for hunter_io",
+      "context": {},
+      "retry_count": 0
+    },
+    {
+      "error_id": "hunter_io_find_person_email_1754189067",
+      "timestamp": "2025-08-03T07:44:27.945345",
+      "category": "network",
+      "severity": "low",
+      "service": "hunter_io",
+      "operation": "find_person_email",
+      "error_type": "HTTPError",
+      "error_message": "429 Client Error: Too Many Requests for url: https://api.hunter.io/v2/email-finder?domain=aijinglemaker.com&first_name=Santosh&last_name=Kumar&api_key=bd6eedb2c639840d083b5905de41e0540e90cd25",
+      "context": {
+        "name": "Santosh Kumar",
+        "domain": "aijinglemaker.com"
+      },
+      "retry_count": 0
+    },
+    {
+      "error_id": "services.email_finder_find_person_email_1754189067",
+      "timestamp": "2025-08-03T07:44:27.950635",
+      "category": "api_rate_limit",
+      "severity": "medium",
+      "service": "services.email_finder",
+      "operation": "find_person_email",
+      "error_type": "HTTPError",
+      "error_message": "429 Client Error: Too Many Requests for url: https://api.hunter.io/v2/email-finder?domain=aijinglemaker.com&first_name=Santosh&last_name=Kumar&api_key=bd6eedb2c639840d083b5905de41e0540e90cd25",
+      "context": {
+        "attempt": 4,
+        "max_attempts": 5
+      },
+      "retry_count": 4
+    },
+    {
+      "error_id": "hunter_io_email-finder_1754189090",
+      "timestamp": "2025-08-03T07:44:50.934555",
+      "category": "api_rate_limit",
+      "severity": "medium",
+      "service": "hunter_io",
+      "operation": "email-finder",
+      "error_type": "Exception",
+      "error_message": "Rate limit exceeded for hunter_io",
+      "context": {},
+      "retry_count": 0
+    },
+    {
+      "error_id": "hunter_io_find_person_email_1754189090",
+      "timestamp": "2025-08-03T07:44:50.939951",
+      "category": "network",
+      "severity": "low",
+      "service": "hunter_io",
+      "operation": "find_person_email",
+      "error_type": "HTTPError",
+      "error_message": "429 Client Error: Too Many Requests for url: https://api.hunter.io/v2/email-finder?domain=aijinglemaker.com&first_name=Santosh&last_name=Kumar&api_key=bd6eedb2c639840d083b5905de41e0540e90cd25",
+      "context": {
+        "name": "Santosh Kumar",
+        "domain": "aijinglemaker.com"
+      },
+      "retry_count": 0
+    },
+    {
+      "error_id": "services.email_finder_find_person_email_1754189090",
+      "timestamp": "2025-08-03T07:44:50.945378",
+      "category": "api_rate_limit",
+      "severity": "medium",
+      "service": "services.email_finder",
+      "operation": "find_person_email",
+      "error_type": "HTTPError",
+      "error_message": "429 Client Error: Too Many Requests for url: https://api.hunter.io/v2/email-finder?domain=aijinglemaker.com&first_name=Santosh&last_name=Kumar&api_key=bd6eedb2c639840d083b5905de41e0540e90cd25",
+      "context": {
+        "attempt": 5,
+        "max_attempts": 5
+      },
+      "retry_count": 5
+    },
+    {
+      "error_id": "hunter_io_email-finder_1754189641",
+      "timestamp": "2025-08-03T07:54:01.820323",
+      "category": "api_rate_limit",
+      "severity": "medium",
+      "service": "hunter_io",
+      "operation": "email-finder",
+      "error_type": "Exception",
+      "error_message": "Rate limit exceeded for hunter_io",
+      "context": {},
+      "retry_count": 0
+    },
+    {
+      "error_id": "hunter_io_find_person_email_1754189641",
+      "timestamp": "2025-08-03T07:54:01.825936",
+      "category": "network",
+      "severity": "low",
+      "service": "hunter_io",
+      "operation": "find_person_email",
+      "error_type": "HTTPError",
+      "error_message": "429 Client Error: Too Many Requests for url: https://api.hunter.io/v2/email-finder?domain=heygaia.io&first_name=Aryan&last_name=Randeriya&api_key=bd6eedb2c639840d083b5905de41e0540e90cd25",
+      "context": {
+        "name": "Aryan Randeriya",
+        "domain": "heygaia.io"
+      },
+      "retry_count": 0
+    },
+    {
+      "error_id": "services.email_finder_find_person_email_1754189641",
+      "timestamp": "2025-08-03T07:54:01.831424",
+      "category": "api_rate_limit",
+      "severity": "medium",
+      "service": "services.email_finder",
+      "operation": "find_person_email",
+      "error_type": "HTTPError",
+      "error_message": "429 Client Error: Too Many Requests for url: https://api.hunter.io/v2/email-finder?domain=heygaia.io&first_name=Aryan&last_name=Randeriya&api_key=bd6eedb2c639840d083b5905de41e0540e90cd25",
+      "context": {
+        "attempt": 1,
+        "max_attempts": 5
+      },
+      "retry_count": 1
+    },
+    {
+      "error_id": "hunter_io_email-finder_1754189647",
+      "timestamp": "2025-08-03T07:54:07.716158",
+      "category": "api_rate_limit",
+      "severity": "medium",
+      "service": "hunter_io",
+      "operation": "email-finder",
+      "error_type": "Exception",
+      "error_message": "Rate limit exceeded for hunter_io",
+      "context": {},
+      "retry_count": 0
+    },
+    {
+      "error_id": "hunter_io_find_person_email_1754189647",
+      "timestamp": "2025-08-03T07:54:07.721666",
+      "category": "network",
+      "severity": "low",
+      "service": "hunter_io",
+      "operation": "find_person_email",
+      "error_type": "HTTPError",
+      "error_message": "429 Client Error: Too Many Requests for url: https://api.hunter.io/v2/email-finder?domain=heygaia.io&first_name=Aryan&last_name=Randeriya&api_key=bd6eedb2c639840d083b5905de41e0540e90cd25",
+      "context": {
+        "name": "Aryan Randeriya",
+        "domain": "heygaia.io"
+      },
+      "retry_count": 0
+    },
+    {
+      "error_id": "services.email_finder_find_person_email_1754189647",
+      "timestamp": "2025-08-03T07:54:07.727178",
+      "category": "api_rate_limit",
+      "severity": "medium",
+      "service": "services.email_finder",
+      "operation": "find_person_email",
+      "error_type": "HTTPError",
+      "error_message": "429 Client Error: Too Many Requests for url: https://api.hunter.io/v2/email-finder?domain=heygaia.io&first_name=Aryan&last_name=Randeriya&api_key=bd6eedb2c639840d083b5905de41e0540e90cd25",
+      "context": {
+        "attempt": 2,
+        "max_attempts": 5
+      },
+      "retry_count": 2
+    },
+    {
+      "error_id": "hunter_io_email-finder_1754189656",
+      "timestamp": "2025-08-03T07:54:16.677637",
+      "category": "api_rate_limit",
+      "severity": "medium",
+      "service": "hunter_io",
+      "operation": "email-finder",
+      "error_type": "Exception",
+      "error_message": "Rate limit exceeded for hunter_io",
+      "context": {},
+      "retry_count": 0
+    },
+    {
+      "error_id": "hunter_io_find_person_email_1754189656",
+      "timestamp": "2025-08-03T07:54:16.682954",
+      "category": "network",
+      "severity": "low",
+      "service": "hunter_io",
+      "operation": "find_person_email",
+      "error_type": "HTTPError",
+      "error_message": "429 Client Error: Too Many Requests for url: https://api.hunter.io/v2/email-finder?domain=heygaia.io&first_name=Aryan&last_name=Randeriya&api_key=bd6eedb2c639840d083b5905de41e0540e90cd25",
+      "context": {
+        "name": "Aryan Randeriya",
+        "domain": "heygaia.io"
+      },
+      "retry_count": 0
+    },
+    {
+      "error_id": "services.email_finder_find_person_email_1754189656",
+      "timestamp": "2025-08-03T07:54:16.688493",
+      "category": "api_rate_limit",
+      "severity": "medium",
+      "service": "services.email_finder",
+      "operation": "find_person_email",
+      "error_type": "HTTPError",
+      "error_message": "429 Client Error: Too Many Requests for url: https://api.hunter.io/v2/email-finder?domain=heygaia.io&first_name=Aryan&last_name=Randeriya&api_key=bd6eedb2c639840d083b5905de41e0540e90cd25",
+      "context": {
+        "attempt": 3,
+        "max_attempts": 5
+      },
+      "retry_count": 3
+    },
+    {
+      "error_id": "hunter_io_email-finder_1754189670",
+      "timestamp": "2025-08-03T07:54:30.068899",
+      "category": "api_rate_limit",
+      "severity": "medium",
+      "service": "hunter_io",
+      "operation": "email-finder",
+      "error_type": "Exception",
+      "error_message": "Rate limit exceeded for hunter_io",
+      "context": {},
+      "retry_count": 0
+    },
+    {
+      "error_id": "hunter_io_find_person_email_1754189670",
+      "timestamp": "2025-08-03T07:54:30.077409",
+      "category": "network",
+      "severity": "low",
+      "service": "hunter_io",
+      "operation": "find_person_email",
+      "error_type": "HTTPError",
+      "error_message": "429 Client Error: Too Many Requests for url: https://api.hunter.io/v2/email-finder?domain=heygaia.io&first_name=Aryan&last_name=Randeriya&api_key=bd6eedb2c639840d083b5905de41e0540e90cd25",
+      "context": {
+        "name": "Aryan Randeriya",
+        "domain": "heygaia.io"
+      },
+      "retry_count": 0
+    },
+    {
+      "error_id": "services.email_finder_find_person_email_1754189670",
+      "timestamp": "2025-08-03T07:54:30.082877",
+      "category": "api_rate_limit",
+      "severity": "medium",
+      "service": "services.email_finder",
+      "operation": "find_person_email",
+      "error_type": "HTTPError",
+      "error_message": "429 Client Error: Too Many Requests for url: https://api.hunter.io/v2/email-finder?domain=heygaia.io&first_name=Aryan&last_name=Randeriya&api_key=bd6eedb2c639840d083b5905de41e0540e90cd25",
+      "context": {
+        "attempt": 4,
+        "max_attempts": 5
+      },
+      "retry_count": 4
+    },
+    {
+      "error_id": "hunter_io_email-finder_1754189707",
+      "timestamp": "2025-08-03T07:55:07.810104",
+      "category": "api_rate_limit",
+      "severity": "medium",
+      "service": "hunter_io",
+      "operation": "email-finder",
+      "error_type": "Exception",
+      "error_message": "Rate limit exceeded for hunter_io",
+      "context": {},
+      "retry_count": 0
+    },
+    {
+      "error_id": "hunter_io_find_person_email_1754189707",
+      "timestamp": "2025-08-03T07:55:07.815594",
+      "category": "network",
+      "severity": "low",
+      "service": "hunter_io",
+      "operation": "find_person_email",
+      "error_type": "HTTPError",
+      "error_message": "429 Client Error: Too Many Requests for url: https://api.hunter.io/v2/email-finder?domain=heygaia.io&first_name=Aryan&last_name=Randeriya&api_key=bd6eedb2c639840d083b5905de41e0540e90cd25",
+      "context": {
+        "name": "Aryan Randeriya",
+        "domain": "heygaia.io"
+      },
+      "retry_count": 0
+    },
+    {
+      "error_id": "services.email_finder_find_person_email_1754189707",
+      "timestamp": "2025-08-03T07:55:07.821622",
+      "category": "api_rate_limit",
+      "severity": "medium",
+      "service": "services.email_finder",
+      "operation": "find_person_email",
+      "error_type": "HTTPError",
+      "error_message": "429 Client Error: Too Many Requests for url: https://api.hunter.io/v2/email-finder?domain=heygaia.io&first_name=Aryan&last_name=Randeriya&api_key=bd6eedb2c639840d083b5905de41e0540e90cd25",
+      "context": {
+        "attempt": 5,
+        "max_attempts": 5
+      },
+      "retry_count": 5
+    },
+    {
+      "error_id": "hunter_io_email-finder_1754189713",
+      "timestamp": "2025-08-03T07:55:13.790897",
+      "category": "api_rate_limit",
+      "severity": "medium",
+      "service": "hunter_io",
+      "operation": "email-finder",
+      "error_type": "Exception",
+      "error_message": "Rate limit exceeded for hunter_io",
+      "context": {},
+      "retry_count": 0
+    },
+    {
+      "error_id": "hunter_io_find_person_email_1754189713",
+      "timestamp": "2025-08-03T07:55:13.796690",
+      "category": "network",
+      "severity": "low",
+      "service": "hunter_io",
+      "operation": "find_person_email",
+      "error_type": "HTTPError",
+      "error_message": "429 Client Error: Too Many Requests for url: https://api.hunter.io/v2/email-finder?domain=heygaia.io&first_name=Dhruv&last_name=Maradiya&api_key=bd6eedb2c639840d083b5905de41e0540e90cd25",
+      "context": {
+        "name": "Dhruv Maradiya",
+        "domain": "heygaia.io"
+      },
+      "retry_count": 0
+    },
+    {
+      "error_id": "services.email_finder_find_person_email_1754189713",
+      "timestamp": "2025-08-03T07:55:13.802485",
+      "category": "api_rate_limit",
+      "severity": "medium",
+      "service": "services.email_finder",
+      "operation": "find_person_email",
+      "error_type": "HTTPError",
+      "error_message": "429 Client Error: Too Many Requests for url: https://api.hunter.io/v2/email-finder?domain=heygaia.io&first_name=Dhruv&last_name=Maradiya&api_key=bd6eedb2c639840d083b5905de41e0540e90cd25",
+      "context": {
+        "attempt": 1,
+        "max_attempts": 5
+      },
+      "retry_count": 1
+    },
+    {
+      "error_id": "hunter_io_email-finder_1754189719",
+      "timestamp": "2025-08-03T07:55:19.814941",
+      "category": "api_rate_limit",
+      "severity": "medium",
+      "service": "hunter_io",
+      "operation": "email-finder",
+      "error_type": "Exception",
+      "error_message": "Rate limit exceeded for hunter_io",
+      "context": {},
+      "retry_count": 0
+    },
+    {
+      "error_id": "hunter_io_find_person_email_1754189719",
+      "timestamp": "2025-08-03T07:55:19.820843",
+      "category": "network",
+      "severity": "low",
+      "service": "hunter_io",
+      "operation": "find_person_email",
+      "error_type": "HTTPError",
+      "error_message": "429 Client Error: Too Many Requests for url: https://api.hunter.io/v2/email-finder?domain=heygaia.io&first_name=Dhruv&last_name=Maradiya&api_key=bd6eedb2c639840d083b5905de41e0540e90cd25",
+      "context": {
+        "name": "Dhruv Maradiya",
+        "domain": "heygaia.io"
+      },
+      "retry_count": 0
+    },
+    {
+      "error_id": "services.email_finder_find_person_email_1754189719",
+      "timestamp": "2025-08-03T07:55:19.826731",
+      "category": "api_rate_limit",
+      "severity": "medium",
+      "service": "services.email_finder",
+      "operation": "find_person_email",
+      "error_type": "HTTPError",
+      "error_message": "429 Client Error: Too Many Requests for url: https://api.hunter.io/v2/email-finder?domain=heygaia.io&first_name=Dhruv&last_name=Maradiya&api_key=bd6eedb2c639840d083b5905de41e0540e90cd25",
+      "context": {
+        "attempt": 2,
+        "max_attempts": 5
+      },
+      "retry_count": 0
+    },
+    {
+      "error_id": "tests.test_base_service_network_operation_1754281961",
+      "timestamp": "2025-08-04T09:32:41.307238",
+      "category": "network",
+      "severity": "low",
+      "service": "tests.test_base_service",
+      "operation": "network_operation",
+      "error_type": "ConnectionError",
+      "error_message": "Network error",
+      "context": {
+        "attempt": 1,
+        "max_attempts": 3
+      },
+      "retry_count": 1
+    },
+    {
+      "error_id": "tests.test_base_service_network_operation_1754281962",
+      "timestamp": "2025-08-04T09:32:42.828328",
+      "category": "network",
+      "severity": "low",
+      "service": "tests.test_base_service",
+      "operation": "network_operation",
+      "error_type": "ConnectionError",
+      "error_message": "Network error",
+      "context": {
+        "attempt": 2,
+        "max_attempts": 3
+      },
+      "retry_count": 0
+    },
+    {
+      "error_id": "tests.test_base_service_network_operation_1754282732",
+      "timestamp": "2025-08-04T09:45:32.419170",
+      "category": "network",
+      "severity": "low",
+      "service": "tests.test_base_service",
+      "operation": "network_operation",
+      "error_type": "ConnectionError",
+      "error_message": "Network error",
+      "context": {
+        "attempt": 1,
+        "max_attempts": 3
+      },
+      "retry_count": 1
+    },
+    {
+      "error_id": "tests.test_base_service_network_operation_1754282733",
+      "timestamp": "2025-08-04T09:45:33.548610",
+      "category": "network",
+      "severity": "low",
+      "service": "tests.test_base_service",
+      "operation": "network_operation",
+      "error_type": "ConnectionError",
+      "error_message": "Network error",
+      "context": {
+        "attempt": 2,
+        "max_attempts": 3
+      },
+      "retry_count": 0
+    },
+    {
+      "error_id": "linkedin_extract_profile_data_1754284827",
+      "timestamp": "2025-08-04T10:20:27.897472",
+      "category": "scraping",
+      "severity": "low",
+      "service": "linkedin",
+      "operation": "extract_profile_data",
+      "error_type": "WebDriverException",
+      "error_message": "Message: WebDriver failed\n",
+      "context": {
+        "url": "https://linkedin.com/in/johndoe"
+      },
+      "retry_count": 0
+    },
+    {
+      "error_id": "linkedin_extract_profile_data_1754284907",
+      "timestamp": "2025-08-04T10:21:47.777663",
+      "category": "scraping",
+      "severity": "low",
+      "service": "linkedin",
+      "operation": "extract_profile_data",
+      "error_type": "WebDriverException",
+      "error_message": "Message: WebDriver failed\n",
+      "context": {
+        "url": "https://linkedin.com/in/johndoe"
+      },
+      "retry_count": 0
+    },
+    {
+      "error_id": "services.linkedin_scraper_extract_profile_data_1754544749",
+      "timestamp": "2025-08-07T10:32:29.801940",
+      "category": "scraping",
+      "severity": "low",
+      "service": "services.linkedin_scraper",
+      "operation": "extract_profile_data",
+      "error_type": "AttributeError",
+      "error_message": "'LinkedInProfile' object has no attribute 'to_dict'",
+      "context": {
+        "attempt": 1,
+        "max_attempts": 2
+      },
+      "retry_count": 1
+    },
+    {
+      "error_id": "services.linkedin_scraper_extract_profile_data_1754544751",
+      "timestamp": "2025-08-07T10:32:31.998475",
+      "category": "scraping",
+      "severity": "low",
+      "service": "services.linkedin_scraper",
+      "operation": "extract_profile_data",
+      "error_type": "AttributeError",
+      "error_message": "'LinkedInProfile' object has no attribute 'to_dict'",
+      "context": {
+        "attempt": 2,
+        "max_attempts": 2
+      },
+      "retry_count": 0
+    },
+    {
+      "error_id": "services.linkedin_scraper_extract_profile_data_1754544813",
+      "timestamp": "2025-08-07T10:33:33.554868",
+      "category": "scraping",
+      "severity": "low",
+      "service": "services.linkedin_scraper",
+      "operation": "extract_profile_data",
+      "error_type": "TypeError",
+      "error_message": "LinkedInProfile.__init__() got an unexpected keyword argument 'company'",
+      "context": {
+        "attempt": 1,
+        "max_attempts": 2
+      },
+      "retry_count": 1
+    },
+    {
+      "error_id": "services.linkedin_scraper_extract_profile_data_1754544816",
+      "timestamp": "2025-08-07T10:33:36.390414",
+      "category": "scraping",
+      "severity": "low",
+      "service": "services.linkedin_scraper",
+      "operation": "extract_profile_data",
+      "error_type": "TypeError",
+      "error_message": "LinkedInProfile.__init__() got an unexpected keyword argument 'company'",
+      "context": {
+        "attempt": 2,
+        "max_attempts": 2
+      },
+      "retry_count": 0
+    },
+    {
+      "error_id": "hunter_io_find_person_email_1754726055",
+      "timestamp": "2025-08-09T12:54:15.033582",
+      "category": "network",
+      "severity": "low",
+      "service": "hunter_io",
+      "operation": "find_person_email",
+      "error_type": "HTTPError",
+      "error_message": "400 Client Error: Bad Request for url: https://api.hunter.io/v2/email-finder?domain=blur-it.app&first_name=Madalina&last_name=B&api_key=3570850f1498a8fc350411f1b34534157d719eb9",
+      "context": {
+        "name": "Madalina B",
+        "domain": "blur-it.app"
+      },
+      "retry_count": 0
+    },
+    {
+      "error_id": "services.email_finder_find_person_email_1754726055",
+      "timestamp": "2025-08-09T12:54:15.055560",
+      "category": "api_rate_limit",
+      "severity": "medium",
+      "service": "services.email_finder",
+      "operation": "find_person_email",
+      "error_type": "HTTPError",
+      "error_message": "400 Client Error: Bad Request for url: https://api.hunter.io/v2/email-finder?domain=blur-it.app&first_name=Madalina&last_name=B&api_key=3570850f1498a8fc350411f1b34534157d719eb9",
+      "context": {
+        "attempt": 1,
+        "max_attempts": 5
+      },
+      "retry_count": 1
+    },
+    {
+      "error_id": "hunter_io_find_person_email_1754726062",
+      "timestamp": "2025-08-09T12:54:22.318320",
+      "category": "network",
+      "severity": "low",
+      "service": "hunter_io",
+      "operation": "find_person_email",
+      "error_type": "HTTPError",
+      "error_message": "400 Client Error: Bad Request for url: https://api.hunter.io/v2/email-finder?domain=blur-it.app&first_name=Madalina&last_name=B&api_key=3570850f1498a8fc350411f1b34534157d719eb9",
+      "context": {
+        "name": "Madalina B",
+        "domain": "blur-it.app"
+      },
+      "retry_count": 0
+    },
+    {
+      "error_id": "services.email_finder_find_person_email_1754726062",
+      "timestamp": "2025-08-09T12:54:22.323309",
+      "category": "api_rate_limit",
+      "severity": "medium",
+      "service": "services.email_finder",
+      "operation": "find_person_email",
+      "error_type": "HTTPError",
+      "error_message": "400 Client Error: Bad Request for url: https://api.hunter.io/v2/email-finder?domain=blur-it.app&first_name=Madalina&last_name=B&api_key=3570850f1498a8fc350411f1b34534157d719eb9",
+      "context": {
+        "attempt": 2,
+        "max_attempts": 5
+      },
+      "retry_count": 2
+    },
+    {
+      "error_id": "hunter_io_find_person_email_1754726069",
+      "timestamp": "2025-08-09T12:54:29.056335",
+      "category": "network",
+      "severity": "low",
+      "service": "hunter_io",
+      "operation": "find_person_email",
+      "error_type": "HTTPError",
+      "error_message": "400 Client Error: Bad Request for url: https://api.hunter.io/v2/email-finder?domain=blur-it.app&first_name=Madalina&last_name=B&api_key=3570850f1498a8fc350411f1b34534157d719eb9",
+      "context": {
+        "name": "Madalina B",
+        "domain": "blur-it.app"
+      },
+      "retry_count": 0
+    },
+    {
+      "error_id": "services.email_finder_find_person_email_1754726069",
+      "timestamp": "2025-08-09T12:54:29.061442",
+      "category": "api_rate_limit",
+      "severity": "medium",
+      "service": "services.email_finder",
+      "operation": "find_person_email",
+      "error_type": "HTTPError",
+      "error_message": "400 Client Error: Bad Request for url: https://api.hunter.io/v2/email-finder?domain=blur-it.app&first_name=Madalina&last_name=B&api_key=3570850f1498a8fc350411f1b34534157d719eb9",
+      "context": {
+        "attempt": 3,
+        "max_attempts": 5
+      },
+      "retry_count": 3
+    },
+    {
+      "error_id": "hunter_io_find_person_email_1754726086",
+      "timestamp": "2025-08-09T12:54:46.124538",
+      "category": "network",
+      "severity": "low",
+      "service": "hunter_io",
+      "operation": "find_person_email",
+      "error_type": "HTTPError",
+      "error_message": "400 Client Error: Bad Request for url: https://api.hunter.io/v2/email-finder?domain=blur-it.app&first_name=Madalina&last_name=B&api_key=3570850f1498a8fc350411f1b34534157d719eb9",
+      "context": {
+        "name": "Madalina B",
+        "domain": "blur-it.app"
+      },
+      "retry_count": 0
+    },
+    {
+      "error_id": "services.email_finder_find_person_email_1754726086",
+      "timestamp": "2025-08-09T12:54:46.130030",
+      "category": "api_rate_limit",
+      "severity": "medium",
+      "service": "services.email_finder",
+      "operation": "find_person_email",
+      "error_type": "HTTPError",
+      "error_message": "400 Client Error: Bad Request for url: https://api.hunter.io/v2/email-finder?domain=blur-it.app&first_name=Madalina&last_name=B&api_key=3570850f1498a8fc350411f1b34534157d719eb9",
+      "context": {
+        "attempt": 4,
+        "max_attempts": 5
+      },
+      "retry_count": 4
+    },
+    {
+      "error_id": "hunter_io_find_person_email_1754726110",
+      "timestamp": "2025-08-09T12:55:10.290088",
+      "category": "network",
+      "severity": "low",
+      "service": "hunter_io",
+      "operation": "find_person_email",
+      "error_type": "HTTPError",
+      "error_message": "400 Client Error: Bad Request for url: https://api.hunter.io/v2/email-finder?domain=blur-it.app&first_name=Madalina&last_name=B&api_key=3570850f1498a8fc350411f1b34534157d719eb9",
+      "context": {
+        "name": "Madalina B",
+        "domain": "blur-it.app"
+      },
+      "retry_count": 0
+    },
+    {
+      "error_id": "services.email_finder_find_person_email_1754726110",
+      "timestamp": "2025-08-09T12:55:10.295656",
+      "category": "api_rate_limit",
+      "severity": "medium",
+      "service": "services.email_finder",
+      "operation": "find_person_email",
+      "error_type": "HTTPError",
+      "error_message": "400 Client Error: Bad Request for url: https://api.hunter.io/v2/email-finder?domain=blur-it.app&first_name=Madalina&last_name=B&api_key=3570850f1498a8fc350411f1b34534157d719eb9",
+      "context": {
+        "attempt": 5,
+        "max_attempts": 5
+      },
+      "retry_count": 0
+    }
+  ],
+  "error_counts": {
+    "service2_api_rate_limit": 3,
+    "tests.test_error_handling_network": 12,
+    "demo_service_data_validation": 1,
+    "__main___network": 2,
+    "hunter_io_api_rate_limit": 43,
+    "hunter_io_network": 125,
+    "services.email_finder_api_rate_limit": 125,
+    "tests.test_base_service_network": 4,
+    "linkedin_scraping": 2,
+    "services.linkedin_scraper_scraping": 4
+  },
+  "last_updated": "2025-08-09T12:55:10.296625"
+}

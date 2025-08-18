@@ -1,0 +1,528 @@
+# Import Analysis Report
+==================================================
+
+## Summary
+- Total Python files analyzed: 146
+- Files with unused imports: 85
+- Total unused imports: 246
+- Circular dependencies found: 32
+
+## Unused Imports
+------------------------------
+
+### cli.py
+  Line 17: from rich.text import Text
+  Line 21: from utils.logging_config import get_logger
+
+### cli_profile_commands.py
+  Line 7: import os
+  Line 8: import json
+  Line 9: import yaml
+  Line 10: import sys
+  Line 16: from rich.text import Text
+
+### cli_profile_commands_fixed.py
+  Line 7: import os
+  Line 8: import json
+  Line 9: import yaml
+  Line 10: import sys
+  Line 16: from rich.text import Text
+
+### test_campaign_limit_behavior.py
+  Line 10: from datetime import datetime
+  Line 17: from models.data_models import CompanyData
+
+### test_email_send.py
+  Line 6: import os
+  Line 7: import sys
+  Line 8: from datetime import datetime
+
+### test_email_sending.py
+  Line 14: from models.data_models import Prospect
+  Line 14: from models.data_models import ProspectStatus
+  Line 14: from models.data_models import EmailContent
+
+### test_full_pipeline.py
+  Line 9: from datetime import datetime
+
+### test_json_extraction.py
+  Line 5: import json
+
+### test_linkedin_performance.py
+  Line 6: import time
+  Line 12: from controllers.prospect_automation_controller import ProspectAutomationController
+
+### test_openai_api.py
+  Line 6: import os
+
+### test_producthunt_raw.py
+  Line 9: import json
+
+### controllers\prospect_automation_controller.py
+  Line 5: import logging
+  Line 15: from services.product_hunt_scraper import ProductData
+  Line 22: from services.ai_service import AIOperationType
+  Line 22: from services.ai_service import AIResult
+  Line 22: from services.ai_service import EmailTemplate
+  Line 2754: from datetime import timedelta
+
+### examples\batch_processing_example.py
+  Line 5: import time
+
+### examples\cli_usage_examples.py
+  Line 7: import sys
+
+### examples\error_handling_example.py
+  Line 9: import time
+
+### models\data_models.py
+  Line 9: from urllib.parse import urlparse
+
+### services\ai_parser.py
+  Line 4: import os
+  Line 10: import openai
+  Line 13: from utils.validation_framework import ValidationSeverity
+  Line 16: from services.openai_client_manager import CompletionResponse
+
+### services\ai_service.py
+  Line 10: import logging
+  Line 15: from datetime import datetime
+  Line 21: from utils.validation_framework import ValidationSeverity
+  Line 25: from services.openai_client_manager import CompletionResponse
+
+### services\ai_team_extractor.py
+  Line 6: import json
+  Line 173: import json
+
+### services\caching_service.py
+  Line 7: import json
+  Line 12: import time
+
+### services\email_generator.py
+  Line 4: import os
+  Line 12: from models.data_models import ValidationError
+  Line 13: from utils.validation_framework import ValidationFramework
+  Line 13: from utils.validation_framework import ValidationSeverity
+  Line 16: from services.openai_client_manager import CompletionResponse
+
+### services\linkedin_finder.py
+  Line 12: from selenium import webdriver
+  Line 14: from selenium.webdriver.common.by import By
+  Line 15: from selenium.webdriver.support.ui import WebDriverWait
+  Line 16: from selenium.webdriver.support import expected_conditions
+  Line 17: from selenium.common.exceptions import TimeoutException
+  Line 17: from selenium.common.exceptions import WebDriverException
+
+### services\linkedin_scraper.py
+  Line 7: import json
+  Line 17: from bs4 import BeautifulSoup
+  Line 25: from services.ai_parser import ParseResult
+
+### services\notion_manager.py
+  Line 9: from datetime import timedelta
+  Line 11: from notion_client.errors import RequestTimeoutError
+  Line 19: from utils.validation_framework import ValidationFramework
+
+### services\product_analyzer.py
+  Line 11: from urllib.parse import urljoin
+  Line 11: from urllib.parse import urlparse
+  Line 20: from selenium.common.exceptions import TimeoutException
+  Line 20: from selenium.common.exceptions import WebDriverException
+  Line 22: from models.data_models import CompanyData
+  Line 24: from services.ai_parser import ParseResult
+
+### services\product_hunt_scraper.py
+  Line 12: from urllib.parse import urljoin
+  Line 16: from selenium import webdriver
+  Line 20: from selenium.common.exceptions import WebDriverException
+  Line 22: from models.data_models import CompanyData
+  Line 26: from services.ai_parser import ParseResult
+
+### services\sender_profile_manager.py
+  Line 6: import re
+  Line 12: from utils.validation_framework import ValidationResult
+  Line 12: from utils.validation_framework import ValidationSeverity
+
+### services\website_extractor.py
+  Line 14: from selenium.common.exceptions import TimeoutException
+
+### tests\test_ai_integration.py
+  Line 5: from unittest.mock import MagicMock
+  Line 7: from datetime import datetime
+  Line 11: from services.ai_parser import AIParser
+  Line 12: from models.data_models import LinkedInProfile
+
+### tests\test_ai_parser.py
+  Line 5: from unittest.mock import MagicMock
+  Line 9: from services.ai_parser import ParseResult
+  Line 10: from services.openai_client_manager import CompletionResponse
+  Line 11: from models.data_models import ValidationError
+
+### tests\test_ai_parser_refactored.py
+  Line 5: from unittest.mock import MagicMock
+  Line 6: import json
+  Line 11: from models.data_models import ValidationError
+
+### tests\test_ai_service.py
+  Line 9: import json
+  Line 10: from unittest.mock import MagicMock
+  Line 11: from datetime import datetime
+  Line 13: from services.ai_service import AIResult
+  Line 13: from services.ai_service import ValidationResult
+
+### tests\test_base_service.py
+  Line 7: from unittest.mock import MagicMock
+
+### tests\test_caching_service.py
+  Line 12: from unittest.mock import patch
+  Line 12: from unittest.mock import MagicMock
+
+### tests\test_cli.py
+  Line 10: from pathlib import Path
+  Line 11: from unittest.mock import MagicMock
+  Line 15: from utils.config import Config
+  Line 16: from models.data_models import CompanyData
+  Line 17: from services.email_generator import EmailTemplate
+
+### tests\test_cli_profile_commands.py
+  Line 6: import os
+  Line 7: import json
+  Line 8: import yaml
+
+### tests\test_cli_profile_commands_enhanced.py
+  Line 6: import os
+
+### tests\test_cli_profile_commands_fixed.py
+  Line 6: import os
+  Line 7: import json
+  Line 8: import yaml
+
+### tests\test_cli_profile_integration.py
+  Line 6: import os
+  Line 8: import yaml
+
+### tests\test_cli_profile_integration_enhanced.py
+  Line 6: import os
+  Line 7: import json
+  Line 8: import yaml
+  Line 10: from pathlib import Path
+  Line 11: from unittest.mock import MagicMock
+  Line 17: from controllers.prospect_automation_controller import ProspectAutomationController
+
+### tests\test_comprehensive_enhanced_features.py
+  Line 14: import asyncio
+  Line 15: from unittest.mock import MagicMock
+  Line 15: from unittest.mock import call
+  Line 16: from datetime import timedelta
+  Line 23: from services.product_analyzer import ProductAnalyzer
+  Line 23: from services.product_analyzer import ComprehensiveProductInfo
+  Line 23: from services.product_analyzer import Feature
+  Line 23: from services.product_analyzer import PricingInfo
+  Line 23: from services.product_analyzer import MarketAnalysis
+  Line 24: from services.email_sender import DeliveryStatus
+  Line 25: from services.email_generator import EmailContent
+  Line 26: from models.data_models import Prospect
+
+### tests\test_configuration_service.py
+  Line 20: from pathlib import Path
+  Line 21: from unittest.mock import MagicMock
+
+### tests\test_configuration_service_integration.py
+  Line 8: import os
+  Line 9: from unittest.mock import MagicMock
+  Line 11: from utils.configuration_service import get_configuration_service
+
+### tests\test_config_enhanced.py
+  Line 8: import yaml
+  Line 9: import json
+  Line 10: from pathlib import Path
+
+### tests\test_email_finder.py
+  Line 6: from unittest.mock import MagicMock
+  Line 8: from datetime import datetime
+
+### tests\test_email_generator.py
+  Line 5: from unittest.mock import MagicMock
+  Line 6: from datetime import datetime
+  Line 11: from models.data_models import ProspectStatus
+
+### tests\test_email_generator_refactored.py
+  Line 5: from unittest.mock import MagicMock
+  Line 6: from datetime import datetime
+
+### tests\test_email_sender.py
+  Line 5: import time
+  Line 7: from unittest.mock import MagicMock
+
+### tests\test_enhanced_parallel_processor.py
+  Line 9: from unittest.mock import patch
+  Line 12: from services.parallel_processor import ProcessingResult
+
+### tests\test_enhanced_service_validation.py
+  Line 6: from unittest.mock import Mock
+  Line 6: from unittest.mock import MagicMock
+  Line 13: from models.data_models import TeamMember
+
+### tests\test_enhanced_workflow_integration.py
+  Line 7: from unittest.mock import MagicMock
+  Line 12: from models.data_models import Prospect
+  Line 13: from services.ai_parser import AIParser
+  Line 13: from services.ai_parser import ProductInfo
+  Line 14: from services.product_analyzer import ProductAnalyzer
+  Line 14: from services.product_analyzer import ComprehensiveProductInfo
+  Line 15: from services.email_sender import EmailSender
+  Line 15: from services.email_sender import SendResult
+
+### tests\test_error_handling.py
+  Line 9: from unittest.mock import Mock
+  Line 9: from unittest.mock import patch
+  Line 9: from unittest.mock import MagicMock
+  Line 10: from pathlib import Path
+  Line 14: from utils.error_handling import RetryConfig
+  Line 14: from utils.error_handling import get_error_handler
+  Line 14: from utils.error_handling import handle_error
+  Line 18: from utils.api_monitor import APICall
+  Line 18: from utils.api_monitor import RateLimitInfo
+  Line 18: from utils.api_monitor import ServiceHealth
+
+### tests\test_error_handling_enhanced.py
+  Line 7: from unittest.mock import MagicMock
+  Line 8: from datetime import timedelta
+
+### tests\test_integration_e2e.py
+  Line 9: from unittest.mock import MagicMock
+  Line 12: import json
+  Line 13: import time
+  Line 15: from controllers.prospect_automation_controller import CompanyProcessingResult
+
+### tests\test_linkedin_scraper.py
+  Line 7: from selenium.webdriver.chrome.webdriver import WebDriver
+
+### tests\test_notion_email_tracking.py
+  Line 5: from datetime import datetime
+  Line 6: from unittest.mock import MagicMock
+
+### tests\test_notion_enhanced_data_storage.py
+  Line 5: from unittest.mock import MagicMock
+  Line 6: from datetime import datetime
+  Line 9: from models.data_models import Prospect
+  Line 9: from models.data_models import ProspectStatus
+
+### tests\test_notion_integration_enhanced.py
+  Line 5: from unittest.mock import MagicMock
+  Line 6: from datetime import datetime
+  Line 9: from models.data_models import ProspectStatus
+
+### tests\test_notion_manager.py
+  Line 5: from unittest.mock import MagicMock
+
+### tests\test_openai_client_manager.py
+  Line 6: from unittest.mock import MagicMock
+
+### tests\test_optimized_notion_manager.py
+  Line 8: import threading
+  Line 9: from unittest.mock import MagicMock
+  Line 14: from models.data_models import ProspectStatus
+
+### tests\test_product_analysis_integration.py
+  Line 6: from unittest.mock import MagicMock
+  Line 10: from services.product_analyzer import ProductAnalyzer
+
+### tests\test_product_analyzer.py
+  Line 6: from unittest.mock import MagicMock
+  Line 8: import json
+  Line 16: from models.data_models import ValidationError
+
+### tests\test_product_hunt_scraper.py
+  Line 7: from unittest.mock import MagicMock
+  Line 18: from models.data_models import TeamMember
+
+### tests\test_prospect_automation_controller.py
+  Line 6: from unittest.mock import MagicMock
+  Line 11: from models.data_models import Prospect
+
+### tests\test_prospect_automation_controller_ai_service.py
+  Line 9: from unittest.mock import MagicMock
+  Line 13: from services.ai_service import ProductInfo
+  Line 14: from models.data_models import SenderProfile
+
+### tests\test_rate_limiting.py
+  Line 8: from unittest.mock import MagicMock
+  Line 9: from datetime import timedelta
+  Line 11: import json
+
+### tests\test_sender_aware_email_generation.py
+  Line 5: import os
+  Line 6: import tempfile
+  Line 7: from unittest.mock import Mock
+  Line 10: from models.data_models import CompanyData
+  Line 11: from services.email_generator import EmailTemplate
+  Line 12: from services.sender_profile_manager import SenderProfileManager
+
+### tests\test_sender_profile.py
+  Line 5: from datetime import datetime
+
+### tests\test_sender_profile_config.py
+  Line 8: from pathlib import Path
+
+### tests\test_sender_profile_integration.py
+  Line 13: from services.sender_profile_manager import SenderProfileManager
+
+### tests\test_sender_profile_interactive.py
+  Line 5: from unittest.mock import MagicMock
+  Line 6: from io import StringIO
+  Line 9: from models.data_models import ValidationError
+
+### tests\test_sender_profile_manager.py
+  Line 9: from pathlib import Path
+  Line 10: from unittest.mock import patch
+  Line 10: from unittest.mock import mock_open
+
+### tests\test_sender_profile_unit.py
+  Line 9: from pathlib import Path
+  Line 10: from unittest.mock import mock_open
+
+### tests\test_validation_framework.py
+  Line 7: from unittest.mock import patch
+  Line 7: from unittest.mock import MagicMock
+
+### tests\test_webdriver_manager.py
+  Line 8: from unittest.mock import MagicMock
+  Line 9: from queue import Queue
+  Line 11: from selenium import webdriver
+
+### utils\api_monitor.py
+  Line 5: import time
+
+### utils\base_service.py
+  Line 17: from utils.error_handling import handle_error
+  Line 17: from utils.error_handling import get_error_handler
+
+### utils\error_handling.py
+  Line 6: import logging
+
+### utils\error_handling_enhanced.py
+  Line 10: import logging
+  Line 17: import json
+  Line 18: from pathlib import Path
+  Line 21: from utils.error_handling import ErrorInfo
+
+### utils\error_reporting.py
+  Line 16: from utils.error_handling import ErrorCategory
+
+### utils\import_analyzer.py
+  Line 10: import sys
+  Line 11: from collections import deque
+  Line 14: import importlib.util
+
+### utils\logging_config.py
+  Line 5: import os
+
+### utils\rate_limiting.py
+  Line 13: from datetime import timedelta
+
+### utils\webdriver_manager.py
+  Line 7: import logging
+  Line 16: from selenium.webdriver.chrome.service import Service
+  Line 21: from utils.error_handling_enhanced import ErrorCategory
+
+## Circular Dependencies
+------------------------------
+
+### Cycle 1:
+  -> controllers\prospect_automation_controller.py
+  -> services\notification_manager.py
+  -> controllers\prospect_automation_controller.py
+
+### Cycle 2:
+  -> services\notification_manager.py
+
+### Cycle 3:
+  -> controllers\prospect_automation_controller.py
+
+### Cycle 4:
+  -> controllers\prospect_automation_controller.py
+
+### Cycle 5:
+  -> controllers\prospect_automation_controller.py
+
+### Cycle 6:
+  -> controllers\prospect_automation_controller.py
+
+### Cycle 7:
+  -> controllers\prospect_automation_controller.py
+
+### Cycle 8:
+  -> controllers\prospect_automation_controller.py
+
+### Cycle 9:
+  -> controllers\prospect_automation_controller.py
+
+### Cycle 10:
+  -> controllers\prospect_automation_controller.py
+
+### Cycle 11:
+  -> controllers\prospect_automation_controller.py
+
+### Cycle 12:
+  -> controllers\prospect_automation_controller.py
+
+### Cycle 13:
+  -> controllers\prospect_automation_controller.py
+
+### Cycle 14:
+  -> controllers\prospect_automation_controller.py
+
+### Cycle 15:
+  -> controllers\prospect_automation_controller.py
+
+### Cycle 16:
+  -> controllers\prospect_automation_controller.py
+
+### Cycle 17:
+  -> controllers\prospect_automation_controller.py
+
+### Cycle 18:
+  -> controllers\prospect_automation_controller.py
+
+### Cycle 19:
+  -> controllers\prospect_automation_controller.py
+
+### Cycle 20:
+  -> controllers\prospect_automation_controller.py
+
+### Cycle 21:
+  -> controllers\prospect_automation_controller.py
+
+### Cycle 22:
+  -> controllers\prospect_automation_controller.py
+
+### Cycle 23:
+  -> controllers\prospect_automation_controller.py
+
+### Cycle 24:
+  -> controllers\prospect_automation_controller.py
+
+### Cycle 25:
+  -> controllers\prospect_automation_controller.py
+
+### Cycle 26:
+  -> controllers\prospect_automation_controller.py
+
+### Cycle 27:
+  -> controllers\prospect_automation_controller.py
+
+### Cycle 28:
+  -> controllers\prospect_automation_controller.py
+
+### Cycle 29:
+  -> controllers\prospect_automation_controller.py
+
+### Cycle 30:
+  -> controllers\prospect_automation_controller.py
+
+### Cycle 31:
+  -> controllers\prospect_automation_controller.py
+
+### Cycle 32:
+  -> controllers\prospect_automation_controller.py

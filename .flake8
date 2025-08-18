@@ -1,0 +1,33 @@
+[flake8]
+# Import organization and style rules
+max-line-length = 88
+select = E,W,F,I
+ignore = 
+    # Allow line breaks before binary operators (W503 vs W504)
+    W503,
+    # Allow long lines in some cases
+    E501
+
+# Import order checking
+import-order-style = pep8
+application-import-names = controllers,services,models,utils,tests
+
+# Exclude certain directories
+exclude = 
+    .git,
+    __pycache__,
+    .pytest_cache,
+    venv,
+    .venv,
+    import_cleanup_backups,
+    build,
+    dist
+
+# Per-file ignores
+per-file-ignores =
+    # Allow unused imports in __init__.py files
+    __init__.py:F401
+    # Allow longer lines in test files
+    tests/*.py:E501
+    # Allow star imports in test files
+    tests/*.py:F403,F405

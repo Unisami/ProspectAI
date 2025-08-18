@@ -1,0 +1,123 @@
+# Environment variables and credentials
+.env
+config.yaml
+*.backup
+
+# API Keys and sensitive data
+**/api_keys.txt
+**/credentials.json
+**/secrets.yaml
+
+# Notion database IDs
+**/database_ids.txt
+
+# Personal information
+**/personal_info.txt
+
+# Logs that might contain sensitive data
+logs/*.log
+*.log
+.cache
+
+# Python
+__pycache__/
+*/__pycache__/
+**/__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# Python cache files
+*.pyc
+*.pyo
+*.pyd
+__pycache__
+.pyc
+.pyo
+.pyd
+
+# Python bytecode cache directories
+*/__pycache__/*
+**/__pycache__/**
+.cache/
+*/.cache/
+**/.cache/**
+
+# Python compiled extensions
+*.so
+*.dylib
+*.dll
+
+# Python distribution / packaging
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+pip-wheel-metadata/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# PyInstaller cache
+*.manifest
+*.spec
+
+# Installer logs
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Testing
+.pytest_cache/
+.coverage
+htmlcov/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+/services/__pycache__
+/services/__pycache__
+*.pyc
+*.pyc
+/services/__pycache__
+/controllers/__pycache__
+*.pyc
+/controllers/__pycache__
+/controllers/__pycache__
+/services/__pycache__
+/.kiro
+reports/SECURITY_AUDIT_REPORT.md
+tests/test_openai_api.py

@@ -1,0 +1,21 @@
+# Import Validation Report
+==================================================
+
+Total violations found: 9
+
+## services\ai_parser.py
+- Line 760: Standard library import 'time' should come before local imports
+
+## services\ai_service.py
+- Line 194: Standard library import 'hashlib' should come before local imports
+- Line 12: Unused import 'datetime' from 'datetime'
+
+## services\email_generator.py
+- Line 1497: Standard library import 'json' should come before local imports
+- Line 1502: Third-party import 'yaml' should come before local imports
+- Line 1567: Standard library import 're' should come before third-party imports
+- Line 1567: Standard library import 're' should come before local imports
+
+## utils\validate_imports.py
+- Line 10: Unused import 'Dict' from 'typing'
+- Line 10: Unused import 'Tuple' from 'typing'

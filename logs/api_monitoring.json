@@ -1,0 +1,185 @@
+{
+  "api_calls": [
+    {
+      "service": "hunter_io",
+      "endpoint": "email-finder",
+      "timestamp": "2025-08-09T12:52:01.128369",
+      "response_time": 6.8715574741363525,
+      "status_code": 200,
+      "success": true,
+      "error_message": null
+    },
+    {
+      "service": "hunter_io",
+      "endpoint": "email-finder",
+      "timestamp": "2025-08-09T12:52:04.666883",
+      "response_time": 2.362854480743408,
+      "status_code": 200,
+      "success": true,
+      "error_message": null
+    },
+    {
+      "service": "hunter_io",
+      "endpoint": "email-verifier",
+      "timestamp": "2025-08-09T12:52:05.811113",
+      "response_time": 1.1069591045379639,
+      "status_code": 200,
+      "success": true,
+      "error_message": null
+    },
+    {
+      "service": "hunter_io",
+      "endpoint": "email-finder",
+      "timestamp": "2025-08-09T12:52:30.149903",
+      "response_time": 0.6430723667144775,
+      "status_code": 200,
+      "success": true,
+      "error_message": null
+    },
+    {
+      "service": "hunter_io",
+      "endpoint": "email-finder",
+      "timestamp": "2025-08-09T12:52:42.480560",
+      "response_time": 0.5349423885345459,
+      "status_code": 200,
+      "success": true,
+      "error_message": null
+    },
+    {
+      "service": "hunter_io",
+      "endpoint": "email-verifier",
+      "timestamp": "2025-08-09T12:52:44.918671",
+      "response_time": 0.5728247165679932,
+      "status_code": 200,
+      "success": true,
+      "error_message": null
+    },
+    {
+      "service": "hunter_io",
+      "endpoint": "email-finder",
+      "timestamp": "2025-08-09T12:52:56.976649",
+      "response_time": 10.23030400276184,
+      "status_code": 200,
+      "success": true,
+      "error_message": null
+    },
+    {
+      "service": "hunter_io",
+      "endpoint": "email-finder",
+      "timestamp": "2025-08-09T12:54:15.033497",
+      "response_time": 0.5987551212310791,
+      "status_code": 400,
+      "success": false,
+      "error_message": null
+    },
+    {
+      "service": "hunter_io",
+      "endpoint": "email-finder",
+      "timestamp": "2025-08-09T12:54:15.033548",
+      "response_time": 0.5988175868988037,
+      "status_code": 0,
+      "success": false,
+      "error_message": "400 Client Error: Bad Request for url: https://api.hunter.io/v2/email-finder?domain=blur-it.app&first_name=Madalina&last_name=B&api_key=3570850f1498a8fc350411f1b34534157d719eb9"
+    },
+    {
+      "service": "hunter_io",
+      "endpoint": "email-finder",
+      "timestamp": "2025-08-09T12:54:16.267664",
+      "response_time": 4.233726263046265,
+      "status_code": 200,
+      "success": true,
+      "error_message": null
+    },
+    {
+      "service": "hunter_io",
+      "endpoint": "email-verifier",
+      "timestamp": "2025-08-09T12:54:17.241751",
+      "response_time": 0.40697789192199707,
+      "status_code": 200,
+      "success": true,
+      "error_message": null
+    },
+    {
+      "service": "hunter_io",
+      "endpoint": "email-finder",
+      "timestamp": "2025-08-09T12:54:22.318241",
+      "response_time": 0.683314323425293,
+      "status_code": 400,
+      "success": false,
+      "error_message": null
+    },
+    {
+      "service": "hunter_io",
+      "endpoint": "email-finder",
+      "timestamp": "2025-08-09T12:54:22.318291",
+      "response_time": 0.6833758354187012,
+      "status_code": 0,
+      "success": false,
+      "error_message": "400 Client Error: Bad Request for url: https://api.hunter.io/v2/email-finder?domain=blur-it.app&first_name=Madalina&last_name=B&api_key=3570850f1498a8fc350411f1b34534157d719eb9"
+    },
+    {
+      "service": "hunter_io",
+      "endpoint": "email-finder",
+      "timestamp": "2025-08-09T12:54:23.638248",
+      "response_time": 4.403371095657349,
+      "status_code": 200,
+      "success": true,
+      "error_message": null
+    },
+    {
+      "service": "hunter_io",
+      "endpoint": "email-finder",
+      "timestamp": "2025-08-09T12:54:24.603438",
+      "response_time": 5.368618011474609,
+      "status_code": 200,
+      "success": true,
+      "error_message": null
+    },
+    {
+      "service": "hunter_io",
+      "endpoint": "email-verifier",
+      "timestamp": "2025-08-09T12:54:27.158371",
+      "response_time": 0.7233321666717529,
+      "status_code": 200,
+      "success": true,
+      "error_message": null
+    },
+    {
+      "service": "hunter_io",
+      "endpoint": "email-finder",
+      "timestamp": "2025-08-09T12:54:28.903068",
+      "response_time": 4.8680925369262695,
+      "status_code": 200,
+      "success": true,
+      "error_message": null
+    },
+    {
+      "service": "hunter_io",
+      "endpoint": "email-finder",
+      "timestamp": "2025-08-09T12:54:29.056252",
+      "response_time": 0.22116351127624512,
+      "status_code": 400,
+      "success": false,
+      "error_message": null
+    },
+    {
+      "service": "hunter_io",
+      "endpoint": "email-finder",
+      "timestamp": "2025-08-09T12:54:29.056299",
+      "response_time": 0.22122478485107422,
+      "status_code": 0,
+      "success": false,
+      "error_message": "400 Client Error: Bad Request for url: https://api.hunter.io/v2/email-finder?domain=blur-it.app&first_name=Madalina&last_name=B&api_key=3570850f1498a8fc350411f1b34534157d719eb9"
+    },
+    {
+      "service": "hunter_io",
+      "endpoint": "email-finder",
+      "timestamp": "2025-08-09T12:54:46.123647",
+      "response_time": 0.4554893970489502,
+      "status_code": 400,
+      "success": false,
+      "error_message": null
+    }
+  ],
+  "last_updated": "2025-08-09T12:54:46.123850"
+}
