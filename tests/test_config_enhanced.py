@@ -246,6 +246,7 @@ class TestEnhancedConfig:
         with patch.dict(os.environ, {
             'NOTION_TOKEN': 'test_token',
             'HUNTER_API_KEY': 'test_key',
+            'AI_PROVIDER': 'openai',
             'OPENAI_API_KEY': 'test_openai_key',
             'AI_PARSING_MODEL': 'invalid-model'
         }):
@@ -272,6 +273,7 @@ class TestEnhancedConfig:
         with patch.dict(os.environ, {
             'NOTION_TOKEN': 'test_token',
             'HUNTER_API_KEY': 'test_key',
+            'AI_PROVIDER': 'openai',
             'OPENAI_API_KEY': 'test_openai_key',
             'PRODUCT_ANALYSIS_MODEL': 'invalid-model'
         }):
@@ -298,6 +300,7 @@ class TestEnhancedConfig:
         with patch.dict(os.environ, {
             'NOTION_TOKEN': 'test_token',
             'HUNTER_API_KEY': 'test_key',
+            'AI_PROVIDER': 'openai',
             'OPENAI_API_KEY': 'test_openai_key',
             'EMAIL_GENERATION_MODEL': 'invalid-model'
         }):

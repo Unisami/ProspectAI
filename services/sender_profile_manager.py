@@ -11,6 +11,7 @@ from typing import (
 )
 from dataclasses import asdict
 from urllib.parse import urlparse
+import os
 
 import yaml
 
@@ -32,6 +33,158 @@ class SenderProfileManager:
     def __init__(self):
         """Initialize the sender profile manager."""
         pass
+    
+    def discover_existing_profiles(self) -> List[Dict[str, Any]]:
+        """
+        Discover existing profiles in common locations.
+        
+        Returns:
+            List of dictionaries containing profile information:
+            [
+                {
+                    'path': '/path/to/profile.md',
+                    'format': 'markdown',
+                    'name': 'John Doe',
+                    'role': 'Software Engineer',
+                    'modified': datetime,
+                    'size': 1024
+                },
+                ...
+            ]
+        """
+        profiles = []
+        
+        # Common profile locations to check
+        search_locations = [
+            Path.cwd() / "profiles",  # Current directory profiles folder
+            Path.cwd(),  # Current directory
+            Path.home() / ".job_prospect_automation" / "profiles",  # User config folder
+            Path.home() / "profiles",  # User home profiles folder
+        ]
+        
+        # Profile file patterns to look for
+        patterns = [
+            "*.md", "*.markdown",  # Markdown files
+            "*.json",  # JSON files
+            "*.yaml", "*.yml"  # YAML files
+        ]
+        
+        for location in search_locations:
+            if not location.exists():
+                continue
+                
+            for pattern in patterns:
+                for profile_path in location.glob(pattern):
+                    try:
+                        # Determine format from extension
+                        suffix = profile_path.suffix.lower()
+                        if suffix in ['.md', '.markdown']:
+                            format_type = 'markdown'
+                        elif suffix == '.json':
+                            format_type = 'json'
+                        elif suffix in ['.yaml', '.yml']:
+                            format_type = 'yaml'
+                        else:
+                            continue
+                        
+                        # Try to load profile to get name and role
+                        try:
+                            if format_type == 'markdown':
+                                profile = self.load_profile_from_markdown(str(profile_path))
+                            elif format_type == 'json':
+                                profile = self.load_profile_from_json(str(profile_path))
+                            elif format_type == 'yaml':
+                                profile = self.load_profile_from_yaml(str(profile_path))
+                            
+                            # Get file stats
+                            stat = profile_path.stat()
+                            
+                            profiles.append({
+                                'path': str(profile_path),
+                                'format': format_type,
+                                'name': profile.name,
+                                'role': profile.current_role,
+                                'modified': stat.st_mtime,
+                                'size': stat.st_size
+                            })
+                            
+                        except (ValidationError, FileNotFoundError, Exception):
+                            # Skip invalid profiles
+                            continue
+                            
+                    except Exception:
+                        # Skip files that can't be processed
+                        continue
+        
+        # Sort by modification time (newest first)
+        profiles.sort(key=lambda x: x['modified'], reverse=True)
+        
+        # Remove duplicates (same name and role)
+        seen = set()
+        unique_profiles = []
+        for profile in profiles:
+            key = (profile['name'], profile['role'])
+            if key not in seen:
+                seen.add(key)
+                unique_profiles.append(profile)
+        
+        return unique_profiles
+    
+    def show_profile_selection_dialog(self, existing_profiles: List[Dict[str, Any]]) -> Optional[str]:
+        """
+        Show a dialog for selecting from existing profiles or creating a new one.
+        
+        Args:
+            existing_profiles: List of existing profile dictionaries
+            
+        Returns:
+            Profile path if existing profile selected, None if create new, 'cancel' if cancelled
+        """
+        if not existing_profiles:
+            return None
+        
+        print("\n" + "="*60)
+        print("🔍 EXISTING PROFILES FOUND")
+        print("="*60)
+        print("The following sender profiles were found on your system:\n")
+        
+        for i, profile in enumerate(existing_profiles, 1):
+            # Convert modification time to readable format
+            import datetime
+            mod_time = datetime.datetime.fromtimestamp(profile['modified'])
+            
+            print(f"[{i}] {profile['name']} - {profile['role']}")
+            print(f"    📁 File: {profile['path']}")
+            print(f"    📅 Modified: {mod_time.strftime('%Y-%m-%d %H:%M')}")
+            print(f"    📄 Format: {profile['format']}")
+            print()
+        
+        print(f"[{len(existing_profiles) + 1}] Create a new profile")
+        print(f"[0] Cancel")
+        print("\n" + "="*60)
+        
+        while True:
+            try:
+                choice = input(f"Select an option (0-{len(existing_profiles) + 1}): ").strip()
+                
+                if choice == '0':
+                    return 'cancel'
+                elif choice == str(len(existing_profiles) + 1):
+                    return None  # Create new
+                else:
+                    choice_num = int(choice)
+                    if 1 <= choice_num <= len(existing_profiles):
+                        selected_profile = existing_profiles[choice_num - 1]
+                        print(f"\n✅ Selected: {selected_profile['name']} - {selected_profile['role']}")
+                        return selected_profile['path']
+                    else:
+                        print(f"❌ Please enter a number between 0 and {len(existing_profiles) + 1}")
+                        
+            except ValueError:
+                print(f"❌ Please enter a valid number between 0 and {len(existing_profiles) + 1}")
+            except KeyboardInterrupt:
+                print("\n⚠️  Selection cancelled.")
+                return 'cancel'
     
     def load_profile_from_markdown(self, file_path: str) -> SenderProfile:
         """
@@ -504,13 +657,48 @@ class SenderProfileManager:
         
         return '\n'.join(content)
     
-    def create_profile_interactively(self) -> SenderProfile:
+    def create_profile_interactively(self, check_existing: bool = True) -> SenderProfile:
         """
         Create sender profile through interactive CLI-based wizard.
         
+        Args:
+            check_existing: Whether to check for existing profiles first
+        
         Returns:
-            SenderProfile instance created interactively
+            SenderProfile instance created interactively or loaded from existing
         """
+        # Check for existing profiles if requested
+        if check_existing:
+            existing_profiles = self.discover_existing_profiles()
+            
+            if existing_profiles:
+                selected_path = self.show_profile_selection_dialog(existing_profiles)
+                
+                if selected_path == 'cancel':
+                    print("\n⚠️  Profile setup cancelled.")
+                    raise KeyboardInterrupt("Profile setup cancelled by user")
+                elif selected_path:  # Existing profile selected
+                    try:
+                        # Load the selected profile
+                        selected_info = next(p for p in existing_profiles if p['path'] == selected_path)
+                        format_type = selected_info['format']
+                        
+                        if format_type == 'markdown':
+                            profile = self.load_profile_from_markdown(selected_path)
+                        elif format_type == 'json':
+                            profile = self.load_profile_from_json(selected_path)
+                        elif format_type == 'yaml':
+                            profile = self.load_profile_from_yaml(selected_path)
+                        
+                        print(f"\n✅ Successfully loaded existing profile: {profile.name}")
+                        self._show_profile_preview(profile)
+                        return profile
+                        
+                    except Exception as e:
+                        print(f"\n❌ Error loading selected profile: {e}")
+                        print("Proceeding with new profile creation...\n")
+                # If selected_path is None, proceed with creating new profile
+        
         print("\n=== Interactive Sender Profile Setup ===")
         print("Let's create your professional profile for personalized outreach emails.")
         print("You can skip optional fields by pressing Enter.\n")

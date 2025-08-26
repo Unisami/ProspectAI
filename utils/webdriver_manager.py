@@ -286,7 +286,9 @@ class WebDriverManager:
             
         self.config = config
         self.logger = get_logger(__name__)
-        self.error_handler = ErrorHandlingService(config) if config else None
+        # Fix: Pass config_path instead of config object to ErrorHandlingService
+        error_config_path = "logs/webdriver_error_monitoring.json"
+        self.error_handler = ErrorHandlingService(error_config_path) if config else None
         
         # Default WebDriver configuration
         self.webdriver_config = WebDriverConfig()

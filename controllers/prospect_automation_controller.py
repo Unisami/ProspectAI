@@ -45,6 +45,7 @@ from services.email_generator import (
     EmailGenerator,
     EmailTemplate
 )
+from services.ai_service import AIService, AIOperationType
 from services.email_sender import EmailSender
 from services.product_analyzer import (
     ProductAnalyzer,
@@ -160,29 +161,41 @@ class ProspectAutomationController:
             self.config = config_service.get_config()
             self.logger = get_logger(__name__)
         
-        # Initialize all services
+        # Initialize all services (use ConfigurationService instead of passing config)
         try:
-            self.product_hunt_scraper = ProductHuntScraper(self.config)
-            self.notion_manager = NotionDataManager(self.config)
-            self.email_finder = EmailFinder(self.config)
-            self.linkedin_scraper = LinkedInScraper(self.config)
+            # Services that support ConfigurationService - don't pass config to eliminate deprecation warnings
+            self.product_hunt_scraper = ProductHuntScraper()
+            self.notion_manager = NotionDataManager(self.config)  # Still needs config for now
+            self.email_finder = EmailFinder(self.config)  # Still needs config for API keys
+            self.linkedin_scraper = LinkedInScraper(self.config)  # Still needs config for now
             
-            # Initialize email generator with error handling
+            # Initialize email generator with error handling (fallback for compatibility)
             try:
                 self.email_generator = EmailGenerator(config=self.config)
                 self.logger.info("Email generator initialized successfully")
             except Exception as e:
-                self.logger.error(f"Failed to initialize email generator: {str(e)}")
-                raise
+                self.logger.warning(f"Failed to initialize email generator: {str(e)}")
+                self.email_generator = None
             
-            self.email_sender = EmailSender(config=self.config, notion_manager=self.notion_manager)
+            # Initialize email sender conditionally (only if Resend is configured)
+            try:
+                if self.config.resend_api_key:
+                    self.email_sender = EmailSender(config=self.config, notion_manager=self.notion_manager)
+                    self.logger.info("Email sender initialized successfully")
+                else:
+                    self.email_sender = None
+                    self.logger.info("Email sender not initialized (no Resend API key provided)")
+            except Exception as e:
+                self.logger.warning(f"Failed to initialize email sender: {str(e)}")
+                self.email_sender = None
             self.product_analyzer = ProductAnalyzer(self.config)
             
             # Initialize consolidated AI Service for all AI operations
             try:
-                self.ai_service = AIService(self.config, "prospect_controller")
+                # Initialize AI service with provider manager (no client_id needed)
+                self.ai_service = AIService(self.config)
                 self.use_ai_processing = True
-                self.logger.info("AI Service initialized successfully")
+                self.logger.info("AI Service initialized successfully with provider manager")
             except Exception as e:
                 self.logger.warning(f"Failed to initialize AI Service: {str(e)}. Falling back to traditional processing.")
                 self.ai_service = None
@@ -338,7 +351,7 @@ class ProspectAutomationController:
                     # If interactive setup is enabled, create profile interactively
                     if self.config.enable_interactive_profile_setup:
                         self.logger.info("Starting interactive profile setup")
-                        profile = profile_manager.create_profile_interactively()
+                        profile = profile_manager.create_profile_interactively(check_existing=True)
                         
                         # Save the created profile
                         if profile:
@@ -361,16 +374,69 @@ class ProspectAutomationController:
                 # If interactive setup is enabled, create profile interactively
                 if self.config.enable_interactive_profile_setup:
                     self.logger.info("Starting interactive profile setup after load failure")
-                    return profile_manager.create_profile_interactively()
+                    return profile_manager.create_profile_interactively(check_existing=True)
                     
                 return None
         
         # If no profile path but interactive setup is enabled, create profile interactively
         elif self.config.enable_interactive_profile_setup:
             self.logger.info("Starting interactive profile setup (no path provided)")
-            return profile_manager.create_profile_interactively()
+            return profile_manager.create_profile_interactively(check_existing=True)
             
         return None
+    
+    def set_sender_profile(self, profile_path: str):
+        """
+        Set the sender profile from a file path.
+        
+        Args:
+            profile_path: Path to the sender profile file
+        """
+        try:
+            profile_manager = SenderProfileManager()
+            
+            if not os.path.exists(profile_path):
+                self.logger.error(f"Sender profile file not found: {profile_path}")
+                return
+            
+            # Determine format from file extension
+            if profile_path.endswith('.md'):
+                format_type = "markdown"
+            elif profile_path.endswith('.json'):
+                format_type = "json"
+            elif profile_path.endswith(('.yml', '.yaml')):
+                format_type = "yaml"
+            else:
+                self.logger.error(f"Unsupported profile format for file: {profile_path}")
+                return
+            
+            # Load the profile
+            if format_type == "markdown":
+                self.sender_profile = profile_manager.load_profile_from_markdown(profile_path)
+            elif format_type == "json":
+                self.sender_profile = profile_manager.load_profile_from_json(profile_path)
+            elif format_type == "yaml":
+                self.sender_profile = profile_manager.load_profile_from_yaml(profile_path)
+            
+            if self.sender_profile:
+                self.logger.info(f"Sender profile loaded successfully: {self.sender_profile.name}")
+            else:
+                self.logger.error(f"Failed to load sender profile from: {profile_path}")
+                
+        except Exception as e:
+            self.logger.error(f"Error setting sender profile: {str(e)}")
+            self.sender_profile = None
+    
+    def set_sender_profile_object(self, profile):
+        """
+        Set the sender profile from a profile object.
+        
+        Args:
+            profile: SenderProfile object
+        """
+        self.sender_profile = profile
+        if profile:
+            self.logger.info(f"Sender profile set: {profile.name}")
     
     def validate_api_connections(self) -> Dict[str, Any]:
         """
@@ -409,7 +475,7 @@ class ProspectAutomationController:
                     max_tokens=5,
                     temperature=0.0
                 )
-                self.ai_service.get_completion(test_request)
+                self.ai_service.provider_manager.make_completion(test_request)
                 results['openai'] = {'status': 'success', 'message': 'Connection successful'}
             else:
                 results['openai'] = {'status': 'error', 'message': 'AI Service not initialized'}
@@ -418,7 +484,7 @@ class ProspectAutomationController:
         
         # Test Resend API (if configured)
         try:
-            if hasattr(self.config, 'resend_api_key') and self.config.resend_api_key:
+            if hasattr(self.config, 'resend_api_key') and self.config.resend_api_key and self.email_sender:
                 self.email_sender.test_connection()
                 results['resend'] = {'status': 'success', 'message': 'Connection successful'}
             else:
@@ -770,6 +836,22 @@ class ProspectAutomationController:
                     # Get product analysis data from Notion if available
                     product_analysis = self.notion_manager.get_prospect_data_for_email(prospect.id)
                     
+                    # Extract AI-structured data for enhanced personalization
+                    ai_structured_data = None
+                    if product_analysis:
+                        ai_structured_data = {
+                            'product_summary': product_analysis.get('product_summary', ''),
+                            'business_insights': product_analysis.get('business_insights', ''),
+                            'linkedin_summary': product_analysis.get('linkedin_summary', ''),
+                            'personalization_data': product_analysis.get('personalization_data', ''),
+                            'market_analysis': product_analysis.get('market_analysis', ''),
+                            'product_features': product_analysis.get('product_features', ''),
+                            'pricing_model': product_analysis.get('pricing_model', ''),
+                            'competitors': product_analysis.get('competitors', '')
+                        }
+                        # Remove empty values
+                        ai_structured_data = {k: v for k, v in ai_structured_data.items() if v}
+                    
                     # Generate email using consolidated AI Service
                     start_time = time.time()
                     if self.use_ai_processing and self.ai_service:
@@ -783,6 +865,7 @@ class ProspectAutomationController:
                                 'source_mention': 'ProductHunt',
                                 'discovery_context': f'I discovered {prospect.company} on ProductHunt'
                             },
+                            ai_structured_data=ai_structured_data,
                             sender_profile=self.sender_profile
                         )
                         
@@ -1181,6 +1264,17 @@ class ProspectAutomationController:
                 html_body = self._convert_to_html(email_content_clean)
                 
                 # Send the email
+                if not self.email_sender:
+                    self.logger.error(f"Cannot send email: Email sender not initialized (Resend API key required)")
+                    results['failed'].append({
+                        'prospect_id': prospect_id,
+                        'error': 'Email sender not configured (Resend API key required)',
+                        'prospect_name': prospect_data.get('name', 'Unknown'),
+                        'email': prospect_data['email']
+                    })
+                    results['total_failed'] += 1
+                    continue
+                
                 send_result = self.email_sender.send_email(
                     recipient_email=prospect_data['email'],
                     subject=email_subject_clean,
@@ -1287,6 +1381,17 @@ class ProspectAutomationController:
             Dictionary containing email sending statistics and performance metrics
         """
         try:
+            # Check if email sender is available
+            if not self.email_sender:
+                return {
+                    'error': 'Email sender not initialized (Resend API key required)',
+                    'controller_stats': {
+                        'emails_generated': self.stats.get('emails_generated', 0),
+                        'total_prospects_found': self.stats.get('prospects_found', 0),
+                        'total_companies_processed': self.stats.get('companies_processed', 0)
+                    }
+                }
+            
             # Get stats from email sender
             sending_stats = self.email_sender.get_sending_stats()
             
@@ -1334,6 +1439,9 @@ class ProspectAutomationController:
             Dictionary containing prospect email performance data
         """
         try:
+            if not self.email_sender:
+                return {'error': 'Email sender not initialized (Resend API key required)'}
+            
             return self.email_sender.get_email_performance_by_prospect(prospect_id)
         except Exception as e:
             self.logger.error(f"Failed to get prospect email performance: {str(e)}")
@@ -1892,7 +2000,7 @@ class ProspectAutomationController:
                     temperature=0.3,
                     max_tokens=600
                 )
-                response = self.ai_service.client_manager.make_completion(request, self.ai_service.client_id)
+                response = self.ai_service.provider_manager.make_completion(request, self.ai_service.provider_name)
                 
                 if response.success:
                     structured_data['product_summary'] = response.content.strip()
@@ -1924,7 +2032,7 @@ class ProspectAutomationController:
                     temperature=0.3,
                     max_tokens=500
                 )
-                response = self.ai_service.client_manager.make_completion(request, self.ai_service.client_id)
+                response = self.ai_service.provider_manager.make_completion(request, self.ai_service.provider_name)
                 
                 if response.success:
                     structured_data['business_insights'] = response.content.strip()
@@ -1960,7 +2068,7 @@ class ProspectAutomationController:
                         temperature=0.3,
                         max_tokens=400
                     )
-                    response = self.ai_service.client_manager.make_completion(request, self.ai_service.client_id)
+                    response = self.ai_service.provider_manager.make_completion(request, self.ai_service.provider_name)
                     
                     if response.success:
                         structured_data['linkedin_summary'] = response.content.strip()
@@ -1992,7 +2100,7 @@ class ProspectAutomationController:
                     temperature=0.3,
                     max_tokens=800
                 )
-                response = self.ai_service.client_manager.make_completion(request, self.ai_service.client_id)
+                response = self.ai_service.provider_manager.make_completion(request, self.ai_service.provider_name)
                 
                 if response.success:
                     structured_data['personalization_data'] = response.content.strip()
@@ -2961,7 +3069,7 @@ class ProspectAutomationController:
             # Get email stats from prospect database (emails sent today)
             try:
                 # Use the actual email delivery stats from Notion instead of the simplified check
-                email_stats = self.notion_manager.get_email_stats()
+                email_stats = self.notion_manager.get_email_generation_stats()
                 stats['emails_sent'] = email_stats.get('emails_sent', 0)
                 
                 # If email stats are not available, fall back to counting prospects with delivery status "Sent" today

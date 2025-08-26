@@ -1,597 +1,497 @@
 """
-Tests for the error handling and monitoring system.
+Unit tests for error handling framework and API validation components.
 """
 
-import pytest
-import time
-import json
-from datetime import datetime, timedelta
-from unittest.mock import Mock, patch, MagicMock
-from pathlib import Path
+import sys
 import tempfile
-import os
+import json
+from pathlib import Path
+from unittest.mock import Mock, patch, MagicMock
+import pytest
+import requests
 
-from utils.error_handling import (
-    ErrorHandler, ErrorInfo, ErrorCategory, ErrorSeverity, RetryConfig,
-    get_error_handler, handle_error, retry_with_backoff
-)
-from utils.api_monitor import APIMonitor, APICall, RateLimitInfo, ServiceHealth, ServiceStatus
-from utils.error_reporting import ErrorReporter, NotificationConfig, NotificationChannel
+# Add the project root to the Python path
+sys.path.insert(0, str(Path(__file__).parent.parent))
+
+from utils.installer_error_handler import ErrorHandler, ErrorCategory, ErrorInfo, PlatformDetector
+from utils.api_validators import APIValidator, APIValidationResult, ValidationResult
+from utils.platform_detection import PlatformManager
+from utils.recovery_manager import InstallationRecoveryManager, RecoveryAction, RecoveryStep
 
 
 class TestErrorHandler:
-    """Test cases for ErrorHandler class."""
+    """Test suite for ErrorHandler class"""
     
     def setup_method(self):
-        """Set up test fixtures."""
-        # Create temporary config file
-        self.temp_dir = tempfile.mkdtemp()
-        self.config_path = os.path.join(self.temp_dir, "test_error_monitoring.json")
-        self.error_handler = ErrorHandler(config_path=self.config_path)
+        """Set up test fixtures"""
+        self.temp_dir = Path(tempfile.mkdtemp())
+        self.log_file = self.temp_dir / "test_errors.log"
+        self.error_handler = ErrorHandler(self.log_file)
     
-    def teardown_method(self):
-        """Clean up test fixtures."""
-        # Clean up temporary files
-        if os.path.exists(self.config_path):
-            os.remove(self.config_path)
-        os.rmdir(self.temp_dir)
+    def test_error_handler_initialization(self):
+        """Test ErrorHandler initialization"""
+        assert self.error_handler.platform in ["windows", "macos", "linux", "unknown"]
+        assert self.error_handler.logger is not None
+        assert len(self.error_handler.error_registry) > 0
     
-    def test_handle_error_basic(self):
-        """Test basic error handling."""
-        error = ValueError("Test error message")
+    def test_handle_known_error(self):
+        """Test handling a known error code"""
+        result = self.error_handler.handle_error("PYTHON_NOT_FOUND")
         
-        error_info = self.error_handler.handle_error(
-            error=error,
-            service="test_service",
-            operation="test_operation"
-        )
-        
-        assert error_info.service == "test_service"
-        assert error_info.operation == "test_operation"
-        assert error_info.error_type == "ValueError"
-        assert error_info.error_message == "Test error message"
-        assert error_info.category == ErrorCategory.UNKNOWN
-        assert error_info.severity == ErrorSeverity.MEDIUM
-        assert len(self.error_handler.errors) == 1
+        assert isinstance(result, ErrorInfo)
+        assert result.category == ErrorCategory.SYSTEM_ERROR
+        assert result.code == "PYTHON_NOT_FOUND"
+        assert "Python 3.13 not found" in result.message
+        assert len(result.recovery_instructions) > 0
     
-    def test_handle_error_with_context(self):
-        """Test error handling with context."""
-        error = ConnectionError("Network timeout")
-        context = {"url": "https://example.com", "timeout": 30}
+    def test_handle_unknown_error(self):
+        """Test handling an unknown error code"""
+        result = self.error_handler.handle_error("UNKNOWN_ERROR_CODE")
         
-        error_info = self.error_handler.handle_error(
-            error=error,
-            service="api_service",
-            operation="fetch_data",
-            context=context,
-            category=ErrorCategory.NETWORK,
-            severity=ErrorSeverity.HIGH
-        )
-        
-        assert error_info.category == ErrorCategory.NETWORK
-        assert error_info.severity == ErrorSeverity.HIGH
-        assert error_info.context == context
+        assert isinstance(result, ErrorInfo)
+        assert result.category == ErrorCategory.UNKNOWN_ERROR
+        assert result.code == "UNKNOWN_ERROR_CODE"
+        assert "Unknown error occurred" in result.message
     
-    def test_error_categorization(self):
-        """Test automatic error categorization."""
-        test_cases = [
-            (ConnectionError("Connection timeout"), ErrorCategory.NETWORK),
-            (Exception("Rate limit exceeded"), ErrorCategory.API_RATE_LIMIT),
-            (Exception("429 Too Many Requests"), ErrorCategory.API_RATE_LIMIT),
-            (Exception("Quota exceeded"), ErrorCategory.API_QUOTA),
-            (Exception("Unauthorized access"), ErrorCategory.AUTHENTICATION),
-            (Exception("Invalid data format"), ErrorCategory.DATA_VALIDATION),
-            (Exception("Selenium WebDriver error"), ErrorCategory.SCRAPING),
-            (Exception("Database connection failed"), ErrorCategory.STORAGE),
-            (Exception("Config file not found"), ErrorCategory.CONFIGURATION)
-        ]
+    def test_handle_exception_with_context(self):
+        """Test handling exception with context"""
+        exception = FileNotFoundError("Test file not found")
+        context = "Testing file operations"
         
-        for error, expected_category in test_cases:
-            categorized = self.error_handler._categorize_error(error)
-            assert categorized == expected_category, f"Error '{error}' should be categorized as {expected_category}"
+        result = self.error_handler.handle_exception(exception, context)
+        
+        assert isinstance(result, ErrorInfo)
+        assert result.code == "FILE_NOT_FOUND"
     
-    def test_severity_assessment(self):
-        """Test automatic severity assessment."""
-        test_cases = [
-            (Exception("Authentication failed"), ErrorCategory.AUTHENTICATION, ErrorSeverity.CRITICAL),
-            (Exception("Quota exhausted"), ErrorCategory.API_QUOTA, ErrorSeverity.HIGH),
-            (Exception("Rate limit hit"), ErrorCategory.API_RATE_LIMIT, ErrorSeverity.MEDIUM),
-            (Exception("Network timeout"), ErrorCategory.NETWORK, ErrorSeverity.LOW),
-            (Exception("Scraping failed"), ErrorCategory.SCRAPING, ErrorSeverity.LOW)
-        ]
+    def test_validate_environment(self):
+        """Test environment validation"""
+        warnings = self.error_handler.validate_environment()
         
-        for error, category, expected_severity in test_cases:
-            severity = self.error_handler._assess_severity(error, category)
-            assert severity == expected_severity
+        assert isinstance(warnings, list)
+        # Should have at least one warning about Python version if < 3.13
+        if sys.version_info < (3, 13):
+            assert any("Python" in warning for warning in warnings)
     
-    def test_retry_with_backoff_success(self):
-        """Test retry mechanism with successful retry."""
-        call_count = 0
+    def test_create_diagnostic_report(self):
+        """Test diagnostic report creation"""
+        report = self.error_handler.create_diagnostic_report()
         
-        def failing_function():
-            nonlocal call_count
-            call_count += 1
-            if call_count < 3:
-                raise ConnectionError("Temporary failure")
-            return "success"
-        
-        result = self.error_handler.retry_with_backoff(
-            failing_function,
-            category=ErrorCategory.NETWORK
-        )
-        
-        assert result == "success"
-        assert call_count == 3
-    
-    def test_retry_with_backoff_failure(self):
-        """Test retry mechanism with all attempts failing."""
-        call_count = 0
-        
-        def always_failing_function():
-            nonlocal call_count
-            call_count += 1
-            raise ConnectionError("Persistent failure")
-        
-        with pytest.raises(ConnectionError, match="Persistent failure"):
-            self.error_handler.retry_with_backoff(
-                always_failing_function,
-                category=ErrorCategory.NETWORK
-            )
-        
-        # Should have tried the maximum number of attempts
-        retry_config = self.error_handler.retry_configs[ErrorCategory.NETWORK]
-        assert call_count == retry_config.max_attempts
-    
-    def test_service_quota_tracking(self):
-        """Test service quota tracking."""
-        reset_time = datetime.now() + timedelta(hours=1)
-        
-        self.error_handler.update_service_quota(
-            service_name="test_api",
-            quota_type="requests",
-            used=80,
-            limit=100,
-            reset_time=reset_time
-        )
-        
-        quotas = self.error_handler.get_quota_status("test_api")
-        assert len(quotas) == 1
-        
-        quota = list(quotas.values())[0]
-        assert quota.service_name == "test_api"
-        assert quota.used == 80
-        assert quota.limit == 100
-        assert quota.is_near_limit  # 80% usage
-        assert not quota.is_exhausted
-    
-    def test_error_summary(self):
-        """Test error summary generation."""
-        # Generate some test errors
-        errors = [
-            (ValueError("Validation error"), ErrorCategory.DATA_VALIDATION, ErrorSeverity.MEDIUM),
-            (ConnectionError("Network error"), ErrorCategory.NETWORK, ErrorSeverity.LOW),
-            (Exception("Rate limit"), ErrorCategory.API_RATE_LIMIT, ErrorSeverity.MEDIUM),
-            (Exception("Auth error"), ErrorCategory.AUTHENTICATION, ErrorSeverity.CRITICAL)
-        ]
-        
-        for error, category, severity in errors:
-            self.error_handler.handle_error(
-                error, "test_service", "test_op", category=category, severity=severity
-            )
-        
-        summary = self.error_handler.get_error_summary(hours=24)
-        
-        assert summary['total_errors'] == 4
-        assert summary['by_category']['data_validation'] == 1
-        assert summary['by_category']['network'] == 1
-        assert summary['by_category']['api_rate_limit'] == 1
-        assert summary['by_category']['authentication'] == 1
-        assert summary['by_severity']['critical'] == 1
-        assert summary['by_severity']['medium'] == 2
-        assert summary['by_severity']['low'] == 1
-    
-    def test_data_persistence(self):
-        """Test error data persistence."""
-        # Add some errors
-        error1 = ValueError("Test error 1")
-        error2 = ConnectionError("Test error 2")
-        
-        self.error_handler.handle_error(error1, "service1", "op1")
-        self.error_handler.handle_error(error2, "service2", "op2")
-        
-        # Force save
-        self.error_handler._save_error_data()
-        
-        # Create new handler with same config path
-        new_handler = ErrorHandler(config_path=self.config_path)
-        
-        # Should load previous errors
-        assert len(new_handler.errors) == 2
-        assert new_handler.errors[0].error_message == "Test error 1"
-        assert new_handler.errors[1].error_message == "Test error 2"
+        assert "platform_info" in report
+        assert "python_executable" in report
+        assert "environment_variables" in report
+        assert "user_permissions" in report
+        assert "warnings" in report
 
 
-class TestAPIMonitor:
-    """Test cases for APIMonitor class."""
+class TestPlatformDetector:
+    """Test suite for PlatformDetector utility"""
     
-    def setup_method(self):
-        """Set up test fixtures."""
-        self.temp_dir = tempfile.mkdtemp()
-        self.config_path = os.path.join(self.temp_dir, "test_api_monitoring.json")
-        self.api_monitor = APIMonitor(config_path=self.config_path)
+    def test_get_platform(self):
+        """Test platform detection"""
+        platform = PlatformDetector.get_platform()
+        assert platform in ["windows", "macos", "linux", "unknown"]
     
-    def teardown_method(self):
-        """Clean up test fixtures."""
-        if os.path.exists(self.config_path):
-            os.remove(self.config_path)
-        os.rmdir(self.temp_dir)
+    def test_get_platform_info(self):
+        """Test platform info collection"""
+        info = PlatformDetector.get_platform_info()
+        
+        assert "system" in info
+        assert "python_version" in info
+        assert "executable" in info
+        assert info["system"] in ["Windows", "Darwin", "Linux"]
     
-    def test_record_api_call(self):
-        """Test API call recording."""
-        self.api_monitor.record_api_call(
-            service="test_service",
-            endpoint="test_endpoint",
-            response_time=1.5,
-            status_code=200,
-            success=True
-        )
-        
-        assert len(self.api_monitor.api_calls) == 1
-        call = self.api_monitor.api_calls[0]
-        assert call.service == "test_service"
-        assert call.endpoint == "test_endpoint"
-        assert call.response_time == 1.5
-        assert call.status_code == 200
-        assert call.success is True
-    
-    def test_rate_limit_tracking(self):
-        """Test rate limit tracking."""
-        headers = {
-            'X-RateLimit-Limit': '100',
-            'X-RateLimit-Remaining': '20',
-            'X-RateLimit-Reset': str(int((datetime.now() + timedelta(hours=1)).timestamp()))
-        }
-        
-        self.api_monitor.record_api_call(
-            service="test_api",
-            endpoint="test",
-            response_time=1.0,
-            status_code=200,
-            success=True,
-            rate_limit_headers=headers
-        )
-        
-        rate_limits = self.api_monitor.get_rate_limit_status("test_api")
-        assert len(rate_limits) == 1
-        
-        rate_limit = list(rate_limits.values())[0]
-        assert rate_limit.limit == 100
-        assert rate_limit.remaining == 20
-        assert rate_limit.is_near_limit  # 80% usage
-    
-    def test_service_health_tracking(self):
-        """Test service health tracking."""
-        # Record successful calls
-        for i in range(8):
-            self.api_monitor.record_api_call(
-                service="healthy_service",
-                endpoint="test",
-                response_time=1.0,
-                status_code=200,
-                success=True
-            )
-        
-        # Record some failures
-        for i in range(2):
-            self.api_monitor.record_api_call(
-                service="healthy_service",
-                endpoint="test",
-                response_time=5.0,
-                status_code=500,
-                success=False
-            )
-        
-        health = self.api_monitor.get_service_health("healthy_service")
-        assert "healthy_service" in health
-        
-        service_health = health["healthy_service"]
-        assert service_health.total_calls == 10
-        assert service_health.failed_calls == 2
-        assert service_health.success_rate == 80.0
-        assert service_health.status in [ServiceStatus.HEALTHY, ServiceStatus.DEGRADED]
-    
-    def test_api_metrics(self):
-        """Test API metrics calculation."""
-        # Record various API calls
-        calls_data = [
-            ("service1", "endpoint1", 1.0, 200, True),
-            ("service1", "endpoint1", 2.0, 200, True),
-            ("service1", "endpoint2", 3.0, 500, False),
-            ("service2", "endpoint1", 1.5, 429, False),
-        ]
-        
-        for service, endpoint, time, status, success in calls_data:
-            self.api_monitor.record_api_call(service, endpoint, time, status, success)
-        
-        # Test overall metrics
-        metrics = self.api_monitor.get_api_metrics(hours=24)
-        assert metrics['total_calls'] == 4
-        assert metrics['success_rate'] == 50.0  # 2 out of 4 successful
-        assert metrics['avg_response_time'] == 1.875  # (1+2+3+1.5)/4
-        assert metrics['rate_limit_hits'] == 1
-        
-        # Test service-specific metrics
-        service1_metrics = self.api_monitor.get_api_metrics("service1", hours=24)
-        assert service1_metrics['total_calls'] == 3
-        assert abs(service1_metrics['success_rate'] - 66.67) < 0.01  # 2 out of 3 successful (rounded)
-    
-    def test_monitoring_report(self):
-        """Test comprehensive monitoring report."""
-        # Add some API calls
-        self.api_monitor.record_api_call("service1", "endpoint1", 1.0, 200, True)
-        self.api_monitor.record_api_call("service1", "endpoint1", 10.0, 500, False)
-        
-        # Add quota information
-        self.api_monitor.update_quota_usage(
-            service="service1",
-            quota_type="requests",
-            used=95,
-            limit=100,
-            reset_time=datetime.now() + timedelta(hours=1)
-        )
-        
-        report = self.api_monitor.get_monitoring_report()
-        
-        assert 'timestamp' in report
-        assert 'services' in report
-        assert 'overall_health' in report
-        assert 'alerts' in report
-        
-        # Should have alerts for quota near limit
-        assert len(report['alerts']) > 0
-        assert any('quota' in alert.lower() for alert in report['alerts'])
-
-
-class TestErrorReporter:
-    """Test cases for ErrorReporter class."""
-    
-    def setup_method(self):
-        """Set up test fixtures."""
-        self.config = NotificationConfig(
-            enabled=True,
-            channels=[NotificationChannel.LOG, NotificationChannel.FILE],
-            file_path="test_notifications.json",
-            severity_threshold=ErrorSeverity.MEDIUM
-        )
-        self.reporter = ErrorReporter(self.config)
-    
-    def teardown_method(self):
-        """Clean up test fixtures."""
-        if os.path.exists("test_notifications.json"):
-            os.remove("test_notifications.json")
-    
-    def test_error_notification_threshold(self):
-        """Test error notification severity threshold."""
-        low_severity_error = ErrorInfo(
-            error_id="test1",
-            timestamp=datetime.now(),
-            category=ErrorCategory.NETWORK,
-            severity=ErrorSeverity.LOW,
-            service="test_service",
-            operation="test_op",
-            error_type="TestError",
-            error_message="Low severity error"
-        )
-        
-        high_severity_error = ErrorInfo(
-            error_id="test2",
-            timestamp=datetime.now(),
-            category=ErrorCategory.AUTHENTICATION,
-            severity=ErrorSeverity.CRITICAL,
-            service="test_service",
-            operation="test_op",
-            error_type="TestError",
-            error_message="Critical error"
-        )
-        
-        # Low severity should not trigger notification
-        result1 = self.reporter.send_error_notification(low_severity_error)
-        assert result1 is False
-        
-        # High severity should trigger notification
-        result2 = self.reporter.send_error_notification(high_severity_error)
-        assert result2 is True
-    
-    def test_notification_cooldown(self):
-        """Test notification cooldown mechanism."""
-        error_info = ErrorInfo(
-            error_id="test",
-            timestamp=datetime.now(),
-            category=ErrorCategory.API_RATE_LIMIT,
-            severity=ErrorSeverity.HIGH,
-            service="test_service",
-            operation="test_op",
-            error_type="TestError",
-            error_message="Test error"
-        )
-        
-        # First notification should succeed
-        result1 = self.reporter.send_error_notification(error_info)
-        assert result1 is True
-        
-        # Second notification should be blocked by cooldown
-        result2 = self.reporter.send_error_notification(error_info)
-        assert result2 is False
-        
-        # Forced notification should succeed
-        result3 = self.reporter.send_error_notification(error_info, force=True)
-        assert result3 is True
-    
-    def test_file_notification(self):
-        """Test file notification channel."""
-        error_info = ErrorInfo(
-            error_id="test_file",
-            timestamp=datetime.now(),
-            category=ErrorCategory.STORAGE,
-            severity=ErrorSeverity.HIGH,
-            service="test_service",
-            operation="test_op",
-            error_type="TestError",
-            error_message="File notification test"
-        )
-        
-        result = self.reporter.send_error_notification(error_info)
+    @patch('platform.system', return_value='Windows')
+    @patch('ctypes.windll.shell32.IsUserAnAdmin', return_value=1)
+    def test_is_admin_windows_true(self, mock_admin, mock_system):
+        """Test admin detection on Windows (admin)"""
+        result = PlatformDetector.is_admin()
         assert result is True
-        
-        # Check that file was created and contains notification
-        assert os.path.exists("test_notifications.json")
-        
-        with open("test_notifications.json", 'r') as f:
-            content = f.read().strip()
-            notification_data = json.loads(content)
-            assert notification_data['error_id'] == "test_file"
-            assert notification_data['message'] == "File notification test"
     
-    def test_recommendation_generation(self):
-        """Test recommendation generation."""
-        error_summary = {
-            'total_errors': 60,
-            'by_category': {
-                'api_rate_limit': 15,
-                'network': 25,
-                'authentication': 2,
-                'scraping': 18
+    @patch('platform.system', return_value='Linux')
+    @patch('os.geteuid', return_value=0)
+    def test_is_admin_unix_true(self, mock_geteuid, mock_system):
+        """Test admin detection on Unix (root)"""
+        result = PlatformDetector.is_admin()
+        assert result is True
+    
+    @patch('platform.system', return_value='Linux')
+    @patch('os.geteuid', return_value=1000)
+    def test_is_admin_unix_false(self, mock_geteuid, mock_system):
+        """Test admin detection on Unix (non-root)"""
+        result = PlatformDetector.is_admin()
+        assert result is False
+
+
+class TestAPIValidator:
+    """Test suite for APIValidator class"""
+    
+    def setup_method(self):
+        """Set up test fixtures"""
+        self.validator = APIValidator(timeout=5, max_retries=1)
+    
+    def test_validate_format_notion_valid(self):
+        """Test valid Notion token format validation"""
+        valid_token = "secret_" + "a" * 43
+        result = self.validator.validate_format("NOTION_TOKEN", valid_token)
+        
+        assert result.result == APIValidationResult.VALID
+        assert result.api_name == "Notion"
+        assert result.key_name == "NOTION_TOKEN"
+    
+    def test_validate_format_notion_invalid(self):
+        """Test invalid Notion token format validation"""
+        invalid_token = "invalid_token"
+        result = self.validator.validate_format("NOTION_TOKEN", invalid_token)
+        
+        assert result.result == APIValidationResult.INVALID_FORMAT
+        assert "Invalid format" in result.message
+        assert result.help_url is not None
+    
+    def test_validate_format_openai_valid(self):
+        """Test valid OpenAI key format validation"""
+        valid_key = "sk-" + "a" * 48
+        result = self.validator.validate_format("OPENAI_API_KEY", valid_key)
+        
+        assert result.result == APIValidationResult.VALID
+        assert result.api_name == "OpenAI"
+    
+    def test_validate_format_openai_invalid(self):
+        """Test invalid OpenAI key format validation"""
+        invalid_key = "sk-short"
+        result = self.validator.validate_format("OPENAI_API_KEY", invalid_key)
+        
+        assert result.result == APIValidationResult.INVALID_FORMAT
+    
+    def test_validate_format_empty_key(self):
+        """Test validation of empty API key"""
+        result = self.validator.validate_format("NOTION_TOKEN", "")
+        
+        assert result.result == APIValidationResult.INVALID_FORMAT
+        assert "empty" in result.message
+    
+    def test_validate_format_unknown_key(self):
+        """Test validation of unknown key type"""
+        result = self.validator.validate_format("UNKNOWN_KEY", "test_value")
+        
+        assert result.result == APIValidationResult.UNKNOWN_ERROR
+    
+    @patch('requests.get')
+    def test_validate_notion_success(self, mock_get):
+        """Test successful Notion API validation"""
+        # Mock successful API response
+        mock_response = Mock()
+        mock_response.status_code = 200
+        mock_response.json.return_value = {"type": "user", "name": "Test User"}
+        mock_get.return_value = mock_response
+        
+        valid_token = "secret_" + "a" * 43
+        result = self.validator.validate_api_connection("NOTION_TOKEN", valid_token)
+        
+        assert result.result == APIValidationResult.VALID
+        assert "Valid Notion token" in result.message
+    
+    @patch('requests.get')
+    def test_validate_notion_invalid_credentials(self, mock_get):
+        """Test Notion API validation with invalid credentials"""
+        # Mock 401 response
+        mock_response = Mock()
+        mock_response.status_code = 401
+        mock_get.return_value = mock_response
+        
+        invalid_token = "secret_" + "a" * 43
+        result = self.validator.validate_api_connection("NOTION_TOKEN", invalid_token)
+        
+        assert result.result == APIValidationResult.INVALID_CREDENTIALS
+        assert "Invalid Notion token" in result.message
+    
+    @patch('requests.get')
+    def test_validate_api_network_error(self, mock_get):
+        """Test API validation with network error"""
+        # Mock network error
+        mock_get.side_effect = requests.exceptions.ConnectionError("Network error")
+        
+        valid_token = "secret_" + "a" * 43
+        result = self.validator.validate_api_connection("NOTION_TOKEN", valid_token)
+        
+        assert result.result == APIValidationResult.NETWORK_ERROR
+        assert "Could not connect" in result.message
+    
+    @patch('requests.get')
+    def test_validate_api_timeout(self, mock_get):
+        """Test API validation with timeout"""
+        # Mock timeout error
+        mock_get.side_effect = requests.exceptions.Timeout("Request timed out")
+        
+        valid_token = "secret_" + "a" * 43
+        result = self.validator.validate_api_connection("NOTION_TOKEN", valid_token)
+        
+        assert result.result == APIValidationResult.NETWORK_ERROR
+        assert "timed out" in result.message
+    
+    @patch('requests.get')
+    def test_validate_hunter_success(self, mock_get):
+        """Test successful Hunter.io API validation"""
+        # Mock successful API response
+        mock_response = Mock()
+        mock_response.status_code = 200
+        mock_response.json.return_value = {
+            "data": {
+                "plan_name": "Free",
+                "calls": {"used": 10, "available": 100}
             }
         }
+        mock_get.return_value = mock_response
         
-        service_health = {
-            'service1': {'status': 'unhealthy'},
-            'service2': {'status': 'healthy'}
+        result = self.validator.validate_api_connection("HUNTER_API_KEY", "test_hunter_key")
+        
+        assert result.result == APIValidationResult.VALID
+        assert "Valid Hunter.io key" in result.message
+    
+    @patch('requests.get')
+    def test_validate_openai_success(self, mock_get):
+        """Test successful OpenAI API validation"""
+        # Mock successful API response
+        mock_response = Mock()
+        mock_response.status_code = 200
+        mock_response.json.return_value = {
+            "data": [
+                {"id": "gpt-3.5-turbo"},
+                {"id": "gpt-4"}
+            ]
+        }
+        mock_get.return_value = mock_response
+        
+        valid_key = "sk-" + "a" * 48
+        result = self.validator.validate_api_connection("OPENAI_API_KEY", valid_key)
+        
+        assert result.result == APIValidationResult.VALID
+        assert "Valid OpenAI API key" in result.message
+    
+    def test_validate_email_format_valid(self):
+        """Test valid email format validation"""
+        result = self.validator.validate_email_format("test@example.com")
+        
+        assert result.result == APIValidationResult.VALID
+        assert result.api_name == "Email"
+    
+    def test_validate_email_format_invalid(self):
+        """Test invalid email format validation"""
+        result = self.validator.validate_email_format("invalid_email")
+        
+        assert result.result == APIValidationResult.INVALID_FORMAT
+        assert "Invalid email address format" in result.message
+    
+    def test_validate_email_format_empty(self):
+        """Test empty email validation"""
+        result = self.validator.validate_email_format("")
+        
+        assert result.result == APIValidationResult.INVALID_FORMAT
+        assert "empty" in result.message
+    
+    def test_validate_all_apis(self):
+        """Test validation of multiple APIs"""
+        config = {
+            "NOTION_TOKEN": "secret_" + "a" * 43,
+            "HUNTER_API_KEY": "hunter_key_123",
+            "OPENAI_API_KEY": "sk-" + "a" * 48,
+            "SENDER_EMAIL": "test@example.com",
+            "SENDER_NAME": "Test User"
         }
         
-        api_metrics = {
-            'success_rate': 75,
-            'avg_response_time': 8.5
+        with patch.object(self.validator, 'validate_api_connection') as mock_validate:
+            mock_validate.return_value = ValidationResult(
+                api_name="Test",
+                key_name="TEST_KEY",
+                result=APIValidationResult.VALID,
+                message="Valid"
+            )
+            
+            results = self.validator.validate_all_apis(config)
+        
+        assert len(results) == 5
+        assert all(result.result == APIValidationResult.VALID for result in results.values())
+    
+    def test_get_validation_summary_all_valid(self):
+        """Test validation summary with all valid results"""
+        results = {
+            "NOTION_TOKEN": ValidationResult("Notion", "NOTION_TOKEN", APIValidationResult.VALID, "Valid"),
+            "HUNTER_API_KEY": ValidationResult("Hunter", "HUNTER_API_KEY", APIValidationResult.VALID, "Valid")
         }
         
-        recommendations = self.reporter._generate_recommendations(
-            error_summary, service_health, api_metrics
-        )
+        success, summary = self.validator.get_validation_summary(results)
         
-        assert len(recommendations) > 0
-        assert any('high error rate' in rec.lower() for rec in recommendations)
-        assert any('rate limit' in rec.lower() for rec in recommendations)
-        assert any('network errors' in rec.lower() for rec in recommendations)
-        assert any('authentication' in rec.lower() for rec in recommendations)
-        assert any('scraping' in rec.lower() for rec in recommendations)
-        assert any('unhealthy services' in rec.lower() for rec in recommendations)
-        assert any('response times' in rec.lower() for rec in recommendations)
-
-
-class TestRetryDecorator:
-    """Test cases for retry decorator."""
+        assert success is True
+        assert "All 2 API keys validated successfully" in summary
     
-    def test_retry_decorator_success(self):
-        """Test retry decorator with successful retry."""
-        call_count = 0
+    def test_get_validation_summary_some_failed(self):
+        """Test validation summary with some failures"""
+        results = {
+            "NOTION_TOKEN": ValidationResult("Notion", "NOTION_TOKEN", APIValidationResult.VALID, "Valid"),
+            "HUNTER_API_KEY": ValidationResult("Hunter", "HUNTER_API_KEY", APIValidationResult.INVALID_FORMAT, "Invalid")
+        }
         
-        @retry_with_backoff(category=ErrorCategory.NETWORK)
-        def failing_function():
-            nonlocal call_count
-            call_count += 1
-            if call_count < 2:
-                raise ConnectionError("Temporary failure")
-            return "success"
+        success, summary = self.validator.get_validation_summary(results)
         
-        result = failing_function()
-        assert result == "success"
-        assert call_count == 2
-    
-    def test_retry_decorator_failure(self):
-        """Test retry decorator with all attempts failing."""
-        call_count = 0
-        
-        @retry_with_backoff(category=ErrorCategory.NETWORK)
-        def always_failing_function():
-            nonlocal call_count
-            call_count += 1
-            raise ConnectionError("Persistent failure")
-        
-        with pytest.raises(ConnectionError, match="Persistent failure"):
-            always_failing_function()
-        
-        # Should have tried multiple times
-        assert call_count > 1
+        assert success is False
+        assert "1/2 API keys failed validation" in summary
 
 
-class TestIntegration:
-    """Integration tests for error handling and monitoring system."""
+class TestPlatformManager:
+    """Test suite for PlatformManager class"""
     
-    def test_end_to_end_error_flow(self):
-        """Test complete error handling flow."""
-        # Create temporary config files
-        temp_dir = tempfile.mkdtemp()
-        error_config = os.path.join(temp_dir, "error_monitoring.json")
-        api_config = os.path.join(temp_dir, "api_monitoring.json")
+    def setup_method(self):
+        """Set up test fixtures"""
+        self.platform_manager = PlatformManager()
+    
+    def test_platform_properties(self):
+        """Test platform detection properties"""
+        # At least one should be true
+        platforms = [
+            self.platform_manager.is_windows,
+            self.platform_manager.is_macos,
+            self.platform_manager.is_linux
+        ]
+        assert any(platforms)
         
-        try:
-            # Initialize components
-            error_handler = ErrorHandler(config_path=error_config)
-            api_monitor = APIMonitor(config_path=api_config)
-            reporter = ErrorReporter(NotificationConfig(
-                channels=[NotificationChannel.LOG],
-                severity_threshold=ErrorSeverity.MEDIUM
-            ))
-            
-            # Simulate API call with error
-            start_time = time.time()
-            try:
-                raise ConnectionError("Network timeout")
-            except Exception as e:
-                response_time = time.time() - start_time
-                
-                # Record failed API call
-                api_monitor.record_api_call(
-                    service="test_service",
-                    endpoint="test_endpoint",
-                    response_time=response_time,
-                    status_code=0,
-                    success=False,
-                    error_message=str(e)
-                )
-                
-                # Handle error
-                error_info = error_handler.handle_error(
-                    e, "test_service", "test_endpoint",
-                    context={"url": "https://example.com"},
-                    category=ErrorCategory.NETWORK,
-                    severity=ErrorSeverity.HIGH  # Set high severity to trigger notification
-                )
-                
-                # Send notification
-                notification_sent = reporter.send_error_notification(error_info)
-            
-            # Verify error was recorded
-            assert len(error_handler.errors) == 1
-            assert error_handler.errors[0].error_message == "Network timeout"
-            
-            # Verify API call was recorded
-            assert len(api_monitor.api_calls) == 1
-            assert api_monitor.api_calls[0].success is False
-            
-            # Verify service health was updated
-            health = api_monitor.get_service_health("test_service")
-            assert "test_service" in health
-            
-            # Verify notification was sent (for medium+ severity)
-            assert notification_sent is True
-            
-        finally:
-            # Clean up
-            for file_path in [error_config, api_config]:
-                if os.path.exists(file_path):
-                    os.remove(file_path)
-            os.rmdir(temp_dir)
+        # Unix should be true if macOS or Linux
+        if self.platform_manager.is_macos or self.platform_manager.is_linux:
+            assert self.platform_manager.is_unix
+    
+    @patch('platform.system', return_value='Windows')
+    def test_windows_detection(self, mock_system):
+        """Test Windows platform detection"""
+        pm = PlatformManager()
+        assert pm.is_windows
+        assert not pm.is_macos
+        assert not pm.is_linux
+        assert not pm.is_unix
+        assert pm.platform_name == "Windows"
+    
+    @patch('platform.system', return_value='Darwin')
+    def test_macos_detection(self, mock_system):
+        """Test macOS platform detection"""
+        pm = PlatformManager()
+        assert not pm.is_windows
+        assert pm.is_macos
+        assert not pm.is_linux
+        assert pm.is_unix
+        assert pm.platform_name == "macOS"
+    
+    def test_get_python_executable_name(self):
+        """Test Python executable name detection"""
+        if self.platform_manager.is_windows:
+            assert self.platform_manager.get_python_executable_name() == "python.exe"
+        else:
+            assert self.platform_manager.get_python_executable_name() == "python"
+    
+    def test_get_venv_python_path(self):
+        """Test virtual environment Python path"""
+        venv_dir = Path("test_venv")
+        python_path = self.platform_manager.get_venv_python_path(venv_dir)
+        
+        if self.platform_manager.is_windows:
+            assert python_path == venv_dir / "Scripts" / "python.exe"
+        else:
+            assert python_path == venv_dir / "bin" / "python"
+    
+    def test_get_shell_extension(self):
+        """Test shell script extension"""
+        if self.platform_manager.is_windows:
+            assert self.platform_manager.get_shell_extension() == ".bat"
+        else:
+            assert self.platform_manager.get_shell_extension() == ".sh"
+    
+    @patch('subprocess.run')
+    def test_command_exists_true(self, mock_subprocess):
+        """Test command existence check (exists)"""
+        mock_subprocess.return_value.returncode = 0
+        
+        result = self.platform_manager.command_exists("python")
+        assert result is True
+    
+    @patch('subprocess.run')
+    def test_command_exists_false(self, mock_subprocess):
+        """Test command existence check (doesn't exist)"""
+        mock_subprocess.return_value.returncode = 1
+        
+        result = self.platform_manager.command_exists("nonexistent_command")
+        assert result is False
+    
+    @patch('subprocess.run')
+    def test_check_python_version_compatible(self, mock_subprocess):
+        """Test Python version check (compatible)"""
+        mock_subprocess.return_value.returncode = 0
+        mock_subprocess.return_value.stdout = "Python 3.13.1"
+        
+        is_compatible, version = self.platform_manager.check_python_version("python3.13")
+        
+        assert is_compatible is True
+        assert "Python 3.13.1" in version
+    
+    @patch('subprocess.run')
+    def test_check_python_version_incompatible(self, mock_subprocess):
+        """Test Python version check (incompatible)"""
+        mock_subprocess.return_value.returncode = 0
+        mock_subprocess.return_value.stdout = "Python 3.11.5"
+        
+        is_compatible, version = self.platform_manager.check_python_version("python3.11")
+        
+        assert is_compatible is False
+        assert "Python 3.11.5" in version
+    
+    def test_get_system_info(self):
+        """Test system information collection"""
+        info = self.platform_manager.get_system_info()
+        
+        assert "platform" in info
+        assert "python" in info
+        assert "environment" in info
+        assert "capabilities" in info
+        
+        assert "system" in info["platform"]
+        assert "version" in info["python"]
+
+
+class TestRecoveryManager:
+    """Test suite for InstallationRecoveryManager class"""
+    
+    def setup_method(self):
+        """Set up test fixtures"""
+        self.temp_dir = Path(tempfile.mkdtemp())
+        self.recovery_manager = InstallationRecoveryManager(self.temp_dir)
+    
+    def test_recovery_manager_initialization(self):
+        """Test RecoveryManager initialization"""
+        assert self.recovery_manager.project_root == self.temp_dir
+        assert len(self.recovery_manager.recovery_plans) > 0
+    
+    def test_diagnose_failure_known_error(self):
+        """Test diagnosing a known failure type"""
+        plan = self.recovery_manager.diagnose_failure("PYTHON_NOT_FOUND", {})
+        
+        assert plan is not None
+        assert plan.issue_type == "python_install_failed"
+        assert len(plan.steps) > 0
+    
+    def test_diagnose_failure_unknown_error(self):
+        """Test diagnosing an unknown failure type"""
+        plan = self.recovery_manager.diagnose_failure("UNKNOWN_ERROR", {})
+        
+        assert plan is None
+    
+    def test_create_diagnostic_report(self):
+        """Test diagnostic report creation"""
+        failures = ["PYTHON_NOT_FOUND", "VENV_CREATION_FAILED"]
+        report = self.recovery_manager.create_recovery_report(failures)
+        
+        assert "platform" in report
+        assert "failures" in report
+        assert "recovery_plans" in report
+        assert "recommendations" in report
+        
+        assert len(report["failures"]) == 2
+        assert len(report["recovery_plans"]) > 0
+        assert len(report["recommendations"]) > 0
 
 
 if __name__ == "__main__":

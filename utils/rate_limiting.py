@@ -165,6 +165,7 @@ class SlidingWindowCounter:
         self.max_requests = max_requests
         self.requests: List[float] = []
         self._lock = threading.Lock()
+        self.logger = get_logger(__name__)
     
     def can_proceed(self) -> bool:
         """
@@ -180,12 +181,19 @@ class SlidingWindowCounter:
             cutoff_time = now - self.window_size
             self.requests = [req_time for req_time in self.requests if req_time > cutoff_time]
             
-            return len(self.requests) < self.max_requests
+            result = len(self.requests) < self.max_requests
+            self.logger.info(f"SlidingWindowCounter.can_proceed: {result}, requests={len(self.requests)}, max={self.max_requests}, cutoff_time={cutoff_time:.2f}")
+            return result
     
     def record_request(self) -> None:
         """Record a new request."""
         with self._lock:
-            self.requests.append(time.time())
+            now = time.time()
+            # Remove old requests outside the window before adding new one
+            cutoff_time = now - self.window_size
+            self.requests = [req_time for req_time in self.requests if req_time > cutoff_time]
+            self.requests.append(now)
+            self.logger.info(f"SlidingWindowCounter.record_request: requests={len(self.requests)}, times={[f'{req-now:.2f}' for req in self.requests]}")
     
     def get_wait_time(self) -> float:
         """
@@ -195,13 +203,24 @@ class SlidingWindowCounter:
             Wait time in seconds
         """
         with self._lock:
+            now = time.time()
+            
+            # Remove old requests outside the window
+            cutoff_time = now - self.window_size
+            self.requests = [req_time for req_time in self.requests if req_time > cutoff_time]
+            
             if len(self.requests) < self.max_requests:
+                self.logger.info(f"SlidingWindowCounter.get_wait_time: 0.0, requests={len(self.requests)}, max={self.max_requests}")
                 return 0.0
             
             # Find the oldest request that needs to expire
-            oldest_request = min(self.requests)
-            wait_time = (oldest_request + self.window_size) - time.time()
-            return max(0.0, wait_time)
+            if self.requests:
+                oldest_request = min(self.requests)
+                wait_time = (oldest_request + self.window_size) - now
+                self.logger.info(f"SlidingWindowCounter.get_wait_time: {wait_time:.2f}, requests={len(self.requests)}, max={self.max_requests}, oldest={oldest_request:.2f}, now={now:.2f}")
+                return max(0.0, wait_time)
+            self.logger.info(f"SlidingWindowCounter.get_wait_time: 0.0 (no requests)")
+            return 0.0
 
 
 class RateLimitingService:
@@ -264,11 +283,30 @@ class RateLimitingService:
             strategy=RateLimitStrategy.TOKEN_BUCKET
         ))
         
-        # Hunter.io rate limits - increased for better performance
-        hunter_rpm = getattr(self.config, 'hunter_requests_per_minute', 25)  # Increased from 10 to 25
+        # Hunter.io rate limits - using safer default
+        hunter_rpm = getattr(self.config, 'hunter_requests_per_minute', 10)  # Safer default of 10
+        # Add rate limits for both domain search and email finder endpoints
         self.add_rate_limit(RateLimitConfig(
             service_name="hunter",
-            operation="email_finder",
+            operation="domain-search",  # Match the actual API endpoint
+            requests_per_minute=hunter_rpm,
+            requests_per_hour=hunter_rpm * 60,
+            burst_limit=3,
+            strategy=RateLimitStrategy.SLIDING_WINDOW
+        ))
+        
+        self.add_rate_limit(RateLimitConfig(
+            service_name="hunter",
+            operation="email-finder",  # Match the actual API endpoint
+            requests_per_minute=hunter_rpm,
+            requests_per_hour=hunter_rpm * 60,
+            burst_limit=3,
+            strategy=RateLimitStrategy.SLIDING_WINDOW
+        ))
+        
+        self.add_rate_limit(RateLimitConfig(
+            service_name="hunter",
+            operation="email-verifier",  # Match the actual API endpoint
             requests_per_minute=hunter_rpm,
             requests_per_hour=hunter_rpm * 60,
             burst_limit=3,
@@ -344,10 +382,12 @@ class RateLimitingService:
                     refill_rate=rate_limit_config.requests_per_minute / 60.0
                 )
             elif rate_limit_config.strategy == RateLimitStrategy.SLIDING_WINDOW:
-                self.sliding_windows[key] = SlidingWindowCounter(
+                window = SlidingWindowCounter(
                     window_size=60,  # 1 minute window
                     max_requests=rate_limit_config.requests_per_minute
                 )
+                self.sliding_windows[key] = window
+                self.logger.info(f"Initialized sliding window for {key}: max_requests={window.max_requests}")
         
         self.logger.info(f"Added rate limit for {key}: {rate_limit_config.requests_per_minute} RPM")
     
@@ -361,6 +401,8 @@ class RateLimitingService:
         """
         key = f"{service_name}.{operation}"
         
+        self.logger.info(f"wait_for_service called for {key}")
+        
         # Check if rate limit exists
         if key not in self.rate_limits:
             self.logger.debug(f"No rate limit configured for {key}")
@@ -370,16 +412,63 @@ class RateLimitingService:
         
         # Skip if rate limiting is disabled
         if not rate_limit.enabled:
+            self.logger.debug(f"Rate limiting disabled for {key}")
             return
         
+        # Check if we can proceed immediately
+        can_proceed = self.can_make_request(service_name, operation)
+        self.logger.info(f"Can proceed immediately for {key}: {can_proceed}")
+        
+        if can_proceed:
+            # Record the request immediately
+            self._record_request(key)
+            self.logger.info(f"Request recorded immediately for {key}")
+            return
+        
+        # If we can't proceed, wait until we can
         wait_time = self._get_wait_time(key)
+        
+        self.logger.info(f"Rate limit check for {key}: wait_time={wait_time:.2f}s, RPM={rate_limit.requests_per_minute}")
         
         if wait_time > 0:
             self.logger.info(f"Rate limiting {key}: waiting {wait_time:.2f}s")
             time.sleep(wait_time)
         
-        # Record the request
+        # Record the request after waiting
         self._record_request(key)
+        self.logger.info(f"Request recorded for {key} after waiting")
+    
+    def _get_wait_time(self, key: str) -> float:
+        """
+        Get wait time for a specific rate limit key.
+        
+        Args:
+            key: Rate limit key
+            
+        Returns:
+            Wait time in seconds
+        """
+        if key not in self.rate_limits:
+            self.logger.debug(f"_get_wait_time: No rate limit for {key}")
+            return 0.0
+        
+        rate_limit = self.rate_limits[key]
+        self.logger.debug(f"_get_wait_time: {key} strategy={rate_limit.strategy.value}")
+        
+        if rate_limit.strategy == RateLimitStrategy.TOKEN_BUCKET:
+            bucket = self.token_buckets.get(key)
+            wait_time = bucket.get_wait_time() if bucket else 0.0
+            self.logger.debug(f"_get_wait_time: token bucket wait_time={wait_time:.2f}")
+            return wait_time
+        
+        elif rate_limit.strategy == RateLimitStrategy.SLIDING_WINDOW:
+            window = self.sliding_windows.get(key)
+            wait_time = window.get_wait_time() if window else 0.0
+            self.logger.debug(f"_get_wait_time: sliding window wait_time={wait_time:.2f}")
+            return wait_time
+        
+        self.logger.debug(f"_get_wait_time: default 0.0")
+        return 0.0
     
     def can_make_request(self, service_name: str, operation: str = "default") -> bool:
         """
@@ -395,12 +484,17 @@ class RateLimitingService:
         key = f"{service_name}.{operation}"
         
         if key not in self.rate_limits:
+            self.logger.debug(f"can_make_request: No rate limit for {key}, allowing request")
             return True
         
         if not self.rate_limits[key].enabled:
+            self.logger.debug(f"can_make_request: Rate limit disabled for {key}, allowing request")
             return True
         
-        return self._get_wait_time(key) == 0
+        # Check if the sliding window allows immediate execution
+        window_result = self.sliding_windows.get(key, SlidingWindowCounter(60, 1000)).can_proceed()
+        self.logger.debug(f"can_make_request: {key} sliding window result={window_result}")
+        return window_result
     
     def get_wait_time(self, service_name: str, operation: str = "default") -> float:
         """
@@ -415,31 +509,6 @@ class RateLimitingService:
         """
         key = f"{service_name}.{operation}"
         return self._get_wait_time(key)
-    
-    def _get_wait_time(self, key: str) -> float:
-        """
-        Get wait time for a specific rate limit key.
-        
-        Args:
-            key: Rate limit key
-            
-        Returns:
-            Wait time in seconds
-        """
-        if key not in self.rate_limits:
-            return 0.0
-        
-        rate_limit = self.rate_limits[key]
-        
-        if rate_limit.strategy == RateLimitStrategy.TOKEN_BUCKET:
-            bucket = self.token_buckets.get(key)
-            return bucket.get_wait_time() if bucket else 0.0
-        
-        elif rate_limit.strategy == RateLimitStrategy.SLIDING_WINDOW:
-            window = self.sliding_windows.get(key)
-            return window.get_wait_time() if window else 0.0
-        
-        return 0.0
     
     def _record_request(self, key: str) -> None:
         """

@@ -1,0 +1,5 @@
+{
+  "env_file": "E:/github/outreach-for-job/.env",
+  "config_file": "E:/github/outreach-for-job/config/config.yaml",
+  "default_sender_profile": "E:/github/outreach-for-job/config/README.md"
+}

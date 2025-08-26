@@ -36,7 +36,7 @@ def create_profile(format, output, interactive):
         
         if interactive:
             console.print("[blue]Starting interactive profile creation...[/blue]")
-            profile = manager.create_profile_interactively()
+            profile = manager.create_profile_interactively(check_existing=True)
             console.print(f"[green]Profile created successfully for {profile.name}![/green]")
         else:
             console.print(f"[blue]Generating {format} template...[/blue]")

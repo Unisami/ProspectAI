@@ -1,28 +1,108 @@
-# Job Prospect Automation CLI Usage Guide
+<div align="center">
 
-## Overview
+# 💻 Job Prospect Automation CLI Usage Guide
+*Complete command reference with interactive examples and troubleshooting*
 
-The Job Prospect Automation CLI provides a command-line interface for running different stages of the job prospecting workflow. It supports configuration management, dry-run mode for testing, and comprehensive help documentation.
+🚀 **Quick Commands** • 🔧 **Advanced Usage** • 📈 **Performance Monitoring** • 🔍 **Debugging Tools**
 
-## Installation
+[![CLI Tool](https://img.shields.io/badge/interface-CLI-blue.svg)]()
+[![Commands](https://img.shields.io/badge/commands-25+-green.svg)]()
+[![Cross Platform](https://img.shields.io/badge/platform-Windows%20%7C%20macOS%20%7C%20Linux-lightgrey.svg)]()
 
-1. Install dependencies:
+</div>
+
+---
+
+## 🎨 CLI Command Tree
+
+<div align="center">
+
+**🗺️ Visual overview of all available commands**
+
+</div>
+
+```mermaid
+flowchart TD
+    A[cli.py] --> B[🚀 Quick Commands]
+    A --> C[🔧 Setup Commands]
+    A --> D[📈 Campaign Commands]
+    A --> E[📧 Email Commands]
+    A --> F[📊 Status & Reporting]
+    A --> G[👤 Profile Management]
+    
+    B --> B1[quick-start]
+    B --> B2[run-campaign]
+    
+    C --> C1[setup-dashboard]
+    C --> C2[validate-config]
+    C --> C3[test-components]
+    
+    D --> D1[discover]
+    D --> D2[process-company]
+    D --> D3[enhanced-workflow]
+    
+    E --> E1[generate-emails]
+    E --> E2[generate-emails-recent]
+    E --> E3[send-emails]
+    E --> E4[send-emails-recent]
+    
+    F --> F1[campaign-status]
+    F --> F2[daily-summary]
+    F --> F3[analytics-report]
+    F --> F4[email-queue]
+    
+    G --> G1[profile-setup]
+    G --> G2[setup-profile]
+    
+    style B fill:#e8f5e8
+    style C fill:#e1f5fe
+    style D fill:#f3e5f5
+    style E fill:#fff3e0
+    style F fill:#fce4ec
+    style G fill:#e0f2f1
+```
+
+---
+
+## 🔧 Installation & Setup
+
+<div align="center">
+
+**🎯 Get CLI working in 3 steps**
+
+</div>
+
+### 💫 Quick Setup
+
 ```bash
+# 1. Install dependencies
 pip install -r requirements.txt
-```
 
-2. Set up your configuration (see Configuration section below)
-
-3. Run the CLI:
-```bash
+# 2. Test CLI access
 python cli.py --help
+
+# 3. Validate configuration
+python cli.py validate-config
 ```
 
-## Configuration
+### 🔑 Configuration Management
 
-### Environment Variables
+<div align="center">
 
-Set the following environment variables or create a `.env` file:
+| Method | Purpose | Command |
+|:---|:---|:---|
+| **Environment** | Standard setup | `.env` file |
+| **Config File** | Advanced users | `--config config.yaml` |
+| **Validation** | Test settings | `validate-config` |
+
+</div>
+
+#### Environment Variables Setup
+
+Create a `.env` file with your configuration:
+
+<details>
+<summary><strong>📄 Complete .env template (click to expand)</strong></summary>
 
 ```bash
 # Required API Keys

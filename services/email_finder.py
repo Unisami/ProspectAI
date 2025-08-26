@@ -1,6 +1,5 @@
 """
-Hunter.io email finder service for discovering and verifying email addresses.
-"""
+Hunter.io email finder service for discovering and verifying email addresses."""
 
 import time
 import logging
@@ -28,33 +27,9 @@ from utils.error_handling import (
     retry_with_backoff
 )
 from utils.api_monitor import get_api_monitor
-
-
-
+from utils.rate_limiting import wait_for_service, get_rate_limiter
 
 logger = logging.getLogger(__name__)
-
-
-class RateLimiter:
-    """Rate limiter for Hunter.io API calls."""
-    
-    def __init__(self, requests_per_minute: int = 10):
-        self.requests_per_minute = requests_per_minute
-        self.min_delay = 60.0 / requests_per_minute  # Minimum delay between requests
-        self.last_request_time = 0.0
-    
-    def wait_if_needed(self):
-        """Wait if necessary to respect rate limits."""
-        current_time = time.time()
-        time_since_last = current_time - self.last_request_time
-        
-        if time_since_last < self.min_delay:
-            sleep_time = self.min_delay - time_since_last
-            logger.debug(f"Rate limiting: sleeping for {sleep_time:.2f}s")
-            time.sleep(sleep_time)
-            self.last_request_time = time.time()
-        else:
-            self.last_request_time = current_time
 
 
 class EmailFinder:
@@ -88,9 +63,11 @@ class EmailFinder:
         
         self.api_key = self.config.hunter_api_key
         self.base_url = "https://api.hunter.io/v2"
-        self.rate_limiter = RateLimiter(requests_per_minute=self.config.hunter_requests_per_minute)
         self.error_handler = get_error_handler()
         self.api_monitor = get_api_monitor()
+        
+        # Initialize centralized rate limiting service
+        self.rate_limiter = get_rate_limiter(self.config)
         
         # HTTP session for requests
         self.session = requests.Session()
@@ -98,7 +75,7 @@ class EmailFinder:
             'User-Agent': 'JobProspectAutomation/1.0'
         })
         
-        logger.info("EmailFinder initialized with Hunter.io API")
+        logger.info(f"EmailFinder initialized with Hunter.io API (rate limit: {self.config.hunter_requests_per_minute} RPM)")
     
     def test_connection(self) -> bool:
         """
@@ -111,6 +88,9 @@ class EmailFinder:
             Exception if connection fails
         """
         try:
+            # Apply rate limiting
+            wait_for_service("hunter", "account-info")
+            
             # Test with account info endpoint
             url = f"{self.base_url}/account"
             params = {'api_key': self.api_key}
@@ -147,7 +127,8 @@ class EmailFinder:
             logger.warning("Empty domain provided")
             return []
         
-        self.rate_limiter.wait_if_needed()
+        # Apply centralized rate limiting
+        wait_for_service("hunter", "domain-search")
         
         start_time = time.time()
         try:
@@ -156,15 +137,25 @@ class EmailFinder:
             params = {
                 'domain': domain.strip(),
                 'api_key': self.api_key,
-                'limit': 100  # Maximum results per request
+                # Limit to 10 for Free plan to avoid 400 errors
+                'limit': 10
             }
             
             response = self.session.get(url, params=params)
             response_time = time.time() - start_time
             
+            # Log rate limit headers if present
+            rate_limit_info = {}
+            for header in ['X-RateLimit-Limit', 'X-RateLimit-Remaining', 'X-RateLimit-Reset', 'Retry-After']:
+                if header in response.headers:
+                    rate_limit_info[header] = response.headers[header]
+            
+            if rate_limit_info:
+                logger.info(f"Hunter.io rate limit headers: {rate_limit_info}")
+            
             # Record API call for monitoring
             self.api_monitor.record_api_call(
-                service='hunter_io',
+                service='hunter',
                 endpoint='domain-search',
                 response_time=response_time,
                 status_code=response.status_code,
@@ -172,17 +163,37 @@ class EmailFinder:
                 rate_limit_headers=dict(response.headers)
             )
             
+            # Handle rate limiting from response headers
+            if response.status_code == 429:
+                # Check if there's a Retry-After header
+                retry_after = response.headers.get('Retry-After')
+                if retry_after:
+                    try:
+                        retry_seconds = int(retry_after)
+                        logger.info(f"Hunter.io requested retry after {retry_seconds} seconds")
+                        time.sleep(retry_seconds)
+                    except ValueError:
+                        logger.warning(f"Invalid Retry-After header value: {retry_after}")
+            
             response.raise_for_status()
             data = response.json()
             
             # Check for API errors
             if 'errors' in data:
                 error_msg = data['errors'][0].get('details', 'Unknown API error')
-                error = Exception(f"Hunter.io API error: {error_msg}")
-                self.error_handler.handle_error(
-                    error, 'hunter_io', 'find_company_emails',
-                    context={'domain': domain}, category=ErrorCategory.API_QUOTA
-                )
+                # Check if this is a plan limitation error
+                if 'limited to' in error_msg and 'email addresses' in error_msg:
+                    error = Exception(f"Hunter.io plan limitation: {error_msg}")
+                    self.error_handler.handle_error(
+                        error, 'hunter', 'find_company_emails',
+                        context={'domain': domain}, category=ErrorCategory.API_QUOTA
+                    )
+                else:
+                    error = Exception(f"Hunter.io API error: {error_msg}")
+                    self.error_handler.handle_error(
+                        error, 'hunter', 'find_company_emails',
+                        context={'domain': domain}, category=ErrorCategory.API_QUOTA
+                    )
                 raise error
             
             # Parse email results
@@ -194,7 +205,7 @@ class EmailFinder:
         except requests.exceptions.HTTPError as e:
             response_time = time.time() - start_time
             self.api_monitor.record_api_call(
-                service='hunter_io',
+                service='hunter',
                 endpoint='domain-search',
                 response_time=response_time,
                 status_code=e.response.status_code if e.response else 0,
@@ -205,27 +216,27 @@ class EmailFinder:
             if e.response and e.response.status_code == 429:
                 error = Exception("Hunter.io rate limit exceeded")
                 self.error_handler.handle_error(
-                    error, 'hunter_io', 'find_company_emails',
+                    error, 'hunter', 'find_company_emails',
                     context={'domain': domain}, category=ErrorCategory.API_RATE_LIMIT
                 )
                 raise error
             elif e.response and e.response.status_code == 401:
                 error = Exception("Hunter.io API key invalid or expired")
                 self.error_handler.handle_error(
-                    error, 'hunter_io', 'find_company_emails',
+                    error, 'hunter', 'find_company_emails',
                     context={'domain': domain}, category=ErrorCategory.AUTHENTICATION
                 )
                 raise error
             else:
                 self.error_handler.handle_error(
-                    e, 'hunter_io', 'find_company_emails',
+                    e, 'hunter', 'find_company_emails',
                     context={'domain': domain}, category=ErrorCategory.NETWORK
                 )
                 raise
         except requests.exceptions.RequestException as e:
             response_time = time.time() - start_time
             self.api_monitor.record_api_call(
-                service='hunter_io',
+                service='hunter',
                 endpoint='domain-search',
                 response_time=response_time,
                 status_code=0,
@@ -234,13 +245,13 @@ class EmailFinder:
             )
             
             self.error_handler.handle_error(
-                e, 'hunter_io', 'find_company_emails',
+                e, 'hunter', 'find_company_emails',
                 context={'domain': domain}, category=ErrorCategory.NETWORK
             )
             raise
         except Exception as e:
             self.error_handler.handle_error(
-                e, 'hunter_io', 'find_company_emails',
+                e, 'hunter', 'find_company_emails',
                 context={'domain': domain}
             )
             raise
@@ -266,7 +277,8 @@ class EmailFinder:
             logger.warning("Empty name or domain provided")
             return None
         
-        self.rate_limiter.wait_if_needed()
+        # Apply centralized rate limiting for email finder
+        wait_for_service("hunter", "email-finder")
         
         start_time = time.time()
         try:
@@ -293,7 +305,7 @@ class EmailFinder:
             
             # Record API call for monitoring
             self.api_monitor.record_api_call(
-                service='hunter_io',
+                service='hunter',
                 endpoint='email-finder',
                 response_time=response_time,
                 status_code=response.status_code,
@@ -309,7 +321,7 @@ class EmailFinder:
                 error_msg = data['errors'][0].get('details', 'Unknown API error')
                 error = Exception(f"Hunter.io API error: {error_msg}")
                 self.error_handler.handle_error(
-                    error, 'hunter_io', 'find_person_email',
+                    error, 'hunter', 'find_person_email',
                     context={'name': name, 'domain': domain}, category=ErrorCategory.API_QUOTA
                 )
                 raise error
@@ -327,7 +339,7 @@ class EmailFinder:
         except requests.exceptions.HTTPError as e:
             response_time = time.time() - start_time
             self.api_monitor.record_api_call(
-                service='hunter_io',
+                service='hunter',
                 endpoint='email-finder',
                 response_time=response_time,
                 status_code=e.response.status_code if e.response else 0,
@@ -338,27 +350,27 @@ class EmailFinder:
             if e.response and e.response.status_code == 429:
                 error = Exception("Hunter.io rate limit exceeded")
                 self.error_handler.handle_error(
-                    error, 'hunter_io', 'find_person_email',
+                    error, 'hunter', 'find_person_email',
                     context={'name': name, 'domain': domain}, category=ErrorCategory.API_RATE_LIMIT
                 )
                 raise error
             elif e.response and e.response.status_code == 401:
                 error = Exception("Hunter.io API key invalid or expired")
                 self.error_handler.handle_error(
-                    error, 'hunter_io', 'find_person_email',
+                    error, 'hunter', 'find_person_email',
                     context={'name': name, 'domain': domain}, category=ErrorCategory.AUTHENTICATION
                 )
                 raise error
             else:
                 self.error_handler.handle_error(
-                    e, 'hunter_io', 'find_person_email',
+                    e, 'hunter', 'find_person_email',
                     context={'name': name, 'domain': domain}, category=ErrorCategory.NETWORK
                 )
                 raise
         except requests.exceptions.RequestException as e:
             response_time = time.time() - start_time
             self.api_monitor.record_api_call(
-                service='hunter_io',
+                service='hunter',
                 endpoint='email-finder',
                 response_time=response_time,
                 status_code=0,
@@ -367,13 +379,13 @@ class EmailFinder:
             )
             
             self.error_handler.handle_error(
-                e, 'hunter_io', 'find_person_email',
+                e, 'hunter', 'find_person_email',
                 context={'name': name, 'domain': domain}, category=ErrorCategory.NETWORK
             )
             raise
         except Exception as e:
             self.error_handler.handle_error(
-                e, 'hunter_io', 'find_person_email',
+                e, 'hunter', 'find_person_email',
                 context={'name': name, 'domain': domain}
             )
             raise
@@ -398,7 +410,8 @@ class EmailFinder:
             logger.warning("Empty email provided for verification")
             raise ValueError("Email cannot be empty")
         
-        self.rate_limiter.wait_if_needed()
+        # Apply centralized rate limiting for email verifier
+        wait_for_service("hunter", "email-verifier")
         
         start_time = time.time()
         try:
@@ -414,7 +427,7 @@ class EmailFinder:
             
             # Record API call for monitoring
             self.api_monitor.record_api_call(
-                service='hunter_io',
+                service='hunter',
                 endpoint='email-verifier',
                 response_time=response_time,
                 status_code=response.status_code,
@@ -430,21 +443,25 @@ class EmailFinder:
                 error_msg = data['errors'][0].get('details', 'Unknown API error')
                 error = Exception(f"Hunter.io API error: {error_msg}")
                 self.error_handler.handle_error(
-                    error, 'hunter_io', 'verify_email',
+                    error, 'hunter', 'verify_email',
                     context={'email': email}, category=ErrorCategory.API_QUOTA
                 )
                 raise error
             
             # Parse verification result
-            verification = self._parse_verification_result(data, email)
+            verification = self._parse_email_verification_result(data, email.strip())
             
-            logger.info(f"Email verification result for {email}: {verification.result}")
+            if verification:
+                logger.info(f"Email verification result for {email}: {verification.result}")
+            else:
+                logger.warning(f"Failed to parse email verification result for {email}")
+            
             return verification
             
         except requests.exceptions.HTTPError as e:
             response_time = time.time() - start_time
             self.api_monitor.record_api_call(
-                service='hunter_io',
+                service='hunter',
                 endpoint='email-verifier',
                 response_time=response_time,
                 status_code=e.response.status_code if e.response else 0,
@@ -455,27 +472,27 @@ class EmailFinder:
             if e.response and e.response.status_code == 429:
                 error = Exception("Hunter.io rate limit exceeded")
                 self.error_handler.handle_error(
-                    error, 'hunter_io', 'verify_email',
+                    error, 'hunter', 'verify_email',
                     context={'email': email}, category=ErrorCategory.API_RATE_LIMIT
                 )
                 raise error
             elif e.response and e.response.status_code == 401:
                 error = Exception("Hunter.io API key invalid or expired")
                 self.error_handler.handle_error(
-                    error, 'hunter_io', 'verify_email',
+                    error, 'hunter', 'verify_email',
                     context={'email': email}, category=ErrorCategory.AUTHENTICATION
                 )
                 raise error
             else:
                 self.error_handler.handle_error(
-                    e, 'hunter_io', 'verify_email',
+                    e, 'hunter', 'verify_email',
                     context={'email': email}, category=ErrorCategory.NETWORK
                 )
                 raise
         except requests.exceptions.RequestException as e:
             response_time = time.time() - start_time
             self.api_monitor.record_api_call(
-                service='hunter_io',
+                service='hunter',
                 endpoint='email-verifier',
                 response_time=response_time,
                 status_code=0,
@@ -484,13 +501,13 @@ class EmailFinder:
             )
             
             self.error_handler.handle_error(
-                e, 'hunter_io', 'verify_email',
+                e, 'hunter', 'verify_email',
                 context={'email': email}, category=ErrorCategory.NETWORK
             )
             raise
         except Exception as e:
             self.error_handler.handle_error(
-                e, 'hunter_io', 'verify_email',
+                e, 'hunter', 'verify_email',
                 context={'email': email}
             )
             raise
@@ -603,7 +620,7 @@ class EmailFinder:
             logger.error(f"Error parsing email finder result: {str(e)}")
             return None
     
-    def _parse_verification_result(self, data: Dict[str, Any], email: str) -> EmailVerification:
+    def _parse_email_verification_result(self, data: Dict[str, Any], email: str) -> Optional[EmailVerification]:
         """
         Parse Hunter.io email verification API response into EmailVerification object.
         
@@ -784,3 +801,45 @@ class EmailFinder:
             score += 0.1
         
         return min(score, 1.0)  # Cap at 1.0
+
+
+class RateLimiter:
+    """Rate limiter for Hunter.io API calls."""
+    
+    def __init__(self, requests_per_minute: int = 10):
+        self.requests_per_minute = requests_per_minute
+        self.min_delay = 60.0 / requests_per_minute  # Minimum delay between requests
+        self.last_request_time = 0.0
+        self.request_count = 0
+        self.window_start = time.time()
+    
+    def wait_if_needed(self):
+        """Wait if necessary to respect rate limits."""
+        current_time = time.time()
+        
+        # Reset window if more than a minute has passed
+        if current_time - self.window_start >= 60.0:
+            self.request_count = 0
+            self.window_start = current_time
+        
+        # Increment request count
+        self.request_count += 1
+        
+        # If we've exceeded our rate limit, calculate wait time
+        if self.request_count > self.requests_per_minute:
+            # Calculate time until next window
+            time_until_reset = 60.0 - (current_time - self.window_start)
+            if time_until_reset > 0:
+                logger.info(f"Rate limiting: Hunter.io request limit reached, waiting {time_until_reset:.2f}s until next window")
+                time.sleep(time_until_reset)
+                self.request_count = 1
+                self.window_start = time.time()
+        else:
+            # Apply minimum delay between requests
+            time_since_last = current_time - self.last_request_time
+            if time_since_last < self.min_delay:
+                sleep_time = self.min_delay - time_since_last
+                logger.debug(f"Rate limiting: sleeping for {sleep_time:.2f}s between requests")
+                time.sleep(sleep_time)
+        
+        self.last_request_time = time.time()

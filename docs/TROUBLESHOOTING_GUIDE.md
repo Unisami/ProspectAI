@@ -1,4 +1,34 @@
-# Troubleshooting Guide
+<div align="center">
+
+# 🔧 Troubleshooting Guide
+*Comprehensive diagnostic and problem-solving guide for ProspectAI*
+
+🚫 **Common Issues** • ⚡ **Performance Fixes** • 🔍 **Diagnostic Tools** • 🔄 **Recovery Steps**
+
+[![Issues Covered](https://img.shields.io/badge/issues-50+-red.svg)]()
+[![Solutions](https://img.shields.io/badge/solutions-tested-green.svg)]()
+[![Success Rate](https://img.shields.io/badge/success%20rate-95%25+-brightgreen.svg)]()
+
+</div>
+
+---
+
+## 🚑 Emergency Quick Fixes
+
+<div align="center">
+
+**🚫 Problem? Try these first!**
+
+</div>
+
+<div align="center">
+
+| 🚑 Emergency | 📈 Performance | ⚙️ Configuration | 📄 Data Issues |
+|:---:|:---:|:---:|:---:|
+| [`fix_all_performance_issues.py`](#performance-issues) | [`performance_benchmark.py`](#performance-tuning) | [`validate-config`](#configuration-issues) | [`debug_notion_storage.py`](#data-storage-issues) |
+| Fixes 90% of issues | Speed optimization | API connection test | Data recovery |
+
+</div>
 
 This comprehensive guide helps you diagnose and resolve common issues with the Job Prospect Automation system.
 

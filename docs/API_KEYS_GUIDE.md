@@ -1,63 +1,180 @@
-# API Keys Configuration Guide
+<div align="center">
 
-This guide provides detailed instructions for obtaining and configuring all required API keys for the Job Prospect Automation system.
+# 🔑 API Keys Configuration Guide
+*Complete setup guide for all required and optional API services*
 
-## 📋 Overview
+🎯 **Step-by-step** • 📱 **Interactive Setup** • 💰 **Cost Analysis** • 🔒 **Security Best Practices**
 
-The system requires several API keys for enhanced functionality:
-- **Notion Integration Token** - For data storage and organization
-- **Hunter.io API Key** - For email discovery and verification
-- **Azure OpenAI API Key** - For AI-powered email generation and data parsing (recommended)
-- **OpenAI API Key** - Alternative to Azure OpenAI for AI features
-- **Resend API Key** - For automated email sending and delivery tracking
+[![Required APIs](https://img.shields.io/badge/required%20APIs-2-red.svg)]()
+[![Optional APIs](https://img.shields.io/badge/optional%20APIs-5-blue.svg)]()
+[![Setup Time](https://img.shields.io/badge/setup%20time-15--20%20min-green.svg)]()
+[![Free Tiers](https://img.shields.io/badge/free%20tiers-available-brightgreen.svg)]()
 
-## 🔑 Notion Integration Setup
+</div>
 
-### Step 1: Create Notion Integration
+---
 
-1. **Go to Notion Developers**
-   - Visit [https://developers.notion.com/](https://developers.notion.com/)
-   - Click "View my integrations" or "Create new integration"
+## 🎨 API Services Overview
 
-2. **Create New Integration**
-   - Click "Create new integration"
-   - Fill in the details:
-     - **Name**: `Job Prospect Automation`
-     - **Associated workspace**: Select your workspace
-     - **Logo**: Optional (you can upload a custom logo)
+<div align="center">
 
-3. **Set Capabilities**
-   - ✅ **Read content**
-   - ✅ **Insert content** 
-   - ✅ **Update content**
-   - ❌ **Read user information** (not needed)
-   - ❌ **Read user information without email** (not needed)
+**🎯 Choose your services based on needs and budget**
 
-4. **Submit and Get Token**
-   - Click "Submit"
-   - Copy the "Internal Integration Token" (starts with `secret_`)
-   - **Important**: Save this token securely - it won't be shown again
+</div>
 
-### Step 2: Configure Workspace Access
+<div align="center">
 
-#### Option A: Let System Create Database (Recommended for beginners)
-- No additional setup needed
-- System will create a new database automatically
-- Integration will have full access to the created database
+### 📈 **API Services Matrix**
 
-#### Option B: Use Existing Database
-1. **Create or select a database** in your Notion workspace
-2. **Share the database** with your integration:
-   - Open the database in Notion
-   - Click "Share" in the top-right corner
-   - Click "Invite" and search for your integration name
-   - Select your integration and click "Invite"
+| Service | Purpose | Required | Free Tier | Monthly Cost | Setup Time |
+|:---|:---|:---:|:---:|:---:|:---:|
+| 📊 **Notion** | Data storage | ✅ Required | ✓ Unlimited | $0 | 5 min |
+| 🔍 **Hunter.io** | Email discovery | ✅ Required | 25/month | $49/mo | 3 min |
+| 🤖 **AI Provider** | AI processing | ❗ Choose one+ | Varies | ~$6-12/mo | 2-10 min |
+| ☁️ **Azure OpenAI** | Enterprise AI | ❗ Alternative | Pay-as-go | ~$8/mo | 10 min |
+| 🧠 **Anthropic** | Claude AI | ❗ Alternative | $5 credit | ~$12/mo | 3 min |
+| 🌎 **Google** | Gemini AI | ❗ Alternative | Free tier | ~$6/mo | 5 min |
+| 📧 **Resend** | Email sending | ❓ Optional | 3k/month | $20/mo | 2 min |
 
-3. **Get Database ID** (if using existing database):
-   - Open the database in Notion
-   - Copy the URL: `https://notion.so/workspace/DATABASE_ID?v=...`
-   - Extract the DATABASE_ID part
-   - Add to your configuration: `NOTION_DATABASE_ID=your_database_id`
+</div>
+
+### 💰 **Cost Analysis**
+
+<div align="center">
+
+| Usage Level | Monthly Cost | Recommended Setup |
+|:---|:---:|:---|
+| **Beginner** | $0-15 | Notion + Hunter.io + AI provider free tier |
+| **Regular User** | $15-30 | All required + Resend for automation |
+| **Power User** | $30-60 | Enterprise AI + multiple providers |
+
+</div>
+
+---
+
+## 📊 Notion Integration Setup
+
+<div align="center">
+
+**🎯 Required for data storage • Free forever • 5-minute setup**
+
+</div>
+
+### 🚀 Quick Setup Process
+
+```mermaid
+flowchart LR
+    A[🚀 Go to Notion Developers] --> B[🎆 Create Integration]
+    B --> C[🔑 Copy Token]
+    C --> D[⚙️ Configure Workspace]
+    D --> E[✅ Test Connection]
+    
+    style A fill:#e8f5e8
+    style E fill:#d4edda
+```
+
+### Step 1: 🎆 Create Notion Integration
+
+<details>
+<summary><strong>📱 Interactive Setup (click to expand)</strong></summary>
+
+#### 1.1 Navigate to Notion Developers
+- 🔗 **Link**: [https://developers.notion.com/](https://developers.notion.com/)
+- 📡 **Action**: Click "View my integrations" or "Create new integration"
+
+#### 1.2 Create Integration
+```
+🏷️ Name: "ProspectAI Automation"
+🏢 Workspace: [Select your workspace]
+🖼️ Logo: [Optional - upload custom logo]
+```
+
+#### 1.3 Configure Capabilities
+✅ **Read content** ← Required for reading existing data
+✅ **Insert content** ← Required for creating new entries
+✅ **Update content** ← Required for updating prospect data
+❌ **Read user information** ← Not needed
+❌ **Read user information without email** ← Not needed
+
+#### 1.4 Get Your Token
+- 📾 **Click**: "Submit" to create integration
+- 🔑 **Copy**: The "Internal Integration Token" (starts with `secret_`)
+- ⚠️ **Important**: Save securely - won't be shown again!
+
+</details>
+
+### Step 2: ⚙️ Configure Workspace Access
+
+<div align="center">
+
+**🎯 Choose your setup method**
+
+</div>
+
+<div align="center">
+
+| 🎆 **Auto-Setup** (Recommended) | 📋 **Existing Database** |
+|:---:|:---:|
+| Let system create everything | Use your existing Notion setup |
+| No manual configuration | Manual database sharing required |
+| Perfect for beginners | Full control over structure |
+| ✅ **Just add API key** | ⚙️ **Additional setup needed** |
+
+</div>
+
+<details>
+<summary><strong>🎆 Option A: Auto-Setup (Recommended for beginners)</strong></summary>
+
+**✨ Zero configuration needed!**
+
+1. Just add your token to `.env` file:
+   ```env
+   NOTION_TOKEN=secret_your_token_here
+   ```
+
+2. Run the setup command:
+   ```bash
+   python scripts/setup_dashboard.py
+   ```
+
+3. System will automatically:
+   - 📊 Create main dashboard
+   - 📄 Create prospect database
+   - 📊 Create analytics database
+   - 🔗 Set up all relationships
+
+**✅ Result**: Fully functional Notion workspace in 30 seconds!
+
+</details>
+
+<details>
+<summary><strong>📋 Option B: Use Existing Database</strong></summary>
+
+**🔧 For advanced users who want control**
+
+#### B.1 Create or Select Database
+1. Open Notion and create a new database
+2. Or select an existing database you want to use
+
+#### B.2 Share Database with Integration
+1. Open the database in Notion
+2. Click "Share" in the top-right corner
+3. Click "Invite" and search for "ProspectAI Automation"
+4. Select your integration and click "Invite"
+
+#### B.3 Get Database ID
+1. Copy the database URL from browser:
+   ```
+   https://notion.so/workspace/DATABASE_ID?v=...
+   ```
+2. Extract the DATABASE_ID part
+3. Add to your `.env` file:
+   ```env
+   NOTION_TOKEN=secret_your_token_here
+   NOTION_DATABASE_ID=your_database_id
+   ```
+
+</details>
 
 ### Step 3: Verify Notion Setup
 
@@ -321,6 +438,243 @@ OPENAI_TIMEOUT=30
 - Request quota increase if needed
 - Monitor usage in Azure Portal
 
+## 🤖 Anthropic Claude API Setup
+
+Anthropic Claude offers constitutional AI with strong safety features and excellent reasoning capabilities.
+
+### Step 1: Create Anthropic Account
+
+1. **Sign Up**
+   - Go to [https://console.anthropic.com/](https://console.anthropic.com/)
+   - Click "Sign up"
+   - Use email or Google account
+
+2. **Verify Account**
+   - Verify your email address
+   - Complete any required verification steps
+
+### Step 2: Set Up Billing
+
+**Important**: Anthropic requires a payment method for API access.
+
+1. **Add Payment Method**
+   - Go to "Billing" in your dashboard
+   - Click "Add payment method"
+   - Add credit card or other payment method
+
+2. **Set Usage Limits** (Recommended)
+   - Set monthly spending limit (e.g., $10-50)
+   - Set up usage alerts
+   - This prevents unexpected charges
+
+### Step 3: Create API Key
+
+1. **Navigate to API Keys**
+   - Go to "API Keys" section in the console
+   - Or visit [https://console.anthropic.com/settings/keys](https://console.anthropic.com/settings/keys)
+
+2. **Create New Key**
+   - Click "Create Key"
+   - Give it a descriptive name: "Job Prospect Automation"
+   - Copy the key immediately (starts with `sk-ant-`)
+   - **Important**: Save it securely - it won't be shown again
+
+### Step 4: Configure for Anthropic Claude
+
+```env
+# Anthropic Claude Configuration
+AI_PROVIDER=anthropic
+ANTHROPIC_API_KEY=sk-ant-your_anthropic_key_here
+
+# Model Configuration (choose one)
+AI_MODEL=claude-3-sonnet-20240229      # Balanced performance and speed
+# AI_MODEL=claude-3-opus-20240229      # Most capable, slower
+# AI_MODEL=claude-3-haiku-20240307     # Fastest, good for simple tasks
+# AI_MODEL=claude-3-5-sonnet-20241022  # Latest with improved capabilities
+```
+
+### Step 5: Understand Costs
+
+#### Typical Usage Costs:
+- **Claude-3-Haiku**: ~$0.25 per 1M input tokens, ~$1.25 per 1M output tokens
+- **Claude-3-Sonnet**: ~$3 per 1M input tokens, ~$15 per 1M output tokens  
+- **Claude-3-Opus**: ~$15 per 1M input tokens, ~$75 per 1M output tokens
+- **Claude-3.5-Sonnet**: ~$3 per 1M input tokens, ~$15 per 1M output tokens
+
+#### For This Application:
+- **Per company processed**: ~47K tokens (~$0.08-0.40 depending on model)
+- **10 companies**: ~$0.80-4.00
+- **100 companies**: ~$8-40
+
+### Step 6: Model Selection Guide
+
+- **Claude-3-Haiku**: Best for cost-conscious users, simple email generation
+- **Claude-3-Sonnet**: Recommended balance of quality and cost
+- **Claude-3-Opus**: Best quality for complex analysis and personalization
+- **Claude-3.5-Sonnet**: Latest model with improved capabilities
+
+## 🤖 Google Gemini API Setup
+
+Google Gemini offers multimodal AI capabilities with competitive pricing and strong performance.
+
+### Step 1: Create Google Cloud Account
+
+1. **Sign Up**
+   - Go to [https://console.cloud.google.com/](https://console.cloud.google.com/)
+   - Click "Get started for free"
+   - Use your Google account or create a new one
+
+2. **Verify Account**
+   - Complete phone verification
+   - Add payment method (required for API access)
+   - Accept terms of service
+
+### Step 2: Enable Generative AI API
+
+1. **Create or Select Project**
+   - Create a new project or select existing one
+   - Give it a descriptive name: "Job Prospect Automation"
+
+2. **Enable APIs**
+   - Go to "APIs & Services" > "Library"
+   - Search for "Generative Language API"
+   - Click on it and press "Enable"
+
+### Step 3: Create API Key
+
+1. **Navigate to Credentials**
+   - Go to "APIs & Services" > "Credentials"
+   - Click "Create Credentials" > "API Key"
+
+2. **Secure Your Key**
+   - Copy the API key immediately
+   - Click "Restrict Key" (recommended)
+   - Under "API restrictions", select "Restrict key"
+   - Choose "Generative Language API"
+   - Save the restrictions
+
+### Step 4: Configure for Google Gemini
+
+```env
+# Google Gemini Configuration
+AI_PROVIDER=google
+GOOGLE_API_KEY=your_google_api_key_here
+
+# Model Configuration (choose one)
+AI_MODEL=gemini-pro                    # Recommended for most use cases
+# AI_MODEL=gemini-1.5-pro             # Latest with enhanced capabilities
+# AI_MODEL=gemini-1.5-flash           # Faster, cost-effective option
+# AI_MODEL=gemini-pro-vision          # For multimodal tasks
+```
+
+### Step 5: Understand Costs
+
+#### Typical Usage Costs:
+- **Gemini Pro**: ~$0.50 per 1M input tokens, ~$1.50 per 1M output tokens
+- **Gemini 1.5 Pro**: ~$3.50 per 1M input tokens, ~$10.50 per 1M output tokens
+- **Gemini 1.5 Flash**: ~$0.075 per 1M input tokens, ~$0.30 per 1M output tokens
+
+#### For This Application:
+- **Per company processed**: ~47K tokens (~$0.02-0.15 depending on model)
+- **10 companies**: ~$0.20-1.50
+- **100 companies**: ~$2-15
+
+### Step 6: Model Selection Guide
+
+- **Gemini Pro**: Good balance of performance and cost
+- **Gemini 1.5 Pro**: Best quality with long context support (1M tokens)
+- **Gemini 1.5 Flash**: Most cost-effective, good for simple tasks
+- **Gemini Pro Vision**: Use when you need image/multimodal capabilities
+
+## 🤖 DeepSeek API Setup
+
+DeepSeek offers specialized AI models with strong code generation capabilities and cost-effective pricing.
+
+### Step 1: Create DeepSeek Account
+
+1. **Sign Up**
+   - Go to [https://platform.deepseek.com/](https://platform.deepseek.com/)
+   - Click "Sign up"
+   - Use email or other supported authentication methods
+
+2. **Verify Account**
+   - Verify your email address
+   - Complete any required verification steps
+
+### Step 2: Set Up Billing
+
+**Important**: DeepSeek requires a payment method for API access.
+
+1. **Add Payment Method**
+   - Go to "Billing" in your dashboard
+   - Click "Add payment method"
+   - Add credit card or other payment method
+
+2. **Set Usage Limits** (Recommended)
+   - Set monthly spending limit (e.g., $5-25)
+   - Set up usage alerts
+   - This prevents unexpected charges
+
+### Step 3: Create API Key
+
+1. **Navigate to API Keys**
+   - Go to "API Keys" section in the console
+   - Or visit the API keys management page
+
+2. **Create New Key**
+   - Click "Create Key"
+   - Give it a descriptive name: "Job Prospect Automation"
+   - Copy the key immediately
+   - **Important**: Save it securely - it won't be shown again
+
+### Step 4: Configure for DeepSeek
+
+```env
+# DeepSeek Configuration
+AI_PROVIDER=deepseek
+DEEPSEEK_API_KEY=your_deepseek_key_here
+
+# Model Configuration (choose one)
+AI_MODEL=deepseek-chat                 # General purpose model
+# AI_MODEL=deepseek-coder             # Code-specialized model
+# AI_MODEL=deepseek-math              # Math-specialized model
+```
+
+### Step 5: Understand Costs
+
+#### Typical Usage Costs:
+- **DeepSeek-Chat**: ~$0.14 per 1M input tokens, ~$0.28 per 1M output tokens
+- **DeepSeek-Coder**: ~$0.14 per 1M input tokens, ~$0.28 per 1M output tokens
+- **DeepSeek-Math**: ~$0.14 per 1M input tokens, ~$0.28 per 1M output tokens
+
+#### For This Application:
+- **Per company processed**: ~47K tokens (~$0.01-0.02)
+- **10 companies**: ~$0.10-0.20
+- **100 companies**: ~$1-2
+
+### Step 6: Model Selection Guide
+
+- **DeepSeek-Chat**: Best for general email generation and business communication
+- **DeepSeek-Coder**: Excellent for technical content and code-related analysis
+- **DeepSeek-Math**: Specialized for mathematical and analytical content
+
+### DeepSeek Troubleshooting
+
+**Issue**: "Invalid API key"
+- Verify key is copied correctly (no extra spaces)
+- Check if account is activated
+- Try generating a new API key
+
+**Issue**: "Rate limit exceeded"
+- DeepSeek uses OpenAI-compatible rate limiting
+- Wait for rate limit reset
+- Consider upgrading plan if needed
+
+**Issue**: "Model not available"
+- Verify model name is correct (deepseek-chat, deepseek-coder, etc.)
+- Check if model is available in your region
+- Try using the default deepseek-chat model
+
 ## 🤖 Regular OpenAI API Setup (Alternative)
 
 If you prefer to use regular OpenAI instead of Azure OpenAI:
@@ -501,6 +855,161 @@ python cli.py test-email your-email@example.com
 - Verify recipient email address is valid
 - Check sender domain reputation
 - Review email content for spam indicators
+
+## 🤖 Multi-Provider AI Configuration
+
+The system now supports multiple AI providers through a unified **AI Provider Manager** that handles provider registration, discovery, instantiation, and switching functionality with thread-safe operations.
+
+### AI Provider Manager Features
+
+- **Unified Interface**: Single API for all AI providers with consistent request/response handling
+- **Automatic Provider Discovery**: Auto-configures providers based on available credentials
+- **Thread-Safe Operations**: Singleton pattern with thread-safe provider management
+- **Dynamic Provider Loading**: Providers loaded on-demand to avoid import issues
+- **Configuration Validation**: Built-in validation for provider-specific requirements
+- **Connection Testing**: Test provider connections before use
+- **Provider Switching**: Runtime switching between configured providers
+
+### Provider Selection
+
+Configure your preferred provider using the AI_PROVIDER environment variable:
+
+```env
+# Select your AI provider
+AI_PROVIDER=openai  # Options: openai, azure-openai, anthropic, google, deepseek
+
+# Provider-specific model configuration
+AI_MODEL=gpt-4  # Use provider-specific model names
+AI_TEMPERATURE=0.7
+AI_MAX_TOKENS=1000
+```
+
+### Provider-Specific Setup
+
+#### OpenAI (Default)
+```env
+AI_PROVIDER=openai
+OPENAI_API_KEY=sk-your_openai_key_here
+AI_MODEL=gpt-4
+```
+
+#### Azure OpenAI (Recommended for Enterprise)
+```env
+AI_PROVIDER=azure-openai
+USE_AZURE_OPENAI=true
+AZURE_OPENAI_API_KEY=your_azure_key
+AZURE_OPENAI_ENDPOINT=https://your-resource.openai.azure.com/
+AZURE_OPENAI_DEPLOYMENT_NAME=gpt-4-deployment
+AI_MODEL=gpt-4
+```
+
+#### Anthropic Claude
+```env
+AI_PROVIDER=anthropic
+ANTHROPIC_API_KEY=your_anthropic_key
+AI_MODEL=claude-3-sonnet-20240229
+```
+
+#### Google Gemini
+```env
+AI_PROVIDER=google
+GOOGLE_API_KEY=your_google_key
+AI_MODEL=gemini-pro
+```
+
+#### DeepSeek
+```env
+AI_PROVIDER=deepseek
+DEEPSEEK_API_KEY=your_deepseek_key
+AI_MODEL=deepseek-chat
+```
+
+### CLI Provider Management
+
+Manage AI providers through CLI commands:
+
+```bash
+# List available providers
+python cli.py list-ai-providers
+
+# Configure a specific provider interactively
+python cli.py configure-ai --provider anthropic
+
+# Switch active provider
+python cli.py set-ai-provider anthropic
+
+# Validate current provider configuration
+python cli.py validate-ai-config
+
+# Test provider connection
+python cli.py test-ai-provider anthropic
+```
+
+### Python API Usage
+
+Use the AI Provider Manager programmatically:
+
+```python
+from services.ai_provider_manager import get_provider_manager, configure_provider_manager
+from services.openai_client_manager import CompletionRequest
+from utils.config import Config
+
+# Configure the provider manager
+config = Config.from_env()
+configure_provider_manager(config)
+
+# Get the provider manager
+manager = get_provider_manager()
+
+# List available providers
+providers = manager.list_providers()
+print(f"Available providers: {providers}")
+
+# Get active provider
+active_provider = manager.get_active_provider_name()
+print(f"Active provider: {active_provider}")
+
+# Make a completion request
+request = CompletionRequest(
+    messages=[{"role": "user", "content": "Hello, world!"}],
+    model="gpt-4",
+    temperature=0.7
+)
+response = manager.make_completion(request)
+
+# Switch providers at runtime
+manager.set_active_provider("anthropic")
+
+# Validate provider configuration
+validation_result = manager.validate_provider("openai")
+print(f"OpenAI validation: {validation_result.status}")
+```
+
+### Provider Status and Monitoring
+
+Check provider status and configuration:
+
+```python
+# Get comprehensive provider status
+status = manager.get_provider_status()
+print(f"Active provider: {status['active_provider']}")
+print(f"Total configured: {status['total_configured']}")
+
+# Validate all providers
+results = manager.validate_all_providers()
+for provider_name, result in results.items():
+    print(f"{provider_name}: {result.status} - {result.message}")
+```
+
+### Provider Comparison
+
+| Provider | Strengths | Best For | Cost | Status |
+|----------|-----------|----------|------|--------|
+| **OpenAI** | Proven performance, extensive ecosystem | General use, development | $ | ✅ Available |
+| **Azure OpenAI** | Enterprise security, SLA guarantees | Production, compliance | $$ | ✅ Available |
+| **Anthropic** | Safety focus, longer context | Complex reasoning, safety-critical | $ | ✅ Available |
+| **Google Gemini** | Multimodal, competitive pricing | Cost optimization, multimodal | $ | ✅ Available |
+| **DeepSeek** | Code specialization, cost-effective | Code generation, budget-conscious | $ | ✅ Available |
 
 ## 🔒 Security Best Practices
 

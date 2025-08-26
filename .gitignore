@@ -121,3 +121,5 @@ Thumbs.db
 /.kiro
 reports/SECURITY_AUDIT_REPORT.md
 tests/test_openai_api.py
+/.qoder
+/docs-archive

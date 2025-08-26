@@ -34,16 +34,143 @@ class Config:
     hunter_api_key: str
     openai_api_key: Optional[str] = None
     
+    # Multi-Provider AI Configuration
+    ai_provider: str = "openai"  # openai, azure-openai, anthropic, google, deepseek
+    ai_model: Optional[str] = None
+    ai_temperature: float = 0.7
+    ai_max_tokens: int = 1000
+    
+    # OpenAI Configuration
+    # openai_api_key already defined above
+    
     # Azure OpenAI Configuration
     azure_openai_api_key: Optional[str] = None
     azure_openai_endpoint: Optional[str] = None
     azure_openai_deployment_name: str = "gpt-4"
     azure_openai_api_version: str = "2024-02-15-preview"
-    use_azure_openai: bool = False
+    use_azure_openai: bool = False  # Deprecated, use ai_provider instead
+    
+    # Anthropic Configuration
+    anthropic_api_key: Optional[str] = None
+    
+    # Google Configuration
+    google_api_key: Optional[str] = None
+    
+    # DeepSeek Configuration
+    deepseek_api_key: Optional[str] = None
+    
+    @classmethod
+    def _validate_provider_requirements(cls, ai_provider: str) -> None:
+        """Validate that required credentials are available for the specified AI provider."""
+        if ai_provider == "openai":
+            if not os.getenv("OPENAI_API_KEY"):
+                raise ValueError("OPENAI_API_KEY environment variable is required for OpenAI provider")
+        elif ai_provider == "azure-openai":
+            if not os.getenv("AZURE_OPENAI_API_KEY"):
+                raise ValueError("AZURE_OPENAI_API_KEY environment variable is required for Azure OpenAI provider")
+            if not os.getenv("AZURE_OPENAI_ENDPOINT"):
+                raise ValueError("AZURE_OPENAI_ENDPOINT environment variable is required for Azure OpenAI provider")
+        elif ai_provider == "anthropic":
+            if not os.getenv("ANTHROPIC_API_KEY"):
+                raise ValueError("ANTHROPIC_API_KEY environment variable is required for Anthropic provider")
+        elif ai_provider == "google":
+            if not os.getenv("GOOGLE_API_KEY"):
+                raise ValueError("GOOGLE_API_KEY environment variable is required for Google provider")
+        elif ai_provider == "deepseek":
+            if not os.getenv("DEEPSEEK_API_KEY"):
+                raise ValueError("DEEPSEEK_API_KEY environment variable is required for DeepSeek provider")
+        else:
+            raise ValueError(f"Unsupported AI provider: {ai_provider}. Supported providers: openai, azure-openai, anthropic, google, deepseek")
+    
+    @classmethod
+    def get_supported_providers(cls) -> List[str]:
+        """Get list of supported AI providers."""
+        return ["openai", "azure-openai", "anthropic", "google", "deepseek"]
+    
+    def get_provider_config(self) -> Dict[str, Any]:
+        """Get configuration for the current AI provider."""
+        if self.ai_provider == "openai":
+            return {
+                "api_key": self.openai_api_key,
+                "model": self.ai_model or "gpt-4",
+                "temperature": self.ai_temperature,
+                "max_tokens": self.ai_max_tokens
+            }
+        elif self.ai_provider == "azure-openai":
+            return {
+                "api_key": self.azure_openai_api_key,
+                "endpoint": self.azure_openai_endpoint,
+                "deployment_name": self.azure_openai_deployment_name,
+                "api_version": self.azure_openai_api_version,
+                "model": self.ai_model or self.azure_openai_deployment_name,
+                "temperature": self.ai_temperature,
+                "max_tokens": self.ai_max_tokens
+            }
+        elif self.ai_provider == "anthropic":
+            return {
+                "api_key": self.anthropic_api_key,
+                "model": self.ai_model or "claude-3-sonnet-20240229",
+                "temperature": self.ai_temperature,
+                "max_tokens": self.ai_max_tokens
+            }
+        elif self.ai_provider == "google":
+            return {
+                "api_key": self.google_api_key,
+                "model": self.ai_model or "gemini-2.5-flash",
+                "temperature": self.ai_temperature,
+                "max_tokens": self.ai_max_tokens
+            }
+        elif self.ai_provider == "deepseek":
+            return {
+                "api_key": self.deepseek_api_key,
+                "model": self.ai_model or "deepseek-chat",
+                "temperature": self.ai_temperature,
+                "max_tokens": self.ai_max_tokens
+            }
+        else:
+            raise ValueError(f"Unsupported AI provider: {self.ai_provider}")
+    
+    def _validate_model_for_provider(self, model: str, model_description: str) -> None:
+        """Validate that a model is supported by the current AI provider."""
+        if self.ai_provider == "openai":
+            valid_models = ["gpt-3.5-turbo", "gpt-4", "gpt-4-turbo", "gpt-4o", "gpt-4o-mini"]
+            if model not in valid_models:
+                raise ValueError(f"{model_description} must be a valid OpenAI model: {', '.join(valid_models)}")
+        elif self.ai_provider == "azure-openai":
+            # Azure OpenAI uses deployment names, so we can't validate specific models
+            # The deployment name should be validated by the Azure OpenAI provider
+            pass
+        elif self.ai_provider == "anthropic":
+            valid_models = ["claude-3-haiku-20240307", "claude-3-sonnet-20240229", "claude-3-opus-20240229", "claude-3-5-sonnet-20241022"]
+            if model not in valid_models:
+                raise ValueError(f"{model_description} must be a valid Anthropic model: {', '.join(valid_models)}")
+        elif self.ai_provider == "google":
+            valid_models = ["gemini-2.5-pro", "gemini-2.5-flash", "gemini-2.5-flash-lite", "gemini-1.5-pro", "gemini-1.5-flash"]
+            if model not in valid_models:
+                raise ValueError(f"{model_description} must be a valid Google model: {', '.join(valid_models)}")
+        elif self.ai_provider == "deepseek":
+            valid_models = ["deepseek-chat", "deepseek-coder"]
+            if model not in valid_models:
+                raise ValueError(f"{model_description} must be a valid DeepSeek model: {', '.join(valid_models)}")
+    
+    def get_available_models(self) -> List[str]:
+        """Get list of available models for the current AI provider."""
+        if self.ai_provider == "openai":
+            return ["gpt-3.5-turbo", "gpt-4", "gpt-4-turbo", "gpt-4o", "gpt-4o-mini"]
+        elif self.ai_provider == "azure-openai":
+            return ["Custom deployment names"]
+        elif self.ai_provider == "anthropic":
+            return ["claude-3-haiku-20240307", "claude-3-sonnet-20240229", "claude-3-opus-20240229", "claude-3-5-sonnet-20241022"]
+        elif self.ai_provider == "google":
+            return ["gemini-2.5-pro", "gemini-2.5-flash", "gemini-2.5-flash-lite", "gemini-1.5-pro", "gemini-1.5-flash"]
+        elif self.ai_provider == "deepseek":
+            return ["deepseek-chat", "deepseek-coder"]
+        else:
+            return []
     
     # Rate Limiting
     scraping_delay: float = 0.3
-    hunter_requests_per_minute: int = 10
+    hunter_requests_per_minute: int = 10  # Reduced from 25 to 10 for safer rate limiting
     
     # Processing Limits
     max_products_per_run: int = 50
@@ -120,39 +247,45 @@ class Config:
         # Required API keys
         notion_token = os.getenv("NOTION_TOKEN")
         hunter_api_key = os.getenv("HUNTER_API_KEY")
-        openai_api_key = os.getenv("OPENAI_API_KEY")
         
         if not notion_token:
             raise ValueError("NOTION_TOKEN environment variable is required")
         if not hunter_api_key:
             raise ValueError("HUNTER_API_KEY environment variable is required")
         
-        # Check if Azure OpenAI should be used
+        # AI Provider Configuration
+        ai_provider_env = os.getenv("AI_PROVIDER")
         use_azure_openai = os.getenv("USE_AZURE_OPENAI", "false").lower() in ("true", "1", "yes")
         
-        # Only require OpenAI API key if not using Azure OpenAI
-        if not use_azure_openai and not openai_api_key:
-            raise ValueError("OPENAI_API_KEY environment variable is required")
+        if ai_provider_env:
+            ai_provider = ai_provider_env.lower()
+        elif use_azure_openai:
+            # Backward compatibility: if USE_AZURE_OPENAI is set but AI_PROVIDER is not
+            ai_provider = "azure-openai"
+        else:
+            ai_provider = "openai"
         
-        # If using Azure OpenAI, validate Azure-specific requirements
-        if use_azure_openai:
-            azure_openai_api_key = os.getenv("AZURE_OPENAI_API_KEY")
-            azure_openai_endpoint = os.getenv("AZURE_OPENAI_ENDPOINT")
-            
-            if not azure_openai_api_key:
-                raise ValueError("AZURE_OPENAI_API_KEY environment variable is required when USE_AZURE_OPENAI=true")
-            if not azure_openai_endpoint:
-                raise ValueError("AZURE_OPENAI_ENDPOINT environment variable is required when USE_AZURE_OPENAI=true")
+        # Validate provider-specific requirements
+        cls._validate_provider_requirements(ai_provider)
         
         return cls(
             notion_token=notion_token,
             hunter_api_key=hunter_api_key,
-            openai_api_key=openai_api_key or "",
+            openai_api_key=os.getenv("OPENAI_API_KEY"),
+            # Multi-Provider AI Configuration
+            ai_provider=ai_provider,
+            ai_model=os.getenv("AI_MODEL"),
+            ai_temperature=float(os.getenv("AI_TEMPERATURE", "0.7")),
+            ai_max_tokens=int(os.getenv("AI_MAX_TOKENS", "1000")),
+            # Provider-specific configurations
             azure_openai_api_key=os.getenv("AZURE_OPENAI_API_KEY"),
             azure_openai_endpoint=os.getenv("AZURE_OPENAI_ENDPOINT"),
             azure_openai_deployment_name=os.getenv("AZURE_OPENAI_DEPLOYMENT_NAME", "gpt-4"),
             azure_openai_api_version=os.getenv("AZURE_OPENAI_API_VERSION", "2024-02-15-preview"),
             use_azure_openai=use_azure_openai,
+            anthropic_api_key=os.getenv("ANTHROPIC_API_KEY"),
+            google_api_key=os.getenv("GOOGLE_API_KEY"),
+            deepseek_api_key=os.getenv("DEEPSEEK_API_KEY"),
             scraping_delay=float(os.getenv("SCRAPING_DELAY", "0.3")),
             hunter_requests_per_minute=int(os.getenv("HUNTER_REQUESTS_PER_MINUTE", "10")),
             max_products_per_run=int(os.getenv("MAX_PRODUCTS_PER_RUN", "50")),
@@ -246,10 +379,27 @@ class Config:
         """Create configuration from dictionary."""
         use_azure_openai = str(config_dict.get("use_azure_openai", config_dict.get("USE_AZURE_OPENAI", "false"))).lower() in ("true", "1", "yes")
         
+        # Handle AI provider configuration
+        ai_provider_value = config_dict.get("ai_provider") or config_dict.get("AI_PROVIDER")
+        
+        if ai_provider_value:
+            ai_provider = ai_provider_value.lower()
+        elif use_azure_openai:
+            # Backward compatibility: if USE_AZURE_OPENAI is set but AI_PROVIDER is not
+            ai_provider = "azure-openai"
+        else:
+            ai_provider = "openai"
+        
         return cls(
             notion_token=config_dict.get("notion_token") or config_dict.get("NOTION_TOKEN", ""),
             hunter_api_key=config_dict.get("hunter_api_key") or config_dict.get("HUNTER_API_KEY", ""),
             openai_api_key=config_dict.get("openai_api_key") or config_dict.get("OPENAI_API_KEY", ""),
+            # Multi-Provider AI Configuration
+            ai_provider=ai_provider,
+            ai_model=config_dict.get("ai_model") or config_dict.get("AI_MODEL"),
+            ai_temperature=float(config_dict.get("ai_temperature", config_dict.get("AI_TEMPERATURE", 0.7))),
+            ai_max_tokens=int(config_dict.get("ai_max_tokens", config_dict.get("AI_MAX_TOKENS", 1000))),
+            # Provider-specific configurations
             azure_openai_api_key=config_dict.get("azure_openai_api_key") or config_dict.get("AZURE_OPENAI_API_KEY"),
             azure_openai_endpoint=config_dict.get("azure_openai_endpoint") or config_dict.get("AZURE_OPENAI_ENDPOINT"),
             azure_openai_deployment_name=config_dict.get("azure_openai_deployment_name", 
@@ -257,6 +407,9 @@ class Config:
             azure_openai_api_version=config_dict.get("azure_openai_api_version", 
                                                     config_dict.get("AZURE_OPENAI_API_VERSION", "2024-02-15-preview")),
             use_azure_openai=use_azure_openai,
+            anthropic_api_key=config_dict.get("anthropic_api_key") or config_dict.get("ANTHROPIC_API_KEY"),
+            google_api_key=config_dict.get("google_api_key") or config_dict.get("GOOGLE_API_KEY"),
+            deepseek_api_key=config_dict.get("deepseek_api_key") or config_dict.get("DEEPSEEK_API_KEY"),
             scraping_delay=float(config_dict.get("scraping_delay", config_dict.get("SCRAPING_DELAY", 0.3))),
             hunter_requests_per_minute=int(config_dict.get("hunter_requests_per_minute", 
                                                          config_dict.get("HUNTER_REQUESTS_PER_MINUTE", 10))),
@@ -323,11 +476,20 @@ class Config:
             "notion_token": self.notion_token,
             "hunter_api_key": self.hunter_api_key,
             "openai_api_key": self.openai_api_key,
+            # Multi-Provider AI Configuration
+            "ai_provider": self.ai_provider,
+            "ai_model": self.ai_model,
+            "ai_temperature": self.ai_temperature,
+            "ai_max_tokens": self.ai_max_tokens,
+            # Provider-specific configurations
             "azure_openai_api_key": self.azure_openai_api_key,
             "azure_openai_endpoint": self.azure_openai_endpoint,
             "azure_openai_deployment_name": self.azure_openai_deployment_name,
             "azure_openai_api_version": self.azure_openai_api_version,
             "use_azure_openai": self.use_azure_openai,
+            "anthropic_api_key": self.anthropic_api_key,
+            "google_api_key": self.google_api_key,
+            "deepseek_api_key": self.deepseek_api_key,
             "scraping_delay": self.scraping_delay,
             "hunter_requests_per_minute": self.hunter_requests_per_minute,
             "max_products_per_run": self.max_products_per_run,
@@ -372,9 +534,16 @@ class Config:
         if not include_secrets:
             config_data["notion_token"] = "***MASKED***"
             config_data["hunter_api_key"] = "***MASKED***"
-            config_data["openai_api_key"] = "***MASKED***"
+            if config_data["openai_api_key"]:
+                config_data["openai_api_key"] = "***MASKED***"
             if config_data["azure_openai_api_key"]:
                 config_data["azure_openai_api_key"] = "***MASKED***"
+            if config_data["anthropic_api_key"]:
+                config_data["anthropic_api_key"] = "***MASKED***"
+            if config_data["google_api_key"]:
+                config_data["google_api_key"] = "***MASKED***"
+            if config_data["deepseek_api_key"]:
+                config_data["deepseek_api_key"] = "***MASKED***"
             if config_data["resend_api_key"]:
                 config_data["resend_api_key"] = "***MASKED***"
         
@@ -402,7 +571,38 @@ class Config:
         if self.personalization_level not in ["low", "medium", "high"]:
             raise ValueError("Personalization level must be 'low', 'medium', or 'high'")
         
-        # Validate Azure OpenAI configuration if enabled
+        # Validate AI provider configuration
+        if self.ai_provider not in self.get_supported_providers():
+            raise ValueError(f"Unsupported AI provider: {self.ai_provider}. Supported providers: {', '.join(self.get_supported_providers())}")
+        
+        if self.ai_temperature < 0 or self.ai_temperature > 2:
+            raise ValueError("AI temperature must be between 0 and 2")
+        
+        if self.ai_max_tokens <= 0:
+            raise ValueError("AI max tokens must be positive")
+        
+        # Validate provider-specific configuration
+        if self.ai_provider == "openai":
+            if not self.openai_api_key:
+                raise ValueError("OpenAI API key is required for OpenAI provider")
+        elif self.ai_provider == "azure-openai":
+            if not self.azure_openai_api_key:
+                raise ValueError("Azure OpenAI API key is required for Azure OpenAI provider")
+            if not self.azure_openai_endpoint:
+                raise ValueError("Azure OpenAI endpoint is required for Azure OpenAI provider")
+            if not self.azure_openai_deployment_name:
+                raise ValueError("Azure OpenAI deployment name is required for Azure OpenAI provider")
+        elif self.ai_provider == "anthropic":
+            if not self.anthropic_api_key:
+                raise ValueError("Anthropic API key is required for Anthropic provider")
+        elif self.ai_provider == "google":
+            if not self.google_api_key:
+                raise ValueError("Google API key is required for Google provider")
+        elif self.ai_provider == "deepseek":
+            if not self.deepseek_api_key:
+                raise ValueError("DeepSeek API key is required for DeepSeek provider")
+        
+        # Validate Azure OpenAI configuration if enabled (backward compatibility)
         if self.use_azure_openai:
             if not self.azure_openai_api_key:
                 raise ValueError("Azure OpenAI API key is required when use_azure_openai is True")
@@ -420,20 +620,17 @@ class Config:
             raise ValueError("AI parsing max retries must be non-negative")
         if self.ai_parsing_timeout <= 0:
             raise ValueError("AI parsing timeout must be positive")
-        if self.ai_parsing_model not in ["gpt-3.5-turbo", "gpt-4", "gpt-4-turbo"]:
-            raise ValueError("AI parsing model must be a valid OpenAI model")
+        self._validate_model_for_provider(self.ai_parsing_model, "AI parsing model")
         
         # Validate product analysis configuration
         if self.product_analysis_max_retries < 0:
             raise ValueError("Product analysis max retries must be non-negative")
-        if self.product_analysis_model not in ["gpt-3.5-turbo", "gpt-4", "gpt-4-turbo"]:
-            raise ValueError("Product analysis model must be a valid OpenAI model")
+        self._validate_model_for_provider(self.product_analysis_model, "Product analysis model")
         
         # Validate email generation configuration
         if self.max_email_length <= 0:
             raise ValueError("Max email length must be positive")
-        if self.email_generation_model not in ["gpt-3.5-turbo", "gpt-4", "gpt-4-turbo"]:
-            raise ValueError("Email generation model must be a valid OpenAI model")
+        self._validate_model_for_provider(self.email_generation_model, "Email generation model")
             
         # Validate sender profile configuration
         if self.sender_profile_format not in ["markdown", "json", "yaml"]:
@@ -464,11 +661,20 @@ class Config:
         validation_results['notion_token'] = bool(self.notion_token and len(self.notion_token) > 10)
         validation_results['hunter_api_key'] = bool(self.hunter_api_key and len(self.hunter_api_key) > 10)
         
-        # Only validate OpenAI API key if not using Azure OpenAI
-        if not self.use_azure_openai:
+        # Validate AI provider-specific keys
+        if self.ai_provider == "openai":
             validation_results['openai_api_key'] = bool(self.openai_api_key and len(self.openai_api_key) > 10)
+        elif self.ai_provider == "azure-openai":
+            validation_results['azure_openai_api_key'] = bool(self.azure_openai_api_key and len(self.azure_openai_api_key) > 10)
+            validation_results['azure_openai_endpoint'] = bool(self.azure_openai_endpoint and self.azure_openai_endpoint.startswith('https://'))
+        elif self.ai_provider == "anthropic":
+            validation_results['anthropic_api_key'] = bool(self.anthropic_api_key and len(self.anthropic_api_key) > 10)
+        elif self.ai_provider == "google":
+            validation_results['google_api_key'] = bool(self.google_api_key and len(self.google_api_key) > 10)
+        elif self.ai_provider == "deepseek":
+            validation_results['deepseek_api_key'] = bool(self.deepseek_api_key and len(self.deepseek_api_key) > 10)
         
-        # Check Azure OpenAI keys if enabled
+        # Backward compatibility: Check Azure OpenAI keys if enabled
         if self.use_azure_openai:
             validation_results['azure_openai_api_key'] = bool(self.azure_openai_api_key and len(self.azure_openai_api_key) > 10)
             validation_results['azure_openai_endpoint'] = bool(self.azure_openai_endpoint and self.azure_openai_endpoint.startswith('https://'))
@@ -487,9 +693,27 @@ class Config:
             missing.append("NOTION_TOKEN")
         if not self.hunter_api_key:
             missing.append("HUNTER_API_KEY")
-        if not self.use_azure_openai and not self.openai_api_key:
-            missing.append("OPENAI_API_KEY")
         
+        # Check AI provider-specific requirements
+        if self.ai_provider == "openai":
+            if not self.openai_api_key:
+                missing.append("OPENAI_API_KEY")
+        elif self.ai_provider == "azure-openai":
+            if not self.azure_openai_api_key:
+                missing.append("AZURE_OPENAI_API_KEY")
+            if not self.azure_openai_endpoint:
+                missing.append("AZURE_OPENAI_ENDPOINT")
+        elif self.ai_provider == "anthropic":
+            if not self.anthropic_api_key:
+                missing.append("ANTHROPIC_API_KEY")
+        elif self.ai_provider == "google":
+            if not self.google_api_key:
+                missing.append("GOOGLE_API_KEY")
+        elif self.ai_provider == "deepseek":
+            if not self.deepseek_api_key:
+                missing.append("DEEPSEEK_API_KEY")
+        
+        # Backward compatibility: Check Azure OpenAI if enabled
         if self.use_azure_openai:
             if not self.azure_openai_api_key:
                 missing.append("AZURE_OPENAI_API_KEY")

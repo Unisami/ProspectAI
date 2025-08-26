@@ -538,6 +538,11 @@ class ProductAnalyzer:
     
     def _extract_features_with_ai(self, features_content: str) -> List[Feature]:
         """Use AI to extract structured features from content."""
+        # Check if AI parser is available
+        if not self.ai_parser:
+            logger.warning("AI parser not available, skipping AI feature extraction")
+            return []
+            
         try:
             system_prompt = """You are an expert at analyzing product content and extracting structured feature information.
 
@@ -570,7 +575,7 @@ Return only the JSON array, no additional text or explanation."""
             Return the data in the exact JSON format specified in the system prompt.
             """
             
-            response = self.ai_parser.client_manager.make_completion(
+            response = self.ai_parser.provider_manager.make_completion(
                 CompletionRequest(
                     messages=[
                         {"role": "system", "content": system_prompt},
@@ -578,8 +583,7 @@ Return only the JSON array, no additional text or explanation."""
                     ],
                     temperature=0.1,
                     max_tokens=1500
-                ),
-                self.ai_parser.client_id
+                )
             )
             
             if not response.success:
@@ -662,6 +666,11 @@ Return only the JSON array, no additional text or explanation."""
     
     def _extract_pricing_with_ai(self, pricing_content: str) -> Optional[PricingInfo]:
         """Use AI to extract structured pricing from content."""
+        # Check if AI parser is available
+        if not self.ai_parser:
+            logger.warning("AI parser not available, skipping AI pricing extraction")
+            return None
+            
         try:
             system_prompt = """You are an expert at analyzing pricing content and extracting structured pricing information.
 
@@ -699,7 +708,7 @@ Return only the JSON object, no additional text or explanation."""
             Return the data in the exact JSON format specified in the system prompt.
             """
             
-            response = self.ai_parser.client_manager.make_completion(
+            response = self.ai_parser.provider_manager.make_completion(
                 CompletionRequest(
                     messages=[
                         {"role": "system", "content": system_prompt},
@@ -707,8 +716,7 @@ Return only the JSON object, no additional text or explanation."""
                     ],
                     temperature=0.1,
                     max_tokens=1000
-                ),
-                self.ai_parser.client_id
+                )
             )
             
             if not response.success:
@@ -789,6 +797,11 @@ Return only the JSON object, no additional text or explanation."""
     
     def _analyze_market_with_ai(self, analysis_prompt: str) -> Optional[MarketAnalysis]:
         """Use AI to analyze market position."""
+        # Check if AI parser is available
+        if not self.ai_parser:
+            logger.warning("AI parser not available, skipping AI market analysis")
+            return None
+            
         try:
             system_prompt = """You are an expert market analyst. Analyze the provided product information and extract market insights in JSON format:
 
@@ -811,7 +824,7 @@ Guidelines:
 
 Return only the JSON object, no additional text or explanation."""
 
-            response = self.ai_parser.client_manager.make_completion(
+            response = self.ai_parser.provider_manager.make_completion(
                 CompletionRequest(
                     messages=[
                         {"role": "system", "content": system_prompt},
@@ -819,8 +832,7 @@ Return only the JSON object, no additional text or explanation."""
                     ],
                     temperature=0.2,
                     max_tokens=1000
-                ),
-                self.ai_parser.client_id
+                )
             )
             
             if not response.success:

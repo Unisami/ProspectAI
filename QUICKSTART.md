@@ -1,58 +1,130 @@
-# Quick Start Guide
+<div align="center">
 
-Get the Job Prospect Automation system up and running in minutes.
+# 🚀 Quick Start Guide
+*Get the Job Prospect Automation system running in 5 minutes*
 
-## 🚀 Prerequisites
+📋 **5-minute setup** • 🤖 **AI-powered automation** • 📊 **Results in Notion**
 
-- Python 3.13 or higher
-- Internet connection
-- API keys (see Configuration section)
+**Created by [Minhal Abdul Sami](https://www.linkedin.com/in/minhal-abdul-sami/)**
 
-## ⚡ 5-Minute Setup
+[![Python 3.13+](https://img.shields.io/badge/python-3.13+-blue.svg)](https://www.python.org/downloads/)
+[![Setup Time](https://img.shields.io/badge/setup-5%20minutes-green.svg)]()
+[![First Campaign](https://img.shields.io/badge/first%20campaign-3--5%20minutes-brightgreen.svg)]()
 
-### 1. Install Dependencies
+</div>
+
+---
+
+## 📋 Prerequisites Checklist
+
+<div align="center">
+
+| Requirement | ✓ Status | Action Required |
+|:---|:---:|:---|
+| **Python 3.13+** | ☐ | [Download & Install](https://www.python.org/downloads/) |
+| **Internet Connection** | ☐ | For API access |
+| **API Keys** | ☐ | [Get API keys](docs/API_KEYS_GUIDE.md) |
+
+</div>
+
+> 💡 **First time?** Check out our [🚀 Getting Started Guide](GETTING_STARTED.md) for the one-command setup!
+
+## ⚡ 5-Minute Setup Guide
+
+<div align="center">
+
+**🎯 Follow these steps in order for guaranteed success**
+
+</div>
+
+### Step 1: 💫 Install Dependencies
 
 ```bash
 pip install -r requirements.txt
 ```
 
-### 2. Configure API Keys
+<div align="center">
 
-Create a `.env` file with your API keys:
+**✅ Expected Output:**
+```
+Successfully installed click-8.1.3 rich-13.5.2 ...
+```
+
+</div>
+
+<details>
+<summary>🔧 <strong>Troubleshooting Installation Issues</strong></summary>
+
+**🚫 Common Issues & Solutions:**
+
+| Problem | Solution |
+|:---|:---|
+| `pip: command not found` | Install Python first: [python.org](https://www.python.org/downloads/) |
+| Permission denied | Use `pip install --user -r requirements.txt` |
+| Version conflicts | Create virtual environment: `python -m venv venv` |
+| Windows PATH issues | Add Python to PATH during installation |
+
+**💡 Virtual Environment (Recommended):**
+```bash
+python -m venv venv
+# Windows: venv\Scripts\activate
+# macOS/Linux: source venv/bin/activate
+pip install -r requirements.txt
+```
+
+</details>
+
+### Step 2: 🔑 Configure API Keys
+
+<div align="center">
+
+**🎯 Create your `.env` file with these essential API keys**
+
+</div>
 
 ```env
-# Required API Keys
+# 📊 CORE API CONFIGURATION (Required)
 NOTION_TOKEN=your_notion_integration_token_here
 HUNTER_API_KEY=your_hunter_io_api_key_here
 OPENAI_API_KEY=your_openai_api_key_here
 
-# Optional: Email Sending
+# 📧 EMAIL SENDING (Optional but recommended)
 RESEND_API_KEY=your_resend_api_key_here
 SENDER_EMAIL=your-name@yourdomain.com
 SENDER_NAME=Your Full Name
 
-# Optional: Notifications
+# 📱 NOTIFICATIONS (Optional)
 ENABLE_NOTIFICATIONS=true
 NOTIFICATION_METHODS=['notion']
 
-# Optional: User mention settings for enhanced notifications (future feature)
-NOTION_USER_ID=your-notion-user-id  # For @mentions in notifications
+# 👤 USER MENTIONS (Future feature)
+NOTION_USER_ID=your-notion-user-id  # For @mentions
 USER_EMAIL=your-email@domain.com    # For @remind notifications
 
-# Enhanced Features (recommended)
+# 🤖 AI PROVIDER CONFIGURATION
+AI_PROVIDER=openai  # Options: openai, azure-openai, anthropic, google, deepseek
+
+# Choose your AI provider based on your needs:
+# - openai: Most popular, proven performance, extensive features
+# - azure-openai: Enterprise security, custom deployments, Microsoft integration
+# - anthropic: Constitutional AI, safety-focused, long context (Claude models)
+# - google: Multimodal capabilities, long context, Google ecosystem (Gemini)
+# - deepseek: Cost-effective, specialized for coding and reasoning tasks
+
+# 🎆 ENHANCED FEATURES (Recommended)
 ENABLE_AI_PARSING=true
 ENABLE_PRODUCT_ANALYSIS=true
 ENHANCED_PERSONALIZATION=true
 AI_PARSING_MODEL=gpt-4
 EMAIL_GENERATION_MODEL=gpt-4
 
-# Processing Settings
+# ⚡ PROCESSING SETTINGS
 SCRAPING_DELAY=0.3
 HUNTER_REQUESTS_PER_MINUTE=10
 MAX_PRODUCTS_PER_RUN=50
 MAX_PROSPECTS_PER_COMPANY=3
 
-# Caching Configuration (recommended for performance)
+# 💫 CACHING CONFIGURATION (Performance boost)
 ENABLE_CACHING=true
 CACHE_MEMORY_MAX_ENTRIES=1000
 CACHE_MEMORY_MAX_MB=100
@@ -60,31 +132,124 @@ CACHE_PERSISTENT_DIR=.cache
 CACHE_DEFAULT_TTL=3600
 ```
 
-### 3. Validate Configuration
+<details>
+<summary>🔑 <strong>Where to get API keys (click to expand)</strong></summary>
+
+### 🔑 **API Keys Guide**
+
+| Service | Purpose | Free Tier | Link |
+|:---|:---|:---:|:---|
+| **Notion** | Data storage | ✓ Unlimited | [Get Token](https://developers.notion.com/) |
+| **Hunter.io** | Email discovery | 25/month | [Get Key](https://hunter.io/api) |
+| 🤖 **AI Provider** | AI processing | Choose provider | [Setup Guide](docs/API_KEYS_GUIDE.md) |
+| **Resend** | Email sending | 3k/month | [Get Key](https://resend.com/api-keys) |
+
+🔗 **Detailed setup guide**: [🔑 Complete API Keys Guide](docs/API_KEYS_GUIDE.md)
+
+</details>
+
+<details>
+<summary>🔧 <strong>Configuration troubleshooting</strong></summary>
+
+**🚫 Common Configuration Issues:**
+
+| Problem | Solution |
+|:---|:---|
+| `Configuration validation failed` | Check API key formats |
+| `Notion connection failed` | Verify integration token & permissions |
+| `AI quota exceeded` | Check billing & usage limits |
+| `Hunter.io rate limit` | Reduce `HUNTER_REQUESTS_PER_MINUTE` |
+
+**📊 Validation patterns:**
+- Notion: `secret_[a-zA-Z0-9]{43,70}` or `ntn_[a-zA-Z0-9]{40,60}`
+- Hunter.io: Standard API key format
+- AI Provider: Various formats (see [API Keys Guide](docs/API_KEYS_GUIDE.md))
+- Resend: `re_[a-zA-Z0-9_]{25,35}`
+
+</details>
+
+### Step 3: 🖥️ GUI Application (Alternative to CLI)
+
+For users who prefer a graphical interface, you can use the GUI application instead of the command line:
+
+```bash
+# Run the GUI application
+python run_gui.py
+
+# Or on Windows:
+run_gui.bat
+
+# Or on Linux/macOS:
+./run_gui.sh
+```
+
+The GUI provides the same functionality as the CLI but with a user-friendly interface:
+- 🎨 Simple point-and-click operation
+- 📋 Access to all main commands (discover, run-campaign, etc.)
+- ⚙️ Easy configuration management
+- 📊 Real-time output display
+- 🚫 Cancel operations when needed
+
+For detailed information about the GUI, see [GUI Runner Documentation](docs/GUI_RUNNER.md).
+
+### Step 4: ✅ Validate Configuration
 
 ```bash
 python cli.py validate-config
 ```
 
-Expected output:
+<div align="center">
+
+**✅ Expected Success Output:**
+
+</div>
+
 ```
 ✅ Configuration validation passed
 ✅ API connection testing:
    - Notion: ✅ Connection successful
    - Hunter.io: ✅ Connection successful  
-   - OpenAI: ✅ Connection successful
+   - AI Provider: ✅ Connection successful
    - Resend: ✅ Connection successful
 ✅ Sender profile validation passed
 Profile completeness: 85.0%
 ```
 
-### 4. Set Up Progress Dashboard
+<details>
+<summary>🚫 <strong>Configuration issues? Click for solutions</strong></summary>
+
+**📊 Common validation errors:**
+
+| Error Message | Solution |
+|:---|:---|
+| `Notion connection failed` | Check token format & permissions |
+| `AI authentication failed` | Verify API key & billing status |
+| `Hunter.io quota exceeded` | Check your Hunter.io dashboard |
+| `Configuration file not found` | Create `.env` file in project root |
+
+**🔧 Debug commands:**
+```bash
+# Test individual components
+python cli.py test-notifications
+python scripts/debug_notion_storage.py
+```
+
+</details>
+
+---
+
+### Step 4: 📊 Set Up Progress Dashboard
 
 ```bash
 python scripts/setup_dashboard.py
 ```
 
-Expected output:
+<div align="center">
+
+**✅ Expected Dashboard Setup Output:**
+
+</div>
+
 ```
 📊 Job Prospect Automation Dashboard Setup
 
@@ -97,6 +262,22 @@ Dashboard Components:
 📋 Processing Log: https://notion.so/[logs-db-id]
 ⚙️ System Status: https://notion.so/[status-db-id]
 ```
+
+<details>
+<summary>🔧 <strong>Dashboard setup issues</strong></summary>
+
+**🚫 Common dashboard issues:**
+
+| Problem | Solution |
+|:---|:---|
+| Permission denied | Share Notion integration with pages |
+| Database creation failed | Check Notion integration permissions |
+| URLs not accessible | Verify sharing settings in Notion |
+
+**📊 Manual dashboard creation:**
+If automatic setup fails, you can create databases manually in Notion and update the IDs in your configuration.
+
+</details>
 
 ### 5. Apply Performance Optimizations (Recommended)
 
@@ -216,7 +397,7 @@ python cli.py status
    - Sign up at [hunter.io](https://hunter.io/)
    - Get API key from dashboard
 
-3. **OpenAI** (Pay-per-use)
+3. **AI Provider** (Choose one)
    - Create account at [platform.openai.com](https://platform.openai.com/)
    - Generate API key
    - Add payment method

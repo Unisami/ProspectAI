@@ -3,183 +3,1893 @@
     {
       "service": "hunter_io",
       "endpoint": "email-finder",
-      "timestamp": "2025-08-09T12:52:01.128369",
-      "response_time": 6.8715574741363525,
-      "status_code": 200,
-      "success": true,
-      "error_message": null
-    },
-    {
-      "service": "hunter_io",
-      "endpoint": "email-finder",
-      "timestamp": "2025-08-09T12:52:04.666883",
-      "response_time": 2.362854480743408,
-      "status_code": 200,
-      "success": true,
-      "error_message": null
-    },
-    {
-      "service": "hunter_io",
-      "endpoint": "email-verifier",
-      "timestamp": "2025-08-09T12:52:05.811113",
-      "response_time": 1.1069591045379639,
-      "status_code": 200,
-      "success": true,
-      "error_message": null
-    },
-    {
-      "service": "hunter_io",
-      "endpoint": "email-finder",
-      "timestamp": "2025-08-09T12:52:30.149903",
-      "response_time": 0.6430723667144775,
-      "status_code": 200,
-      "success": true,
-      "error_message": null
-    },
-    {
-      "service": "hunter_io",
-      "endpoint": "email-finder",
-      "timestamp": "2025-08-09T12:52:42.480560",
-      "response_time": 0.5349423885345459,
-      "status_code": 200,
-      "success": true,
-      "error_message": null
-    },
-    {
-      "service": "hunter_io",
-      "endpoint": "email-verifier",
-      "timestamp": "2025-08-09T12:52:44.918671",
-      "response_time": 0.5728247165679932,
-      "status_code": 200,
-      "success": true,
-      "error_message": null
-    },
-    {
-      "service": "hunter_io",
-      "endpoint": "email-finder",
-      "timestamp": "2025-08-09T12:52:56.976649",
-      "response_time": 10.23030400276184,
-      "status_code": 200,
-      "success": true,
-      "error_message": null
-    },
-    {
-      "service": "hunter_io",
-      "endpoint": "email-finder",
-      "timestamp": "2025-08-09T12:54:15.033497",
-      "response_time": 0.5987551212310791,
-      "status_code": 400,
+      "timestamp": "2025-08-26T18:28:57.075167",
+      "response_time": 0.5974304676055908,
+      "status_code": 429,
       "success": false,
       "error_message": null
     },
     {
       "service": "hunter_io",
       "endpoint": "email-finder",
-      "timestamp": "2025-08-09T12:54:15.033548",
-      "response_time": 0.5988175868988037,
+      "timestamp": "2025-08-26T18:28:57.094017",
+      "response_time": 0.6162924766540527,
       "status_code": 0,
       "success": false,
-      "error_message": "400 Client Error: Bad Request for url: https://api.hunter.io/v2/email-finder?domain=blur-it.app&first_name=Madalina&last_name=B&api_key=3570850f1498a8fc350411f1b34534157d719eb9"
+      "error_message": "429 Client Error: Too Many Requests for url: https://api.hunter.io/v2/email-finder?domain=drawafish.com&first_name=Zac&last_name=Zuo&api_key=3570850f1498a8fc350411f1b34534157d719eb9"
     },
     {
       "service": "hunter_io",
       "endpoint": "email-finder",
-      "timestamp": "2025-08-09T12:54:16.267664",
-      "response_time": 4.233726263046265,
-      "status_code": 200,
-      "success": true,
-      "error_message": null
-    },
-    {
-      "service": "hunter_io",
-      "endpoint": "email-verifier",
-      "timestamp": "2025-08-09T12:54:17.241751",
-      "response_time": 0.40697789192199707,
-      "status_code": 200,
-      "success": true,
-      "error_message": null
-    },
-    {
-      "service": "hunter_io",
-      "endpoint": "email-finder",
-      "timestamp": "2025-08-09T12:54:22.318241",
-      "response_time": 0.683314323425293,
-      "status_code": 400,
+      "timestamp": "2025-08-26T18:29:02.423409",
+      "response_time": 0.5129444599151611,
+      "status_code": 429,
       "success": false,
       "error_message": null
     },
     {
       "service": "hunter_io",
       "endpoint": "email-finder",
-      "timestamp": "2025-08-09T12:54:22.318291",
-      "response_time": 0.6833758354187012,
+      "timestamp": "2025-08-26T18:29:02.441935",
+      "response_time": 0.5314853191375732,
       "status_code": 0,
       "success": false,
-      "error_message": "400 Client Error: Bad Request for url: https://api.hunter.io/v2/email-finder?domain=blur-it.app&first_name=Madalina&last_name=B&api_key=3570850f1498a8fc350411f1b34534157d719eb9"
+      "error_message": "429 Client Error: Too Many Requests for url: https://api.hunter.io/v2/email-finder?domain=drawafish.com&first_name=Zac&last_name=Zuo&api_key=3570850f1498a8fc350411f1b34534157d719eb9"
     },
     {
       "service": "hunter_io",
       "endpoint": "email-finder",
-      "timestamp": "2025-08-09T12:54:23.638248",
-      "response_time": 4.403371095657349,
-      "status_code": 200,
-      "success": true,
-      "error_message": null
-    },
-    {
-      "service": "hunter_io",
-      "endpoint": "email-finder",
-      "timestamp": "2025-08-09T12:54:24.603438",
-      "response_time": 5.368618011474609,
-      "status_code": 200,
-      "success": true,
-      "error_message": null
-    },
-    {
-      "service": "hunter_io",
-      "endpoint": "email-verifier",
-      "timestamp": "2025-08-09T12:54:27.158371",
-      "response_time": 0.7233321666717529,
-      "status_code": 200,
-      "success": true,
-      "error_message": null
-    },
-    {
-      "service": "hunter_io",
-      "endpoint": "email-finder",
-      "timestamp": "2025-08-09T12:54:28.903068",
-      "response_time": 4.8680925369262695,
-      "status_code": 200,
-      "success": true,
-      "error_message": null
-    },
-    {
-      "service": "hunter_io",
-      "endpoint": "email-finder",
-      "timestamp": "2025-08-09T12:54:29.056252",
-      "response_time": 0.22116351127624512,
-      "status_code": 400,
+      "timestamp": "2025-08-26T18:29:09.945749",
+      "response_time": 0.6075108051300049,
+      "status_code": 429,
       "success": false,
       "error_message": null
     },
     {
       "service": "hunter_io",
       "endpoint": "email-finder",
-      "timestamp": "2025-08-09T12:54:29.056299",
-      "response_time": 0.22122478485107422,
+      "timestamp": "2025-08-26T18:29:09.965285",
+      "response_time": 0.6270582675933838,
       "status_code": 0,
       "success": false,
-      "error_message": "400 Client Error: Bad Request for url: https://api.hunter.io/v2/email-finder?domain=blur-it.app&first_name=Madalina&last_name=B&api_key=3570850f1498a8fc350411f1b34534157d719eb9"
+      "error_message": "429 Client Error: Too Many Requests for url: https://api.hunter.io/v2/email-finder?domain=creem.io&first_name=Paul&last_name=Mit&api_key=3570850f1498a8fc350411f1b34534157d719eb9"
     },
     {
       "service": "hunter_io",
       "endpoint": "email-finder",
-      "timestamp": "2025-08-09T12:54:46.123647",
-      "response_time": 0.4554893970489502,
-      "status_code": 400,
+      "timestamp": "2025-08-26T18:29:11.977872",
+      "response_time": 0.23913049697875977,
+      "status_code": 429,
       "success": false,
+      "error_message": null
+    },
+    {
+      "service": "hunter_io",
+      "endpoint": "email-finder",
+      "timestamp": "2025-08-26T18:29:11.996414",
+      "response_time": 0.25768184661865234,
+      "status_code": 0,
+      "success": false,
+      "error_message": "429 Client Error: Too Many Requests for url: https://api.hunter.io/v2/email-finder?domain=drawafish.com&first_name=Zac&last_name=Zuo&api_key=3570850f1498a8fc350411f1b34534157d719eb9"
+    },
+    {
+      "service": "hunter_io",
+      "endpoint": "email-finder",
+      "timestamp": "2025-08-26T18:29:14.381432",
+      "response_time": 0.24199867248535156,
+      "status_code": 429,
+      "success": false,
+      "error_message": null
+    },
+    {
+      "service": "hunter_io",
+      "endpoint": "email-finder",
+      "timestamp": "2025-08-26T18:29:14.400312",
+      "response_time": 0.2608914375305176,
+      "status_code": 0,
+      "success": false,
+      "error_message": "429 Client Error: Too Many Requests for url: https://api.hunter.io/v2/email-finder?domain=creem.io&first_name=Paul&last_name=Mit&api_key=3570850f1498a8fc350411f1b34534157d719eb9"
+    },
+    {
+      "service": "hunter_io",
+      "endpoint": "email-finder",
+      "timestamp": "2025-08-26T18:29:21.362933",
+      "response_time": 0.47361278533935547,
+      "status_code": 429,
+      "success": false,
+      "error_message": null
+    },
+    {
+      "service": "hunter_io",
+      "endpoint": "email-finder",
+      "timestamp": "2025-08-26T18:29:21.381850",
+      "response_time": 0.4925401210784912,
+      "status_code": 0,
+      "success": false,
+      "error_message": "429 Client Error: Too Many Requests for url: https://api.hunter.io/v2/email-finder?domain=creem.io&first_name=Paul&last_name=Mit&api_key=3570850f1498a8fc350411f1b34534157d719eb9"
+    },
+    {
+      "service": "hunter_io",
+      "endpoint": "email-finder",
+      "timestamp": "2025-08-26T18:29:24.345301",
+      "response_time": 0.28325796127319336,
+      "status_code": 429,
+      "success": false,
+      "error_message": null
+    },
+    {
+      "service": "hunter_io",
+      "endpoint": "email-finder",
+      "timestamp": "2025-08-26T18:29:24.364132",
+      "response_time": 0.30210328102111816,
+      "status_code": 0,
+      "success": false,
+      "error_message": "429 Client Error: Too Many Requests for url: https://api.hunter.io/v2/email-finder?domain=drawafish.com&first_name=Zac&last_name=Zuo&api_key=3570850f1498a8fc350411f1b34534157d719eb9"
+    },
+    {
+      "service": "hunter_io",
+      "endpoint": "email-finder",
+      "timestamp": "2025-08-26T18:29:37.671153",
+      "response_time": 0.5032811164855957,
+      "status_code": 429,
+      "success": false,
+      "error_message": null
+    },
+    {
+      "service": "hunter_io",
+      "endpoint": "email-finder",
+      "timestamp": "2025-08-26T18:29:37.690074",
+      "response_time": 0.5222148895263672,
+      "status_code": 0,
+      "success": false,
+      "error_message": "429 Client Error: Too Many Requests for url: https://api.hunter.io/v2/email-finder?domain=creem.io&first_name=Paul&last_name=Mit&api_key=3570850f1498a8fc350411f1b34534157d719eb9"
+    },
+    {
+      "service": "hunter_io",
+      "endpoint": "email-finder",
+      "timestamp": "2025-08-26T18:29:49.334810",
+      "response_time": 0.41695642471313477,
+      "status_code": 429,
+      "success": false,
+      "error_message": null
+    },
+    {
+      "service": "hunter_io",
+      "endpoint": "email-finder",
+      "timestamp": "2025-08-26T18:29:49.353629",
+      "response_time": 0.43578457832336426,
+      "status_code": 0,
+      "success": false,
+      "error_message": "429 Client Error: Too Many Requests for url: https://api.hunter.io/v2/email-finder?domain=drawafish.com&first_name=Zac&last_name=Zuo&api_key=3570850f1498a8fc350411f1b34534157d719eb9"
+    },
+    {
+      "service": "hunter_io",
+      "endpoint": "email-finder",
+      "timestamp": "2025-08-26T18:29:53.928535",
+      "response_time": 0.21012187004089355,
+      "status_code": 429,
+      "success": false,
+      "error_message": null
+    },
+    {
+      "service": "hunter_io",
+      "endpoint": "email-finder",
+      "timestamp": "2025-08-26T18:29:53.947553",
+      "response_time": 0.22914981842041016,
+      "status_code": 0,
+      "success": false,
+      "error_message": "429 Client Error: Too Many Requests for url: https://api.hunter.io/v2/email-finder?domain=drawafish.com&first_name=Sania&last_name=Khan&api_key=3570850f1498a8fc350411f1b34534157d719eb9"
+    },
+    {
+      "service": "hunter_io",
+      "endpoint": "email-finder",
+      "timestamp": "2025-08-26T18:29:58.965518",
+      "response_time": 0.4760551452636719,
+      "status_code": 429,
+      "success": false,
+      "error_message": null
+    },
+    {
+      "service": "hunter_io",
+      "endpoint": "email-finder",
+      "timestamp": "2025-08-26T18:29:58.984571",
+      "response_time": 0.4951181411743164,
+      "status_code": 0,
+      "success": false,
+      "error_message": "429 Client Error: Too Many Requests for url: https://api.hunter.io/v2/email-finder?domain=drawafish.com&first_name=Sania&last_name=Khan&api_key=3570850f1498a8fc350411f1b34534157d719eb9"
+    },
+    {
+      "service": "hunter_io",
+      "endpoint": "email-finder",
+      "timestamp": "2025-08-26T18:30:08.167169",
+      "response_time": 0.26308393478393555,
+      "status_code": 429,
+      "success": false,
+      "error_message": null
+    },
+    {
+      "service": "hunter_io",
+      "endpoint": "email-finder",
+      "timestamp": "2025-08-26T18:30:08.187418",
+      "response_time": 0.2833435535430908,
+      "status_code": 0,
+      "success": false,
+      "error_message": "429 Client Error: Too Many Requests for url: https://api.hunter.io/v2/email-finder?domain=drawafish.com&first_name=Sania&last_name=Khan&api_key=3570850f1498a8fc350411f1b34534157d719eb9"
+    },
+    {
+      "service": "hunter_io",
+      "endpoint": "email-finder",
+      "timestamp": "2025-08-26T18:30:11.188552",
+      "response_time": 0.23114013671875,
+      "status_code": 429,
+      "success": false,
+      "error_message": null
+    },
+    {
+      "service": "hunter_io",
+      "endpoint": "email-finder",
+      "timestamp": "2025-08-26T18:30:11.207801",
+      "response_time": 0.2503983974456787,
+      "status_code": 0,
+      "success": false,
+      "error_message": "429 Client Error: Too Many Requests for url: https://api.hunter.io/v2/email-finder?domain=creem.io&first_name=Paul&last_name=Mit&api_key=3570850f1498a8fc350411f1b34534157d719eb9"
+    },
+    {
+      "service": "hunter_io",
+      "endpoint": "email-finder",
+      "timestamp": "2025-08-26T18:30:13.803861",
+      "response_time": 0.44614434242248535,
+      "status_code": 429,
+      "success": false,
+      "error_message": null
+    },
+    {
+      "service": "hunter_io",
+      "endpoint": "email-finder",
+      "timestamp": "2025-08-26T18:30:13.823876",
+      "response_time": 0.4661722183227539,
+      "status_code": 0,
+      "success": false,
+      "error_message": "429 Client Error: Too Many Requests for url: https://api.hunter.io/v2/email-finder?domain=creem.io&first_name=Giovanni&last_name=Braghieri&api_key=3570850f1498a8fc350411f1b34534157d719eb9"
+    },
+    {
+      "service": "hunter_io",
+      "endpoint": "email-finder",
+      "timestamp": "2025-08-26T18:30:18.771949",
+      "response_time": 0.20862317085266113,
+      "status_code": 429,
+      "success": false,
+      "error_message": null
+    },
+    {
+      "service": "hunter_io",
+      "endpoint": "email-finder",
+      "timestamp": "2025-08-26T18:30:18.791472",
+      "response_time": 0.22815680503845215,
+      "status_code": 0,
+      "success": false,
+      "error_message": "429 Client Error: Too Many Requests for url: https://api.hunter.io/v2/email-finder?domain=creem.io&first_name=Giovanni&last_name=Braghieri&api_key=3570850f1498a8fc350411f1b34534157d719eb9"
+    },
+    {
+      "service": "hunter_io",
+      "endpoint": "email-finder",
+      "timestamp": "2025-08-26T18:30:21.178963",
+      "response_time": 0.21482610702514648,
+      "status_code": 429,
+      "success": false,
+      "error_message": null
+    },
+    {
+      "service": "hunter_io",
+      "endpoint": "email-finder",
+      "timestamp": "2025-08-26T18:30:21.198778",
+      "response_time": 0.23465180397033691,
+      "status_code": 0,
+      "success": false,
+      "error_message": "429 Client Error: Too Many Requests for url: https://api.hunter.io/v2/email-finder?domain=drawafish.com&first_name=Sania&last_name=Khan&api_key=3570850f1498a8fc350411f1b34534157d719eb9"
+    },
+    {
+      "service": "hunter_io",
+      "endpoint": "email-finder",
+      "timestamp": "2025-08-26T18:30:27.589863",
+      "response_time": 0.464005708694458,
+      "status_code": 429,
+      "success": false,
+      "error_message": null
+    },
+    {
+      "service": "hunter_io",
+      "endpoint": "email-finder",
+      "timestamp": "2025-08-26T18:30:27.609673",
+      "response_time": 0.4838271141052246,
+      "status_code": 0,
+      "success": false,
+      "error_message": "429 Client Error: Too Many Requests for url: https://api.hunter.io/v2/email-finder?domain=creem.io&first_name=Giovanni&last_name=Braghieri&api_key=3570850f1498a8fc350411f1b34534157d719eb9"
+    },
+    {
+      "service": "hunter_io",
+      "endpoint": "email-finder",
+      "timestamp": "2025-08-26T18:30:39.635317",
+      "response_time": 0.5278146266937256,
+      "status_code": 429,
+      "success": false,
+      "error_message": null
+    },
+    {
+      "service": "hunter_io",
+      "endpoint": "email-finder",
+      "timestamp": "2025-08-26T18:30:39.657181",
+      "response_time": 0.5496840476989746,
+      "status_code": 0,
+      "success": false,
+      "error_message": "429 Client Error: Too Many Requests for url: https://api.hunter.io/v2/email-finder?domain=creem.io&first_name=Giovanni&last_name=Braghieri&api_key=3570850f1498a8fc350411f1b34534157d719eb9"
+    },
+    {
+      "service": "hunter_io",
+      "endpoint": "email-finder",
+      "timestamp": "2025-08-26T18:30:47.948240",
+      "response_time": 0.42009687423706055,
+      "status_code": 429,
+      "success": false,
+      "error_message": null
+    },
+    {
+      "service": "hunter_io",
+      "endpoint": "email-finder",
+      "timestamp": "2025-08-26T18:30:47.968668",
+      "response_time": 0.4405341148376465,
+      "status_code": 0,
+      "success": false,
+      "error_message": "429 Client Error: Too Many Requests for url: https://api.hunter.io/v2/email-finder?domain=drawafish.com&first_name=Sania&last_name=Khan&api_key=3570850f1498a8fc350411f1b34534157d719eb9"
+    },
+    {
+      "service": "hunter_io",
+      "endpoint": "email-finder",
+      "timestamp": "2025-08-26T18:31:12.945315",
+      "response_time": 0.4894096851348877,
+      "status_code": 429,
+      "success": false,
+      "error_message": null
+    },
+    {
+      "service": "hunter_io",
+      "endpoint": "email-finder",
+      "timestamp": "2025-08-26T18:31:12.966470",
+      "response_time": 0.5105752944946289,
+      "status_code": 0,
+      "success": false,
+      "error_message": "429 Client Error: Too Many Requests for url: https://api.hunter.io/v2/email-finder?domain=creem.io&first_name=Giovanni&last_name=Braghieri&api_key=3570850f1498a8fc350411f1b34534157d719eb9"
+    },
+    {
+      "service": "hunter_io",
+      "endpoint": "email-finder",
+      "timestamp": "2025-08-26T18:31:15.110847",
+      "response_time": 0.254685640335083,
+      "status_code": 429,
+      "success": false,
+      "error_message": null
+    },
+    {
+      "service": "hunter_io",
+      "endpoint": "email-finder",
+      "timestamp": "2025-08-26T18:31:15.130985",
+      "response_time": 0.27483296394348145,
+      "status_code": 0,
+      "success": false,
+      "error_message": "429 Client Error: Too Many Requests for url: https://api.hunter.io/v2/email-finder?domain=creem.io&first_name=Gabriel&last_name=Ferraz&api_key=3570850f1498a8fc350411f1b34534157d719eb9"
+    },
+    {
+      "service": "hunter_io",
+      "endpoint": "email-finder",
+      "timestamp": "2025-08-26T18:31:20.065069",
+      "response_time": 0.4513583183288574,
+      "status_code": 429,
+      "success": false,
+      "error_message": null
+    },
+    {
+      "service": "hunter_io",
+      "endpoint": "email-finder",
+      "timestamp": "2025-08-26T18:31:20.085124",
+      "response_time": 0.47142553329467773,
+      "status_code": 0,
+      "success": false,
+      "error_message": "429 Client Error: Too Many Requests for url: https://api.hunter.io/v2/email-finder?domain=creem.io&first_name=Gabriel&last_name=Ferraz&api_key=3570850f1498a8fc350411f1b34534157d719eb9"
+    },
+    {
+      "service": "hunter_io",
+      "endpoint": "email-finder",
+      "timestamp": "2025-08-26T18:31:28.038180",
+      "response_time": 0.22582244873046875,
+      "status_code": 429,
+      "success": false,
+      "error_message": null
+    },
+    {
+      "service": "hunter_io",
+      "endpoint": "email-finder",
+      "timestamp": "2025-08-26T18:31:28.058098",
+      "response_time": 0.24575257301330566,
+      "status_code": 0,
+      "success": false,
+      "error_message": "429 Client Error: Too Many Requests for url: https://api.hunter.io/v2/email-finder?domain=creem.io&first_name=Gabriel&last_name=Ferraz&api_key=3570850f1498a8fc350411f1b34534157d719eb9"
+    },
+    {
+      "service": "hunter_io",
+      "endpoint": "email-finder",
+      "timestamp": "2025-08-26T18:31:42.072305",
+      "response_time": 0.47031569480895996,
+      "status_code": 429,
+      "success": false,
+      "error_message": null
+    },
+    {
+      "service": "hunter_io",
+      "endpoint": "email-finder",
+      "timestamp": "2025-08-26T18:31:42.093106",
+      "response_time": 0.49112796783447266,
+      "status_code": 0,
+      "success": false,
+      "error_message": "429 Client Error: Too Many Requests for url: https://api.hunter.io/v2/email-finder?domain=creem.io&first_name=Gabriel&last_name=Ferraz&api_key=3570850f1498a8fc350411f1b34534157d719eb9"
+    },
+    {
+      "service": "hunter_io",
+      "endpoint": "email-finder",
+      "timestamp": "2025-08-26T18:32:08.383371",
+      "response_time": 0.48840951919555664,
+      "status_code": 429,
+      "success": false,
+      "error_message": null
+    },
+    {
+      "service": "hunter_io",
+      "endpoint": "email-finder",
+      "timestamp": "2025-08-26T18:32:08.403523",
+      "response_time": 0.5085709095001221,
+      "status_code": 0,
+      "success": false,
+      "error_message": "429 Client Error: Too Many Requests for url: https://api.hunter.io/v2/email-finder?domain=creem.io&first_name=Gabriel&last_name=Ferraz&api_key=3570850f1498a8fc350411f1b34534157d719eb9"
+    },
+    {
+      "service": "hunter_io",
+      "endpoint": "domain-search",
+      "timestamp": "2025-08-26T22:04:35.254920",
+      "response_time": 0.6844713687896729,
+      "status_code": 429,
+      "success": false,
+      "error_message": null
+    },
+    {
+      "service": "hunter_io",
+      "endpoint": "domain-search",
+      "timestamp": "2025-08-26T22:04:35.285963",
+      "response_time": 0.7155277729034424,
+      "status_code": 0,
+      "success": false,
+      "error_message": "429 Client Error: Too Many Requests for url: https://api.hunter.io/v2/domain-search?domain=example.com&api_key=3570850f1498a8fc350411f1b34534157d719eb9&limit=100"
+    },
+    {
+      "service": "hunter_io",
+      "endpoint": "domain-search",
+      "timestamp": "2025-08-26T22:04:38.992923",
+      "response_time": 0.31307077407836914,
+      "status_code": 429,
+      "success": false,
+      "error_message": null
+    },
+    {
+      "service": "hunter_io",
+      "endpoint": "domain-search",
+      "timestamp": "2025-08-26T22:04:39.017616",
+      "response_time": 0.3377711772918701,
+      "status_code": 0,
+      "success": false,
+      "error_message": "429 Client Error: Too Many Requests for url: https://api.hunter.io/v2/domain-search?domain=example.com&api_key=3570850f1498a8fc350411f1b34534157d719eb9&limit=100"
+    },
+    {
+      "service": "hunter_io",
+      "endpoint": "domain-search",
+      "timestamp": "2025-08-26T22:04:49.398066",
+      "response_time": 0.4225168228149414,
+      "status_code": 429,
+      "success": false,
+      "error_message": null
+    },
+    {
+      "service": "hunter_io",
+      "endpoint": "domain-search",
+      "timestamp": "2025-08-26T22:04:49.408942",
+      "response_time": 0.43340301513671875,
+      "status_code": 0,
+      "success": false,
+      "error_message": "429 Client Error: Too Many Requests for url: https://api.hunter.io/v2/domain-search?domain=example.com&api_key=3570850f1498a8fc350411f1b34534157d719eb9&limit=100"
+    },
+    {
+      "service": "hunter_io",
+      "endpoint": "domain-search",
+      "timestamp": "2025-08-26T22:05:04.526449",
+      "response_time": 0.4483022689819336,
+      "status_code": 429,
+      "success": false,
+      "error_message": null
+    },
+    {
+      "service": "hunter_io",
+      "endpoint": "domain-search",
+      "timestamp": "2025-08-26T22:05:04.537790",
+      "response_time": 0.4596545696258545,
+      "status_code": 0,
+      "success": false,
+      "error_message": "429 Client Error: Too Many Requests for url: https://api.hunter.io/v2/domain-search?domain=example.com&api_key=3570850f1498a8fc350411f1b34534157d719eb9&limit=100"
+    },
+    {
+      "service": "hunter_io",
+      "endpoint": "domain-search",
+      "timestamp": "2025-08-26T22:05:25.050598",
+      "response_time": 0.4560549259185791,
+      "status_code": 429,
+      "success": false,
+      "error_message": null
+    },
+    {
+      "service": "hunter_io",
+      "endpoint": "domain-search",
+      "timestamp": "2025-08-26T22:05:25.061963",
+      "response_time": 0.46742773056030273,
+      "status_code": 0,
+      "success": false,
+      "error_message": "429 Client Error: Too Many Requests for url: https://api.hunter.io/v2/domain-search?domain=example.com&api_key=3570850f1498a8fc350411f1b34534157d719eb9&limit=100"
+    },
+    {
+      "service": "hunter_io",
+      "endpoint": "domain-search",
+      "timestamp": "2025-08-26T22:05:26.355947",
+      "response_time": 0.2666177749633789,
+      "status_code": 429,
+      "success": false,
+      "error_message": null
+    },
+    {
+      "service": "hunter_io",
+      "endpoint": "domain-search",
+      "timestamp": "2025-08-26T22:05:26.367766",
+      "response_time": 0.27844834327697754,
+      "status_code": 0,
+      "success": false,
+      "error_message": "429 Client Error: Too Many Requests for url: https://api.hunter.io/v2/domain-search?domain=test.com&api_key=3570850f1498a8fc350411f1b34534157d719eb9&limit=100"
+    },
+    {
+      "service": "hunter_io",
+      "endpoint": "domain-search",
+      "timestamp": "2025-08-26T22:05:31.338552",
+      "response_time": 0.4671361446380615,
+      "status_code": 429,
+      "success": false,
+      "error_message": null
+    },
+    {
+      "service": "hunter_io",
+      "endpoint": "domain-search",
+      "timestamp": "2025-08-26T22:05:31.370274",
+      "response_time": 0.498868465423584,
+      "status_code": 0,
+      "success": false,
+      "error_message": "429 Client Error: Too Many Requests for url: https://api.hunter.io/v2/domain-search?domain=test.com&api_key=3570850f1498a8fc350411f1b34534157d719eb9&limit=100"
+    },
+    {
+      "service": "hunter_io",
+      "endpoint": "domain-search",
+      "timestamp": "2025-08-26T22:05:37.044951",
+      "response_time": 0.2823219299316406,
+      "status_code": 429,
+      "success": false,
+      "error_message": null
+    },
+    {
+      "service": "hunter_io",
+      "endpoint": "domain-search",
+      "timestamp": "2025-08-26T22:05:37.056556",
+      "response_time": 0.29393506050109863,
+      "status_code": 0,
+      "success": false,
+      "error_message": "429 Client Error: Too Many Requests for url: https://api.hunter.io/v2/domain-search?domain=test.com&api_key=3570850f1498a8fc350411f1b34534157d719eb9&limit=100"
+    },
+    {
+      "service": "hunter_io",
+      "endpoint": "domain-search",
+      "timestamp": "2025-08-26T22:05:48.064129",
+      "response_time": 0.43662548065185547,
+      "status_code": 429,
+      "success": false,
+      "error_message": null
+    },
+    {
+      "service": "hunter_io",
+      "endpoint": "domain-search",
+      "timestamp": "2025-08-26T22:05:48.075440",
+      "response_time": 0.44794511795043945,
+      "status_code": 0,
+      "success": false,
+      "error_message": "429 Client Error: Too Many Requests for url: https://api.hunter.io/v2/domain-search?domain=test.com&api_key=3570850f1498a8fc350411f1b34534157d719eb9&limit=100"
+    },
+    {
+      "service": "hunter_io",
+      "endpoint": "domain-search",
+      "timestamp": "2025-08-26T22:06:16.823577",
+      "response_time": 0.24276494979858398,
+      "status_code": 429,
+      "success": false,
+      "error_message": null
+    },
+    {
+      "service": "hunter_io",
+      "endpoint": "domain-search",
+      "timestamp": "2025-08-26T22:06:16.837776",
+      "response_time": 0.2569735050201416,
+      "status_code": 0,
+      "success": false,
+      "error_message": "429 Client Error: Too Many Requests for url: https://api.hunter.io/v2/domain-search?domain=test.com&api_key=3570850f1498a8fc350411f1b34534157d719eb9&limit=100"
+    },
+    {
+      "service": "hunter",
+      "endpoint": "domain-search",
+      "timestamp": "2025-08-26T22:17:11.807030",
+      "response_time": 0.9206950664520264,
+      "status_code": 429,
+      "success": false,
+      "error_message": null
+    },
+    {
+      "service": "hunter",
+      "endpoint": "domain-search",
+      "timestamp": "2025-08-26T22:17:11.820260",
+      "response_time": 0.9339315891265869,
+      "status_code": 0,
+      "success": false,
+      "error_message": "429 Client Error: Too Many Requests for url: https://api.hunter.io/v2/domain-search?domain=example.com&api_key=3570850f1498a8fc350411f1b34534157d719eb9&limit=100"
+    },
+    {
+      "service": "hunter",
+      "endpoint": "domain-search",
+      "timestamp": "2025-08-26T22:17:16.871525",
+      "response_time": 0.6373708248138428,
+      "status_code": 429,
+      "success": false,
+      "error_message": null
+    },
+    {
+      "service": "hunter",
+      "endpoint": "domain-search",
+      "timestamp": "2025-08-26T22:17:16.884221",
+      "response_time": 0.6500794887542725,
+      "status_code": 0,
+      "success": false,
+      "error_message": "429 Client Error: Too Many Requests for url: https://api.hunter.io/v2/domain-search?domain=example.com&api_key=3570850f1498a8fc350411f1b34534157d719eb9&limit=100"
+    },
+    {
+      "service": "hunter",
+      "endpoint": "domain-search",
+      "timestamp": "2025-08-26T22:17:23.205927",
+      "response_time": 0.6488440036773682,
+      "status_code": 429,
+      "success": false,
+      "error_message": null
+    },
+    {
+      "service": "hunter",
+      "endpoint": "domain-search",
+      "timestamp": "2025-08-26T22:17:23.218577",
+      "response_time": 0.6615033149719238,
+      "status_code": 0,
+      "success": false,
+      "error_message": "429 Client Error: Too Many Requests for url: https://api.hunter.io/v2/domain-search?domain=example.com&api_key=3570850f1498a8fc350411f1b34534157d719eb9&limit=100"
+    },
+    {
+      "service": "hunter",
+      "endpoint": "domain-search",
+      "timestamp": "2025-08-26T22:17:39.055245",
+      "response_time": 0.6608254909515381,
+      "status_code": 429,
+      "success": false,
+      "error_message": null
+    },
+    {
+      "service": "hunter",
+      "endpoint": "domain-search",
+      "timestamp": "2025-08-26T22:17:39.068724",
+      "response_time": 0.6743152141571045,
+      "status_code": 0,
+      "success": false,
+      "error_message": "429 Client Error: Too Many Requests for url: https://api.hunter.io/v2/domain-search?domain=example.com&api_key=3570850f1498a8fc350411f1b34534157d719eb9&limit=100"
+    },
+    {
+      "service": "hunter",
+      "endpoint": "domain-search",
+      "timestamp": "2025-08-26T22:18:02.296768",
+      "response_time": 0.6726341247558594,
+      "status_code": 429,
+      "success": false,
+      "error_message": null
+    },
+    {
+      "service": "hunter",
+      "endpoint": "domain-search",
+      "timestamp": "2025-08-26T22:18:02.310315",
+      "response_time": 0.6861858367919922,
+      "status_code": 0,
+      "success": false,
+      "error_message": "429 Client Error: Too Many Requests for url: https://api.hunter.io/v2/domain-search?domain=example.com&api_key=3570850f1498a8fc350411f1b34534157d719eb9&limit=100"
+    },
+    {
+      "service": "hunter",
+      "endpoint": "email-finder",
+      "timestamp": "2025-08-26T22:18:02.678836",
+      "response_time": 0.3347923755645752,
+      "status_code": 429,
+      "success": false,
+      "error_message": null
+    },
+    {
+      "service": "hunter",
+      "endpoint": "email-finder",
+      "timestamp": "2025-08-26T22:18:02.691800",
+      "response_time": 0.3477671146392822,
+      "status_code": 0,
+      "success": false,
+      "error_message": "429 Client Error: Too Many Requests for url: https://api.hunter.io/v2/email-finder?domain=example.com&first_name=John&last_name=Doe&api_key=3570850f1498a8fc350411f1b34534157d719eb9"
+    },
+    {
+      "service": "hunter",
+      "endpoint": "email-finder",
+      "timestamp": "2025-08-26T22:18:05.916696",
+      "response_time": 0.33464765548706055,
+      "status_code": 429,
+      "success": false,
+      "error_message": null
+    },
+    {
+      "service": "hunter",
+      "endpoint": "email-finder",
+      "timestamp": "2025-08-26T22:18:05.930014",
+      "response_time": 0.3479745388031006,
+      "status_code": 0,
+      "success": false,
+      "error_message": "429 Client Error: Too Many Requests for url: https://api.hunter.io/v2/email-finder?domain=example.com&first_name=John&last_name=Doe&api_key=3570850f1498a8fc350411f1b34534157d719eb9"
+    },
+    {
+      "service": "hunter",
+      "endpoint": "email-finder",
+      "timestamp": "2025-08-26T22:18:12.627133",
+      "response_time": 0.6258764266967773,
+      "status_code": 429,
+      "success": false,
+      "error_message": null
+    },
+    {
+      "service": "hunter",
+      "endpoint": "email-finder",
+      "timestamp": "2025-08-26T22:18:12.641326",
+      "response_time": 0.6400806903839111,
+      "status_code": 0,
+      "success": false,
+      "error_message": "429 Client Error: Too Many Requests for url: https://api.hunter.io/v2/email-finder?domain=example.com&first_name=John&last_name=Doe&api_key=3570850f1498a8fc350411f1b34534157d719eb9"
+    },
+    {
+      "service": "hunter",
+      "endpoint": "email-finder",
+      "timestamp": "2025-08-26T22:18:26.106657",
+      "response_time": 0.33904361724853516,
+      "status_code": 429,
+      "success": false,
+      "error_message": null
+    },
+    {
+      "service": "hunter",
+      "endpoint": "email-finder",
+      "timestamp": "2025-08-26T22:18:26.120746",
+      "response_time": 0.35314130783081055,
+      "status_code": 0,
+      "success": false,
+      "error_message": "429 Client Error: Too Many Requests for url: https://api.hunter.io/v2/email-finder?domain=example.com&first_name=John&last_name=Doe&api_key=3570850f1498a8fc350411f1b34534157d719eb9"
+    },
+    {
+      "service": "hunter",
+      "endpoint": "email-finder",
+      "timestamp": "2025-08-26T22:19:06.756885",
+      "response_time": 0.6310203075408936,
+      "status_code": 429,
+      "success": false,
+      "error_message": null
+    },
+    {
+      "service": "hunter",
+      "endpoint": "email-finder",
+      "timestamp": "2025-08-26T22:19:06.770044",
+      "response_time": 0.6441905498504639,
+      "status_code": 0,
+      "success": false,
+      "error_message": "429 Client Error: Too Many Requests for url: https://api.hunter.io/v2/email-finder?domain=example.com&first_name=John&last_name=Doe&api_key=3570850f1498a8fc350411f1b34534157d719eb9"
+    },
+    {
+      "service": "hunter",
+      "endpoint": "domain-search",
+      "timestamp": "2025-08-26T22:20:54.674211",
+      "response_time": 1.0276339054107666,
+      "status_code": 429,
+      "success": false,
+      "error_message": null
+    },
+    {
+      "service": "hunter",
+      "endpoint": "domain-search",
+      "timestamp": "2025-08-26T22:20:54.689800",
+      "response_time": 1.0432305335998535,
+      "status_code": 0,
+      "success": false,
+      "error_message": "429 Client Error: Too Many Requests for url: https://api.hunter.io/v2/domain-search?domain=example.com&api_key=3570850f1498a8fc350411f1b34534157d719eb9&limit=100"
+    },
+    {
+      "service": "hunter",
+      "endpoint": "domain-search",
+      "timestamp": "2025-08-26T22:20:59.259779",
+      "response_time": 0.3356947898864746,
+      "status_code": 429,
+      "success": false,
+      "error_message": null
+    },
+    {
+      "service": "hunter",
+      "endpoint": "domain-search",
+      "timestamp": "2025-08-26T22:20:59.273098",
+      "response_time": 0.3490254878997803,
+      "status_code": 0,
+      "success": false,
+      "error_message": "429 Client Error: Too Many Requests for url: https://api.hunter.io/v2/domain-search?domain=example.com&api_key=3570850f1498a8fc350411f1b34534157d719eb9&limit=100"
+    },
+    {
+      "service": "hunter",
+      "endpoint": "domain-search",
+      "timestamp": "2025-08-26T22:21:05.659145",
+      "response_time": 0.6961860656738281,
+      "status_code": 429,
+      "success": false,
+      "error_message": null
+    },
+    {
+      "service": "hunter",
+      "endpoint": "domain-search",
+      "timestamp": "2025-08-26T22:21:05.672660",
+      "response_time": 0.7097108364105225,
+      "status_code": 0,
+      "success": false,
+      "error_message": "429 Client Error: Too Many Requests for url: https://api.hunter.io/v2/domain-search?domain=example.com&api_key=3570850f1498a8fc350411f1b34534157d719eb9&limit=100"
+    },
+    {
+      "service": "hunter",
+      "endpoint": "domain-search",
+      "timestamp": "2025-08-26T22:21:25.845520",
+      "response_time": 0.667125940322876,
+      "status_code": 429,
+      "success": false,
+      "error_message": null
+    },
+    {
+      "service": "hunter",
+      "endpoint": "domain-search",
+      "timestamp": "2025-08-26T22:21:25.859189",
+      "response_time": 0.68080735206604,
+      "status_code": 0,
+      "success": false,
+      "error_message": "429 Client Error: Too Many Requests for url: https://api.hunter.io/v2/domain-search?domain=example.com&api_key=3570850f1498a8fc350411f1b34534157d719eb9&limit=100"
+    },
+    {
+      "service": "hunter",
+      "endpoint": "domain-search",
+      "timestamp": "2025-08-26T22:21:56.949646",
+      "response_time": 0.6952104568481445,
+      "status_code": 429,
+      "success": false,
+      "error_message": null
+    },
+    {
+      "service": "hunter",
+      "endpoint": "domain-search",
+      "timestamp": "2025-08-26T22:21:56.963377",
+      "response_time": 0.708949089050293,
+      "status_code": 0,
+      "success": false,
+      "error_message": "429 Client Error: Too Many Requests for url: https://api.hunter.io/v2/domain-search?domain=example.com&api_key=3570850f1498a8fc350411f1b34534157d719eb9&limit=100"
+    },
+    {
+      "service": "hunter",
+      "endpoint": "email-finder",
+      "timestamp": "2025-08-26T22:21:57.330722",
+      "response_time": 0.33730649948120117,
+      "status_code": 429,
+      "success": false,
+      "error_message": null
+    },
+    {
+      "service": "hunter",
+      "endpoint": "email-finder",
+      "timestamp": "2025-08-26T22:21:57.344206",
+      "response_time": 0.3508007526397705,
+      "status_code": 0,
+      "success": false,
+      "error_message": "429 Client Error: Too Many Requests for url: https://api.hunter.io/v2/email-finder?domain=example.com&first_name=John&last_name=Doe&api_key=3570850f1498a8fc350411f1b34534157d719eb9"
+    },
+    {
+      "service": "hunter",
+      "endpoint": "email-finder",
+      "timestamp": "2025-08-26T22:22:00.791093",
+      "response_time": 0.3381924629211426,
+      "status_code": 429,
+      "success": false,
+      "error_message": null
+    },
+    {
+      "service": "hunter",
+      "endpoint": "email-finder",
+      "timestamp": "2025-08-26T22:22:00.804942",
+      "response_time": 0.3520517349243164,
+      "status_code": 0,
+      "success": false,
+      "error_message": "429 Client Error: Too Many Requests for url: https://api.hunter.io/v2/email-finder?domain=example.com&first_name=John&last_name=Doe&api_key=3570850f1498a8fc350411f1b34534157d719eb9"
+    },
+    {
+      "service": "hunter",
+      "endpoint": "email-finder",
+      "timestamp": "2025-08-26T22:22:08.556334",
+      "response_time": 0.6422932147979736,
+      "status_code": 429,
+      "success": false,
+      "error_message": null
+    },
+    {
+      "service": "hunter",
+      "endpoint": "email-finder",
+      "timestamp": "2025-08-26T22:22:08.570469",
+      "response_time": 0.656437873840332,
+      "status_code": 0,
+      "success": false,
+      "error_message": "429 Client Error: Too Many Requests for url: https://api.hunter.io/v2/email-finder?domain=example.com&first_name=John&last_name=Doe&api_key=3570850f1498a8fc350411f1b34534157d719eb9"
+    },
+    {
+      "service": "hunter",
+      "endpoint": "email-finder",
+      "timestamp": "2025-08-26T22:22:20.770391",
+      "response_time": 0.7323193550109863,
+      "status_code": 429,
+      "success": false,
+      "error_message": null
+    },
+    {
+      "service": "hunter",
+      "endpoint": "email-finder",
+      "timestamp": "2025-08-26T22:22:20.784671",
+      "response_time": 0.7466108798980713,
+      "status_code": 0,
+      "success": false,
+      "error_message": "429 Client Error: Too Many Requests for url: https://api.hunter.io/v2/email-finder?domain=example.com&first_name=John&last_name=Doe&api_key=3570850f1498a8fc350411f1b34534157d719eb9"
+    },
+    {
+      "service": "hunter",
+      "endpoint": "email-finder",
+      "timestamp": "2025-08-26T22:23:00.579184",
+      "response_time": 0.6363468170166016,
+      "status_code": 429,
+      "success": false,
+      "error_message": null
+    },
+    {
+      "service": "hunter",
+      "endpoint": "email-finder",
+      "timestamp": "2025-08-26T22:23:00.596003",
+      "response_time": 0.6531753540039062,
+      "status_code": 0,
+      "success": false,
+      "error_message": "429 Client Error: Too Many Requests for url: https://api.hunter.io/v2/email-finder?domain=example.com&first_name=John&last_name=Doe&api_key=3570850f1498a8fc350411f1b34534157d719eb9"
+    },
+    {
+      "service": "hunter",
+      "endpoint": "domain-search",
+      "timestamp": "2025-08-26T22:44:36.124085",
+      "response_time": 1.0548179149627686,
+      "status_code": 429,
+      "success": false,
+      "error_message": null
+    },
+    {
+      "service": "hunter",
+      "endpoint": "domain-search",
+      "timestamp": "2025-08-26T22:44:36.137995",
+      "response_time": 1.0687382221221924,
+      "status_code": 0,
+      "success": false,
+      "error_message": "429 Client Error: Too Many Requests for url: https://api.hunter.io/v2/domain-search?domain=example.com&api_key=3570850f1498a8fc350411f1b34534157d719eb9&limit=100"
+    },
+    {
+      "service": "hunter",
+      "endpoint": "domain-search",
+      "timestamp": "2025-08-26T22:44:39.895127",
+      "response_time": 0.3300206661224365,
+      "status_code": 429,
+      "success": false,
+      "error_message": null
+    },
+    {
+      "service": "hunter",
+      "endpoint": "domain-search",
+      "timestamp": "2025-08-26T22:44:39.908818",
+      "response_time": 0.3437209129333496,
+      "status_code": 0,
+      "success": false,
+      "error_message": "429 Client Error: Too Many Requests for url: https://api.hunter.io/v2/domain-search?domain=example.com&api_key=3570850f1498a8fc350411f1b34534157d719eb9&limit=100"
+    },
+    {
+      "service": "hunter",
+      "endpoint": "domain-search",
+      "timestamp": "2025-08-26T22:44:50.457170",
+      "response_time": 0.6488339900970459,
+      "status_code": 429,
+      "success": false,
+      "error_message": null
+    },
+    {
+      "service": "hunter",
+      "endpoint": "domain-search",
+      "timestamp": "2025-08-26T22:44:50.471037",
+      "response_time": 0.6627099514007568,
+      "status_code": 0,
+      "success": false,
+      "error_message": "429 Client Error: Too Many Requests for url: https://api.hunter.io/v2/domain-search?domain=example.com&api_key=3570850f1498a8fc350411f1b34534157d719eb9&limit=100"
+    },
+    {
+      "service": "hunter",
+      "endpoint": "domain-search",
+      "timestamp": "2025-08-26T22:45:04.785885",
+      "response_time": 0.6788721084594727,
+      "status_code": 429,
+      "success": false,
+      "error_message": null
+    },
+    {
+      "service": "hunter",
+      "endpoint": "domain-search",
+      "timestamp": "2025-08-26T22:45:04.800440",
+      "response_time": 0.6934347152709961,
+      "status_code": 0,
+      "success": false,
+      "error_message": "429 Client Error: Too Many Requests for url: https://api.hunter.io/v2/domain-search?domain=example.com&api_key=3570850f1498a8fc350411f1b34534157d719eb9&limit=100"
+    },
+    {
+      "service": "hunter",
+      "endpoint": "domain-search",
+      "timestamp": "2025-08-26T22:45:44.062537",
+      "response_time": 0.3416299819946289,
+      "status_code": 429,
+      "success": false,
+      "error_message": null
+    },
+    {
+      "service": "hunter",
+      "endpoint": "domain-search",
+      "timestamp": "2025-08-26T22:45:44.076448",
+      "response_time": 0.35555243492126465,
+      "status_code": 0,
+      "success": false,
+      "error_message": "429 Client Error: Too Many Requests for url: https://api.hunter.io/v2/domain-search?domain=example.com&api_key=3570850f1498a8fc350411f1b34534157d719eb9&limit=100"
+    },
+    {
+      "service": "hunter",
+      "endpoint": "email-finder",
+      "timestamp": "2025-08-26T22:45:46.472149",
+      "response_time": 0.3638465404510498,
+      "status_code": 429,
+      "success": false,
+      "error_message": null
+    },
+    {
+      "service": "hunter",
+      "endpoint": "email-finder",
+      "timestamp": "2025-08-26T22:45:46.486438",
+      "response_time": 0.3781461715698242,
+      "status_code": 0,
+      "success": false,
+      "error_message": "429 Client Error: Too Many Requests for url: https://api.hunter.io/v2/email-finder?domain=example.com&first_name=John&last_name=Doe&api_key=3570850f1498a8fc350411f1b34534157d719eb9"
+    },
+    {
+      "service": "hunter",
+      "endpoint": "email-finder",
+      "timestamp": "2025-08-26T22:45:50.996225",
+      "response_time": 0.6642098426818848,
+      "status_code": 429,
+      "success": false,
+      "error_message": null
+    },
+    {
+      "service": "hunter",
+      "endpoint": "email-finder",
+      "timestamp": "2025-08-26T22:45:51.010354",
+      "response_time": 0.678349494934082,
+      "status_code": 0,
+      "success": false,
+      "error_message": "429 Client Error: Too Many Requests for url: https://api.hunter.io/v2/email-finder?domain=example.com&first_name=John&last_name=Doe&api_key=3570850f1498a8fc350411f1b34534157d719eb9"
+    },
+    {
+      "service": "hunter",
+      "endpoint": "email-finder",
+      "timestamp": "2025-08-26T22:45:57.525786",
+      "response_time": 0.6725962162017822,
+      "status_code": 429,
+      "success": false,
+      "error_message": null
+    },
+    {
+      "service": "hunter",
+      "endpoint": "email-finder",
+      "timestamp": "2025-08-26T22:45:57.540114",
+      "response_time": 0.6869349479675293,
+      "status_code": 0,
+      "success": false,
+      "error_message": "429 Client Error: Too Many Requests for url: https://api.hunter.io/v2/email-finder?domain=example.com&first_name=John&last_name=Doe&api_key=3570850f1498a8fc350411f1b34534157d719eb9"
+    },
+    {
+      "service": "hunter",
+      "endpoint": "email-finder",
+      "timestamp": "2025-08-26T22:46:10.336128",
+      "response_time": 0.646068811416626,
+      "status_code": 429,
+      "success": false,
+      "error_message": null
+    },
+    {
+      "service": "hunter",
+      "endpoint": "email-finder",
+      "timestamp": "2025-08-26T22:46:10.353151",
+      "response_time": 0.6631026268005371,
+      "status_code": 0,
+      "success": false,
+      "error_message": "429 Client Error: Too Many Requests for url: https://api.hunter.io/v2/email-finder?domain=example.com&first_name=John&last_name=Doe&api_key=3570850f1498a8fc350411f1b34534157d719eb9"
+    },
+    {
+      "service": "hunter",
+      "endpoint": "email-finder",
+      "timestamp": "2025-08-26T22:46:33.962851",
+      "response_time": 0.6286323070526123,
+      "status_code": 429,
+      "success": false,
+      "error_message": null
+    },
+    {
+      "service": "hunter",
+      "endpoint": "email-finder",
+      "timestamp": "2025-08-26T22:46:33.977371",
+      "response_time": 0.6431632041931152,
+      "status_code": 0,
+      "success": false,
+      "error_message": "429 Client Error: Too Many Requests for url: https://api.hunter.io/v2/email-finder?domain=example.com&first_name=John&last_name=Doe&api_key=3570850f1498a8fc350411f1b34534157d719eb9"
+    },
+    {
+      "service": "hunter",
+      "endpoint": "domain-search",
+      "timestamp": "2025-08-26T22:49:45.667184",
+      "response_time": 1.0068809986114502,
+      "status_code": 429,
+      "success": false,
+      "error_message": null
+    },
+    {
+      "service": "hunter",
+      "endpoint": "domain-search",
+      "timestamp": "2025-08-26T22:49:45.682361",
+      "response_time": 1.022063970565796,
+      "status_code": 0,
+      "success": false,
+      "error_message": "429 Client Error: Too Many Requests for url: https://api.hunter.io/v2/domain-search?domain=example.com&api_key=3570850f1498a8fc350411f1b34534157d719eb9&limit=100"
+    },
+    {
+      "service": "hunter",
+      "endpoint": "domain-search",
+      "timestamp": "2025-08-26T22:49:50.171902",
+      "response_time": 0.3771188259124756,
+      "status_code": 429,
+      "success": false,
+      "error_message": null
+    },
+    {
+      "service": "hunter",
+      "endpoint": "domain-search",
+      "timestamp": "2025-08-26T22:49:50.187083",
+      "response_time": 0.39232754707336426,
+      "status_code": 0,
+      "success": false,
+      "error_message": "429 Client Error: Too Many Requests for url: https://api.hunter.io/v2/domain-search?domain=example.com&api_key=3570850f1498a8fc350411f1b34534157d719eb9&limit=100"
+    },
+    {
+      "service": "hunter",
+      "endpoint": "domain-search",
+      "timestamp": "2025-08-26T22:50:00.463336",
+      "response_time": 0.622661828994751,
+      "status_code": 429,
+      "success": false,
+      "error_message": null
+    },
+    {
+      "service": "hunter",
+      "endpoint": "domain-search",
+      "timestamp": "2025-08-26T22:50:00.478569",
+      "response_time": 0.6379058361053467,
+      "status_code": 0,
+      "success": false,
+      "error_message": "429 Client Error: Too Many Requests for url: https://api.hunter.io/v2/domain-search?domain=example.com&api_key=3570850f1498a8fc350411f1b34534157d719eb9&limit=100"
+    },
+    {
+      "service": "hunter",
+      "endpoint": "domain-search",
+      "timestamp": "2025-08-26T22:50:16.758288",
+      "response_time": 0.6905531883239746,
+      "status_code": 429,
+      "success": false,
+      "error_message": null
+    },
+    {
+      "service": "hunter",
+      "endpoint": "domain-search",
+      "timestamp": "2025-08-26T22:50:16.773261",
+      "response_time": 0.7055377960205078,
+      "status_code": 0,
+      "success": false,
+      "error_message": "429 Client Error: Too Many Requests for url: https://api.hunter.io/v2/domain-search?domain=example.com&api_key=3570850f1498a8fc350411f1b34534157d719eb9&limit=100"
+    },
+    {
+      "service": "hunter",
+      "endpoint": "domain-search",
+      "timestamp": "2025-08-26T22:50:45.358626",
+      "response_time": 0.6256697177886963,
+      "status_code": 429,
+      "success": false,
+      "error_message": null
+    },
+    {
+      "service": "hunter",
+      "endpoint": "domain-search",
+      "timestamp": "2025-08-26T22:50:45.373975",
+      "response_time": 0.6410267353057861,
+      "status_code": 0,
+      "success": false,
+      "error_message": "429 Client Error: Too Many Requests for url: https://api.hunter.io/v2/domain-search?domain=example.com&api_key=3570850f1498a8fc350411f1b34534157d719eb9&limit=100"
+    },
+    {
+      "service": "hunter",
+      "endpoint": "domain-search",
+      "timestamp": "2025-08-26T22:51:49.221570",
+      "response_time": 0.8852360248565674,
+      "status_code": 429,
+      "success": false,
+      "error_message": null
+    },
+    {
+      "service": "hunter",
+      "endpoint": "domain-search",
+      "timestamp": "2025-08-26T22:51:49.236871",
+      "response_time": 0.9005460739135742,
+      "status_code": 0,
+      "success": false,
+      "error_message": "429 Client Error: Too Many Requests for url: https://api.hunter.io/v2/domain-search?domain=example.com&api_key=3570850f1498a8fc350411f1b34534157d719eb9&limit=100"
+    },
+    {
+      "service": "hunter",
+      "endpoint": "domain-search",
+      "timestamp": "2025-08-26T22:51:52.951770",
+      "response_time": 0.3249199390411377,
+      "status_code": 429,
+      "success": false,
+      "error_message": null
+    },
+    {
+      "service": "hunter",
+      "endpoint": "domain-search",
+      "timestamp": "2025-08-26T22:51:52.966881",
+      "response_time": 0.340038537979126,
+      "status_code": 0,
+      "success": false,
+      "error_message": "429 Client Error: Too Many Requests for url: https://api.hunter.io/v2/domain-search?domain=example.com&api_key=3570850f1498a8fc350411f1b34534157d719eb9&limit=100"
+    },
+    {
+      "service": "hunter",
+      "endpoint": "domain-search",
+      "timestamp": "2025-08-26T22:52:02.046239",
+      "response_time": 0.6210634708404541,
+      "status_code": 429,
+      "success": false,
+      "error_message": null
+    },
+    {
+      "service": "hunter",
+      "endpoint": "domain-search",
+      "timestamp": "2025-08-26T22:52:02.061607",
+      "response_time": 0.6364419460296631,
+      "status_code": 0,
+      "success": false,
+      "error_message": "429 Client Error: Too Many Requests for url: https://api.hunter.io/v2/domain-search?domain=example.com&api_key=3570850f1498a8fc350411f1b34534157d719eb9&limit=100"
+    },
+    {
+      "service": "hunter",
+      "endpoint": "domain-search",
+      "timestamp": "2025-08-26T22:52:14.980028",
+      "response_time": 0.6251184940338135,
+      "status_code": 429,
+      "success": false,
+      "error_message": null
+    },
+    {
+      "service": "hunter",
+      "endpoint": "domain-search",
+      "timestamp": "2025-08-26T22:52:14.995547",
+      "response_time": 0.640648603439331,
+      "status_code": 0,
+      "success": false,
+      "error_message": "429 Client Error: Too Many Requests for url: https://api.hunter.io/v2/domain-search?domain=example.com&api_key=3570850f1498a8fc350411f1b34534157d719eb9&limit=100"
+    },
+    {
+      "service": "hunter",
+      "endpoint": "domain-search",
+      "timestamp": "2025-08-26T22:52:39.219615",
+      "response_time": 0.6553547382354736,
+      "status_code": 429,
+      "success": false,
+      "error_message": null
+    },
+    {
+      "service": "hunter",
+      "endpoint": "domain-search",
+      "timestamp": "2025-08-26T22:52:39.235272",
+      "response_time": 0.6710186004638672,
+      "status_code": 0,
+      "success": false,
+      "error_message": "429 Client Error: Too Many Requests for url: https://api.hunter.io/v2/domain-search?domain=example.com&api_key=3570850f1498a8fc350411f1b34534157d719eb9&limit=100"
+    },
+    {
+      "service": "hunter",
+      "endpoint": "domain-search",
+      "timestamp": "2025-08-26T22:54:13.913848",
+      "response_time": 0.8770022392272949,
+      "status_code": 429,
+      "success": false,
+      "error_message": null
+    },
+    {
+      "service": "hunter",
+      "endpoint": "domain-search",
+      "timestamp": "2025-08-26T22:54:13.929475",
+      "response_time": 0.8926351070404053,
+      "status_code": 0,
+      "success": false,
+      "error_message": "429 Client Error: Too Many Requests for url: https://api.hunter.io/v2/domain-search?domain=example.com&api_key=3570850f1498a8fc350411f1b34534157d719eb9&limit=100"
+    },
+    {
+      "service": "hunter",
+      "endpoint": "domain-search",
+      "timestamp": "2025-08-26T22:54:17.414391",
+      "response_time": 0.33414602279663086,
+      "status_code": 429,
+      "success": false,
+      "error_message": null
+    },
+    {
+      "service": "hunter",
+      "endpoint": "domain-search",
+      "timestamp": "2025-08-26T22:54:17.430317",
+      "response_time": 0.35008692741394043,
+      "status_code": 0,
+      "success": false,
+      "error_message": "429 Client Error: Too Many Requests for url: https://api.hunter.io/v2/domain-search?domain=example.com&api_key=3570850f1498a8fc350411f1b34534157d719eb9&limit=100"
+    },
+    {
+      "service": "hunter",
+      "endpoint": "domain-search",
+      "timestamp": "2025-08-26T22:54:27.263313",
+      "response_time": 0.6179533004760742,
+      "status_code": 429,
+      "success": false,
+      "error_message": null
+    },
+    {
+      "service": "hunter",
+      "endpoint": "domain-search",
+      "timestamp": "2025-08-26T22:54:27.279107",
+      "response_time": 0.6337568759918213,
+      "status_code": 0,
+      "success": false,
+      "error_message": "429 Client Error: Too Many Requests for url: https://api.hunter.io/v2/domain-search?domain=example.com&api_key=3570850f1498a8fc350411f1b34534157d719eb9&limit=100"
+    },
+    {
+      "service": "hunter",
+      "endpoint": "domain-search",
+      "timestamp": "2025-08-26T22:54:40.771864",
+      "response_time": 0.6210300922393799,
+      "status_code": 429,
+      "success": false,
+      "error_message": null
+    },
+    {
+      "service": "hunter",
+      "endpoint": "domain-search",
+      "timestamp": "2025-08-26T22:54:40.787722",
+      "response_time": 0.636899471282959,
+      "status_code": 0,
+      "success": false,
+      "error_message": "429 Client Error: Too Many Requests for url: https://api.hunter.io/v2/domain-search?domain=example.com&api_key=3570850f1498a8fc350411f1b34534157d719eb9&limit=100"
+    },
+    {
+      "service": "hunter",
+      "endpoint": "domain-search",
+      "timestamp": "2025-08-26T22:55:17.421413",
+      "response_time": 0.6682405471801758,
+      "status_code": 429,
+      "success": false,
+      "error_message": null
+    },
+    {
+      "service": "hunter",
+      "endpoint": "domain-search",
+      "timestamp": "2025-08-26T22:55:17.437101",
+      "response_time": 0.6839406490325928,
+      "status_code": 0,
+      "success": false,
+      "error_message": "429 Client Error: Too Many Requests for url: https://api.hunter.io/v2/domain-search?domain=example.com&api_key=3570850f1498a8fc350411f1b34534157d719eb9&limit=100"
+    },
+    {
+      "service": "hunter",
+      "endpoint": "domain-search",
+      "timestamp": "2025-08-26T22:56:00.698970",
+      "response_time": 1.0455639362335205,
+      "status_code": 429,
+      "success": false,
+      "error_message": null
+    },
+    {
+      "service": "hunter",
+      "endpoint": "domain-search",
+      "timestamp": "2025-08-26T22:56:00.700026",
+      "response_time": 1.046628475189209,
+      "status_code": 0,
+      "success": false,
+      "error_message": "429 Client Error: Too Many Requests for url: https://api.hunter.io/v2/domain-search?domain=nonexistentdomain12345.com&api_key=3570850f1498a8fc350411f1b34534157d719eb9&limit=100"
+    },
+    {
+      "service": "hunter",
+      "endpoint": "domain-search",
+      "timestamp": "2025-08-26T22:56:03.635731",
+      "response_time": 0.33344292640686035,
+      "status_code": 429,
+      "success": false,
+      "error_message": null
+    },
+    {
+      "service": "hunter",
+      "endpoint": "domain-search",
+      "timestamp": "2025-08-26T22:56:03.636805",
+      "response_time": 0.33452939987182617,
+      "status_code": 0,
+      "success": false,
+      "error_message": "429 Client Error: Too Many Requests for url: https://api.hunter.io/v2/domain-search?domain=nonexistentdomain12345.com&api_key=3570850f1498a8fc350411f1b34534157d719eb9&limit=100"
+    },
+    {
+      "service": "hunter",
+      "endpoint": "domain-search",
+      "timestamp": "2025-08-26T22:56:11.718519",
+      "response_time": 0.6522245407104492,
+      "status_code": 429,
+      "success": false,
+      "error_message": null
+    },
+    {
+      "service": "hunter",
+      "endpoint": "domain-search",
+      "timestamp": "2025-08-26T22:56:11.719874",
+      "response_time": 0.6535918712615967,
+      "status_code": 0,
+      "success": false,
+      "error_message": "429 Client Error: Too Many Requests for url: https://api.hunter.io/v2/domain-search?domain=nonexistentdomain12345.com&api_key=3570850f1498a8fc350411f1b34534157d719eb9&limit=100"
+    },
+    {
+      "service": "hunter",
+      "endpoint": "domain-search",
+      "timestamp": "2025-08-26T22:56:28.074472",
+      "response_time": 0.676215648651123,
+      "status_code": 429,
+      "success": false,
+      "error_message": null
+    },
+    {
+      "service": "hunter",
+      "endpoint": "domain-search",
+      "timestamp": "2025-08-26T22:56:28.076092",
+      "response_time": 0.6778450012207031,
+      "status_code": 0,
+      "success": false,
+      "error_message": "429 Client Error: Too Many Requests for url: https://api.hunter.io/v2/domain-search?domain=nonexistentdomain12345.com&api_key=3570850f1498a8fc350411f1b34534157d719eb9&limit=100"
+    },
+    {
+      "service": "hunter",
+      "endpoint": "domain-search",
+      "timestamp": "2025-08-26T22:56:55.171785",
+      "response_time": 0.6456203460693359,
+      "status_code": 429,
+      "success": false,
+      "error_message": null
+    },
+    {
+      "service": "hunter",
+      "endpoint": "domain-search",
+      "timestamp": "2025-08-26T22:56:55.173326",
+      "response_time": 0.6471703052520752,
+      "status_code": 0,
+      "success": false,
+      "error_message": "429 Client Error: Too Many Requests for url: https://api.hunter.io/v2/domain-search?domain=nonexistentdomain12345.com&api_key=3570850f1498a8fc350411f1b34534157d719eb9&limit=100"
+    },
+    {
+      "service": "hunter",
+      "endpoint": "domain-search",
+      "timestamp": "2025-08-26T22:57:24.150915",
+      "response_time": 0.8923251628875732,
+      "status_code": 429,
+      "success": false,
+      "error_message": null
+    },
+    {
+      "service": "hunter",
+      "endpoint": "domain-search",
+      "timestamp": "2025-08-26T22:57:24.151967",
+      "response_time": 0.8933877944946289,
+      "status_code": 0,
+      "success": false,
+      "error_message": "429 Client Error: Too Many Requests for url: https://api.hunter.io/v2/domain-search?domain=nonexistentdomain12345.com&api_key=3570850f1498a8fc350411f1b34534157d719eb9&limit=100"
+    },
+    {
+      "service": "hunter",
+      "endpoint": "domain-search",
+      "timestamp": "2025-08-26T22:57:29.809781",
+      "response_time": 0.6694340705871582,
+      "status_code": 429,
+      "success": false,
+      "error_message": null
+    },
+    {
+      "service": "hunter",
+      "endpoint": "domain-search",
+      "timestamp": "2025-08-26T22:57:29.810942",
+      "response_time": 0.6706070899963379,
+      "status_code": 0,
+      "success": false,
+      "error_message": "429 Client Error: Too Many Requests for url: https://api.hunter.io/v2/domain-search?domain=nonexistentdomain12345.com&api_key=3570850f1498a8fc350411f1b34534157d719eb9&limit=100"
+    },
+    {
+      "service": "hunter",
+      "endpoint": "domain-search",
+      "timestamp": "2025-08-26T22:57:36.198443",
+      "response_time": 0.6387720108032227,
+      "status_code": 429,
+      "success": false,
+      "error_message": null
+    },
+    {
+      "service": "hunter",
+      "endpoint": "domain-search",
+      "timestamp": "2025-08-26T22:57:36.199747",
+      "response_time": 0.6400878429412842,
+      "status_code": 0,
+      "success": false,
+      "error_message": "429 Client Error: Too Many Requests for url: https://api.hunter.io/v2/domain-search?domain=nonexistentdomain12345.com&api_key=3570850f1498a8fc350411f1b34534157d719eb9&limit=100"
+    },
+    {
+      "service": "hunter",
+      "endpoint": "domain-search",
+      "timestamp": "2025-08-26T22:57:47.092784",
+      "response_time": 0.6450121402740479,
+      "status_code": 429,
+      "success": false,
+      "error_message": null
+    },
+    {
+      "service": "hunter",
+      "endpoint": "domain-search",
+      "timestamp": "2025-08-26T22:57:47.094264",
+      "response_time": 0.6465022563934326,
+      "status_code": 0,
+      "success": false,
+      "error_message": "429 Client Error: Too Many Requests for url: https://api.hunter.io/v2/domain-search?domain=nonexistentdomain12345.com&api_key=3570850f1498a8fc350411f1b34534157d719eb9&limit=100"
+    },
+    {
+      "service": "hunter",
+      "endpoint": "domain-search",
+      "timestamp": "2025-08-26T22:58:24.583261",
+      "response_time": 0.6424078941345215,
+      "status_code": 429,
+      "success": false,
+      "error_message": null
+    },
+    {
+      "service": "hunter",
+      "endpoint": "domain-search",
+      "timestamp": "2025-08-26T22:58:24.584969",
+      "response_time": 0.6441268920898438,
+      "status_code": 0,
+      "success": false,
+      "error_message": "429 Client Error: Too Many Requests for url: https://api.hunter.io/v2/domain-search?domain=nonexistentdomain12345.com&api_key=3570850f1498a8fc350411f1b34534157d719eb9&limit=100"
+    },
+    {
+      "service": "hunter",
+      "endpoint": "domain-search",
+      "timestamp": "2025-08-26T22:59:12.281841",
+      "response_time": 0.8670330047607422,
+      "status_code": 429,
+      "success": false,
+      "error_message": null
+    },
+    {
+      "service": "hunter",
+      "endpoint": "domain-search",
+      "timestamp": "2025-08-26T22:59:12.282959",
+      "response_time": 0.8681559562683105,
+      "status_code": 0,
+      "success": false,
+      "error_message": "429 Client Error: Too Many Requests for url: https://api.hunter.io/v2/domain-search?domain=nonexistentdomain12345.com&api_key=3570850f1498a8fc350411f1b34534157d719eb9&limit=100"
+    },
+    {
+      "service": "hunter",
+      "endpoint": "domain-search",
+      "timestamp": "2025-08-26T22:59:16.795622",
+      "response_time": 0.3271160125732422,
+      "status_code": 429,
+      "success": false,
+      "error_message": null
+    },
+    {
+      "service": "hunter",
+      "endpoint": "domain-search",
+      "timestamp": "2025-08-26T22:59:16.796871",
+      "response_time": 0.32837533950805664,
+      "status_code": 0,
+      "success": false,
+      "error_message": "429 Client Error: Too Many Requests for url: https://api.hunter.io/v2/domain-search?domain=nonexistentdomain12345.com&api_key=3570850f1498a8fc350411f1b34534157d719eb9&limit=100"
+    },
+    {
+      "service": "hunter",
+      "endpoint": "domain-search",
+      "timestamp": "2025-08-26T22:59:26.999561",
+      "response_time": 0.6895349025726318,
+      "status_code": 429,
+      "success": false,
+      "error_message": null
+    },
+    {
+      "service": "hunter",
+      "endpoint": "domain-search",
+      "timestamp": "2025-08-26T22:59:27.000861",
+      "response_time": 0.6908454895019531,
+      "status_code": 0,
+      "success": false,
+      "error_message": "429 Client Error: Too Many Requests for url: https://api.hunter.io/v2/domain-search?domain=nonexistentdomain12345.com&api_key=3570850f1498a8fc350411f1b34534157d719eb9&limit=100"
+    },
+    {
+      "service": "hunter",
+      "endpoint": "domain-search",
+      "timestamp": "2025-08-26T22:59:43.089181",
+      "response_time": 0.34784603118896484,
+      "status_code": 429,
+      "success": false,
+      "error_message": null
+    },
+    {
+      "service": "hunter",
+      "endpoint": "domain-search",
+      "timestamp": "2025-08-26T22:59:43.090821",
+      "response_time": 0.34949755668640137,
+      "status_code": 0,
+      "success": false,
+      "error_message": "429 Client Error: Too Many Requests for url: https://api.hunter.io/v2/domain-search?domain=nonexistentdomain12345.com&api_key=3570850f1498a8fc350411f1b34534157d719eb9&limit=100"
+    },
+    {
+      "service": "hunter",
+      "endpoint": "domain-search",
+      "timestamp": "2025-08-26T23:00:12.826710",
+      "response_time": 0.6521334648132324,
+      "status_code": 429,
+      "success": false,
+      "error_message": null
+    },
+    {
+      "service": "hunter",
+      "endpoint": "domain-search",
+      "timestamp": "2025-08-26T23:00:12.828559",
+      "response_time": 0.6539938449859619,
+      "status_code": 0,
+      "success": false,
+      "error_message": "429 Client Error: Too Many Requests for url: https://api.hunter.io/v2/domain-search?domain=nonexistentdomain12345.com&api_key=3570850f1498a8fc350411f1b34534157d719eb9&limit=100"
+    },
+    {
+      "service": "hunter",
+      "endpoint": "domain-search",
+      "timestamp": "2025-08-26T23:01:05.044376",
+      "response_time": 1.0034997463226318,
+      "status_code": 429,
+      "success": false,
+      "error_message": null
+    },
+    {
+      "service": "hunter",
+      "endpoint": "domain-search",
+      "timestamp": "2025-08-26T23:01:05.045422",
+      "response_time": 1.0045552253723145,
+      "status_code": 0,
+      "success": false,
+      "error_message": "429 Client Error: Too Many Requests for url: https://api.hunter.io/v2/domain-search?domain=nonexistentdomain12345.com&api_key=3570850f1498a8fc350411f1b34534157d719eb9&limit=100"
+    },
+    {
+      "service": "hunter",
+      "endpoint": "domain-search",
+      "timestamp": "2025-08-26T23:01:08.830912",
+      "response_time": 0.32006072998046875,
+      "status_code": 429,
+      "success": false,
+      "error_message": null
+    },
+    {
+      "service": "hunter",
+      "endpoint": "domain-search",
+      "timestamp": "2025-08-26T23:01:08.832042",
+      "response_time": 0.32120275497436523,
+      "status_code": 0,
+      "success": false,
+      "error_message": "429 Client Error: Too Many Requests for url: https://api.hunter.io/v2/domain-search?domain=nonexistentdomain12345.com&api_key=3570850f1498a8fc350411f1b34534157d719eb9&limit=100"
+    },
+    {
+      "service": "hunter",
+      "endpoint": "domain-search",
+      "timestamp": "2025-08-26T23:01:17.044614",
+      "response_time": 0.6534814834594727,
+      "status_code": 429,
+      "success": false,
+      "error_message": null
+    },
+    {
+      "service": "hunter",
+      "endpoint": "domain-search",
+      "timestamp": "2025-08-26T23:01:17.046016",
+      "response_time": 0.6548936367034912,
+      "status_code": 0,
+      "success": false,
+      "error_message": "429 Client Error: Too Many Requests for url: https://api.hunter.io/v2/domain-search?domain=nonexistentdomain12345.com&api_key=3570850f1498a8fc350411f1b34534157d719eb9&limit=100"
+    },
+    {
+      "service": "hunter",
+      "endpoint": "domain-search",
+      "timestamp": "2025-08-26T23:01:28.635065",
+      "response_time": 0.6454956531524658,
+      "status_code": 429,
+      "success": false,
+      "error_message": null
+    },
+    {
+      "service": "hunter",
+      "endpoint": "domain-search",
+      "timestamp": "2025-08-26T23:01:28.636665",
+      "response_time": 0.6471045017242432,
+      "status_code": 0,
+      "success": false,
+      "error_message": "429 Client Error: Too Many Requests for url: https://api.hunter.io/v2/domain-search?domain=nonexistentdomain12345.com&api_key=3570850f1498a8fc350411f1b34534157d719eb9&limit=100"
+    },
+    {
+      "service": "hunter",
+      "endpoint": "domain-search",
+      "timestamp": "2025-08-26T23:02:03.605695",
+      "response_time": 0.3427093029022217,
+      "status_code": 429,
+      "success": false,
+      "error_message": null
+    },
+    {
+      "service": "hunter",
+      "endpoint": "domain-search",
+      "timestamp": "2025-08-26T23:02:03.607307",
+      "response_time": 0.3443312644958496,
+      "status_code": 0,
+      "success": false,
+      "error_message": "429 Client Error: Too Many Requests for url: https://api.hunter.io/v2/domain-search?domain=nonexistentdomain12345.com&api_key=3570850f1498a8fc350411f1b34534157d719eb9&limit=100"
+    },
+    {
+      "service": "hunter",
+      "endpoint": "email-finder",
+      "timestamp": "2025-08-27T00:20:31.314247",
+      "response_time": 21.672011613845825,
+      "status_code": 200,
+      "success": true,
+      "error_message": null
+    },
+    {
+      "service": "hunter",
+      "endpoint": "email-finder",
+      "timestamp": "2025-08-27T00:20:32.689768",
+      "response_time": 0.9736487865447998,
+      "status_code": 200,
+      "success": true,
+      "error_message": null
+    },
+    {
+      "service": "hunter",
+      "endpoint": "email-verifier",
+      "timestamp": "2025-08-27T00:20:35.308590",
+      "response_time": 2.61773943901062,
+      "status_code": 200,
+      "success": true,
+      "error_message": null
+    },
+    {
+      "service": "hunter",
+      "endpoint": "email-finder",
+      "timestamp": "2025-08-27T00:20:37.101030",
+      "response_time": 1.7912886142730713,
+      "status_code": 200,
+      "success": true,
+      "error_message": null
+    },
+    {
+      "service": "hunter",
+      "endpoint": "email-verifier",
+      "timestamp": "2025-08-27T00:20:37.798062",
+      "response_time": 0.6957671642303467,
+      "status_code": 200,
+      "success": true,
+      "error_message": null
+    },
+    {
+      "service": "hunter",
+      "endpoint": "email-finder",
+      "timestamp": "2025-08-27T00:20:41.779662",
+      "response_time": 1.5055065155029297,
+      "status_code": 200,
+      "success": true,
+      "error_message": null
+    },
+    {
+      "service": "hunter",
+      "endpoint": "email-finder",
+      "timestamp": "2025-08-27T00:20:42.565996",
+      "response_time": 0.7853386402130127,
+      "status_code": 200,
+      "success": true,
+      "error_message": null
+    },
+    {
+      "service": "hunter",
+      "endpoint": "email-finder",
+      "timestamp": "2025-08-27T00:20:42.944188",
+      "response_time": 11.227616310119629,
+      "status_code": 200,
+      "success": true,
+      "error_message": null
+    },
+    {
+      "service": "hunter",
+      "endpoint": "email-finder",
+      "timestamp": "2025-08-27T00:20:43.358000",
+      "response_time": 0.790966272354126,
+      "status_code": 200,
+      "success": true,
+      "error_message": null
+    },
+    {
+      "service": "hunter",
+      "endpoint": "email-verifier",
+      "timestamp": "2025-08-27T00:20:44.091517",
+      "response_time": 0.7324187755584717,
+      "status_code": 200,
+      "success": true,
       "error_message": null
     }
   ],
-  "last_updated": "2025-08-09T12:54:46.123850"
+  "last_updated": "2025-08-27T00:20:44.091989"
 }

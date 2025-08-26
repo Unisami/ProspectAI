@@ -9,7 +9,8 @@ from enum import Enum
 from typing import Dict, List, Optional, Any, Union
 
 from models.data_models import LinkedInProfile, TeamMember, ValidationError
-from services.openai_client_manager import get_client_manager, CompletionRequest
+from services.ai_provider_manager import get_provider_manager, configure_provider_manager
+from services.openai_client_manager import CompletionRequest, CompletionResponse
 from utils.config import Config
 from utils.configuration_service import get_configuration_service
 from utils.validation_framework import ValidationFramework, ValidationResult
@@ -96,11 +97,10 @@ class AIParser:
         Initialize the AI Parser.
         
         Args:
-            config: Configuration object with OpenAI settings (deprecated, use ConfigurationService)
-            client_id: Identifier for the OpenAI client to use
+            config: Configuration object with AI provider settings (deprecated, use ConfigurationService)
+            client_id: Deprecated parameter for backward compatibility (ignored)
         """
         self.logger = logging.getLogger(__name__)
-        self.client_id = client_id
         
         # Use ConfigurationService for centralized configuration management
         if config:
@@ -112,13 +112,14 @@ class AIParser:
             config_service = get_configuration_service()
             actual_config = config_service.get_config()
         
-        # Configure OpenAI client manager
+        # Configure AI provider manager instead of OpenAI client manager
         try:
-            self.client_manager = get_client_manager()
-            self.client_manager.configure(actual_config, self.client_id)
-            self.logger.info(f"Initialized AI Parser with OpenAI client '{self.client_id}'")
+            configure_provider_manager(actual_config)
+            self.provider_manager = get_provider_manager()
+            active_provider = self.provider_manager.get_active_provider_name()
+            self.logger.info(f"Initialized AI Parser with provider: {active_provider}")
         except Exception as e:
-            self.logger.error(f"Failed to configure OpenAI client: {str(e)}")
+            self.logger.error(f"Failed to configure AI provider: {str(e)}")
             raise
     
     def parse_linkedin_profile(self, raw_html: str, fallback_data: Optional[Dict] = None) -> ParseResult:
@@ -155,8 +156,8 @@ class AIParser:
                 max_tokens=1500   # Reduced from 2500 for faster processing
             )
             
-            # Make completion request
-            response = self.client_manager.make_completion(request, self.client_id)
+            # Make completion request using provider manager
+            response = self.provider_manager.make_completion(request)
             
             if not response.success:
                 raise Exception(response.error_message)
@@ -255,8 +256,8 @@ class AIParser:
                 max_tokens=3000  # Increased for more complete product info
             )
             
-            # Make completion request
-            response = self.client_manager.make_completion(request, self.client_id)
+            # Make completion request using provider manager
+            response = self.provider_manager.make_completion(request)
             
             if not response.success:
                 raise Exception(response.error_message)
@@ -339,8 +340,8 @@ class AIParser:
                 max_tokens=2500  # Increased for more complete team data
             )
             
-            # Make completion request
-            response = self.client_manager.make_completion(request, self.client_id)
+            # Make completion request using provider manager
+            response = self.provider_manager.make_completion(request)
             
             if not response.success:
                 raise Exception(response.error_message)
@@ -469,7 +470,7 @@ class AIParser:
             )
             
             # Make completion request
-            response = self.client_manager.make_completion(request, self.client_id)
+            response = self.provider_manager.make_completion(request)
             
             if not response.success:
                 raise Exception(response.error_message)

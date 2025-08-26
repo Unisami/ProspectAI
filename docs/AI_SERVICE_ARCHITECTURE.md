@@ -27,13 +27,37 @@ The Job Prospect Automation system now features a unified `AIService` class that
 
 ## Architecture Components
 
+### Multi-Provider AI Architecture
+
+The system now features a **multi-provider AI architecture** that supports various AI providers through a unified interface:
+
+- **OpenAI** - GPT-3.5-turbo, GPT-4, GPT-4-turbo models
+- **Azure OpenAI** - Enterprise-grade OpenAI with custom deployments
+- **Anthropic Claude** - Claude-3 models (coming soon)
+- **Google Gemini** - Gemini Pro models (coming soon)
+- **DeepSeek** - DeepSeek models (coming soon)
+
+### AI Provider Abstraction Layer
+
+The new provider system enables seamless switching between AI providers:
+
+```python
+from services.providers.base_provider import BaseAIProvider, CompletionRequest, CompletionResponse
+
+# All providers implement the same interface
+class BaseAIProvider:
+    def make_completion(self, request: CompletionRequest) -> CompletionResponse
+    def validate_config(self) -> ValidationResult
+    def get_model_info(self) -> Dict[str, Any]
+```
+
 ### AIService Class
-The main service class that handles all AI operations:
+The main service class that handles all AI operations with multi-provider support:
 
 ```python
 from services.ai_service import AIService, AIOperationType, EmailTemplate
 
-# Initialize service
+# Initialize service (automatically uses configured provider)
 ai_service = AIService(config)
 
 # Parse LinkedIn profile
@@ -97,14 +121,33 @@ email_result = ai_service.generate_email(prospect)
 
 ## Configuration
 
-### Environment Variables
+### Multi-Provider Configuration
 ```env
-# AI Service Configuration
+# AI Provider Selection
+AI_PROVIDER=openai  # openai, azure-openai, anthropic, google, deepseek
+
+# OpenAI Configuration
 OPENAI_API_KEY=your_openai_api_key
+
+# Azure OpenAI Configuration (Recommended for Enterprise)
 USE_AZURE_OPENAI=true
 AZURE_OPENAI_API_KEY=your_azure_key
 AZURE_OPENAI_ENDPOINT=https://your-resource.openai.azure.com/
 AZURE_OPENAI_DEPLOYMENT_NAME=gpt-4
+
+# Anthropic Configuration (Coming Soon)
+ANTHROPIC_API_KEY=your_anthropic_key
+
+# Google Configuration (Coming Soon)
+GOOGLE_API_KEY=your_google_key
+
+# DeepSeek Configuration (Coming Soon)
+DEEPSEEK_API_KEY=your_deepseek_key
+
+# Model Configuration
+AI_MODEL=gpt-4  # Provider-specific model names
+AI_TEMPERATURE=0.7
+AI_MAX_TOKENS=1000
 
 # AI Service Settings
 AI_SERVICE_CACHE_ENABLED=true
@@ -270,11 +313,96 @@ logging.getLogger('AIService').setLevel(logging.DEBUG)
 ai_service = AIService(config)
 ```
 
+## Multi-Provider Support (New Feature)
+
+### Provider Abstraction Layer
+
+The system now includes a **provider abstraction layer** that enables support for multiple AI providers:
+
+```python
+from services.providers.base_provider import BaseAIProvider, CompletionRequest, CompletionResponse
+
+# All providers implement the same interface
+provider = get_ai_provider("anthropic")  # or "openai", "google", etc.
+response = provider.make_completion(request)
+```
+
+### Supported Providers
+
+#### Currently Available:
+- **OpenAI** - GPT-3.5-turbo, GPT-4, GPT-4-turbo
+- **Azure OpenAI** - Enterprise deployments with custom models
+
+#### Coming Soon:
+- **Anthropic Claude** - Claude-3 Sonnet, Claude-3 Opus
+- **Google Gemini** - Gemini Pro, Gemini Pro Vision
+- **DeepSeek** - DeepSeek Coder, DeepSeek Chat
+
+### Provider Configuration
+
+Configure your preferred AI provider through environment variables:
+
+```env
+# Set your preferred provider
+AI_PROVIDER=anthropic
+
+# Provider-specific credentials
+ANTHROPIC_API_KEY=your_anthropic_key
+OPENAI_API_KEY=your_openai_key
+GOOGLE_API_KEY=your_google_key
+```
+
+### Testing Provider Interface
+
+Test the BaseAIProvider interface implementation:
+
+```bash
+# Test the provider interface
+python test_base_provider.py
+```
+
+This test validates:
+- Provider interface implementation
+- Configuration handling and validation
+- Completion request/response processing
+- Model information retrieval
+- Connection testing capabilities
+
+### CLI Provider Management
+
+Manage AI providers through CLI commands:
+
+```bash
+# List available providers
+python cli.py list-ai-providers
+
+# Configure a specific provider
+python cli.py configure-ai --provider anthropic
+
+# Switch active provider
+python cli.py set-ai-provider anthropic
+
+# Validate provider configuration
+python cli.py validate-ai-config
+```
+
+### Provider-Specific Features
+
+Each provider offers unique capabilities:
+
+- **OpenAI**: Proven performance, extensive model selection
+- **Azure OpenAI**: Enterprise security, custom deployments, SLA guarantees
+- **Anthropic**: Constitutional AI, longer context windows, safety focus
+- **Google Gemini**: Multimodal capabilities, competitive pricing
+- **DeepSeek**: Code-specialized models, cost-effective options
+
 ## Future Enhancements
 
 - **Multi-Model Support**: Support for different AI models per operation type
 - **Intelligent Cache Warming**: Predictive cache warming based on usage patterns
 - **Batch Operations**: Process multiple items in single API calls
 - **Custom Templates**: User-defined email templates
-- **A/B Testing**: Template performance comparison
+- **A/B Testing**: Template performance comparison across providers
 - **Cache Analytics**: Advanced cache performance analytics and optimization recommendations
+- **Provider Fallbacks**: Automatic fallback to secondary providers on failure
+- **Cost Optimization**: Intelligent provider selection based on cost and performance

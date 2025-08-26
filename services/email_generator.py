@@ -14,7 +14,8 @@ from typing import Dict, List, Optional, Any
 import yaml
 
 from models.data_models import Prospect, EmailContent, LinkedInProfile, SenderProfile, EmailTemplate
-from services.openai_client_manager import get_client_manager, CompletionRequest
+from services.ai_provider_manager import get_provider_manager, configure_provider_manager
+from services.openai_client_manager import CompletionRequest
 from utils.config import Config
 from utils.configuration_service import get_configuration_service
 from utils.validation_framework import ValidationResult
@@ -40,13 +41,14 @@ class EmailGenerator:
         Initialize the email generator.
         
         Args:
-            config: Configuration object with OpenAI settings (deprecated, use ConfigurationService)
-            api_key: OpenAI API key (deprecated, use config instead). If None, will try to get from environment.
+            config: Configuration object with AI provider settings (deprecated, use ConfigurationService)
+            api_key: API key (deprecated, use config instead). If None, will try to get from environment.
             interactive_mode: Whether to enable interactive user review and editing.
-            client_id: Identifier for the OpenAI client to use.
+            client_id: Deprecated parameter for backward compatibility (ignored)
         """
         self.logger = logging.getLogger(__name__)
         self.interactive_mode = interactive_mode
+        # Keep client_id for backward compatibility, but it's not used with provider manager
         self.client_id = client_id
         
         # Use ConfigurationService for centralized configuration management
@@ -59,13 +61,14 @@ class EmailGenerator:
             config_service = get_configuration_service()
             actual_config = config_service.get_config()
         
-        # Configure OpenAI client manager
+        # Configure AI provider manager instead of OpenAI client manager
         try:
-            self.client_manager = get_client_manager()
-            self.client_manager.configure(actual_config, self.client_id)
-            self.logger.info(f"Initialized Email Generator with OpenAI client '{self.client_id}'")
+            configure_provider_manager(actual_config)
+            self.provider_manager = get_provider_manager()
+            active_provider = self.provider_manager.get_active_provider_name()
+            self.logger.info(f"Initialized Email Generator with provider: {active_provider}")
         except Exception as e:
-            self.logger.error(f"Failed to configure OpenAI client: {str(e)}")
+            self.logger.error(f"Failed to configure AI provider: {str(e)}")
             raise
         
         # Email templates
@@ -149,7 +152,7 @@ class EmailGenerator:
             )
             
             # Make completion request
-            response = self.client_manager.make_completion(request, self.client_id)
+            response = self.provider_manager.make_completion(request)
             
             if not response.success:
                 raise Exception(response.error_message)
@@ -985,6 +988,8 @@ class EmailGenerator:
     def _get_cold_outreach_system_prompt(self) -> str:
         return """You are an expert at writing emotionally resonant, high-converting cold outreach emails for job seekers targeting early-stage startups and fast-moving companies.
 
+CRITICAL: You will be provided with detailed Business Insights, Product Summary, and Personalization Data. You MUST use this specific information rather than leaving placeholders or generic statements. DO NOT write things like "[insert company's mission]" or "[briefly reference a feature]" - use the actual data provided.
+
 Your emails must:
 - Be brief (under 150 words) and deeply personal, not generic
 - A short, raw **“tl;dr”** section at the top, showing obsessive motivation or alignment in plain words (1–2 lines)
@@ -1058,10 +1063,12 @@ Skill Relevance: {sender_skill_match}
 
 CONTEXT: I discovered {company} through their ProductHunt launch and am interested in potential opportunities. 
 
+CRITICAL INSTRUCTIONS: Use the specific Business Insights and Personalization Data provided below. DO NOT use placeholders like "[insert company mission]" or "[briefly reference a feature]". Use the actual data to make specific, meaningful references to their product, market position, and growth stage.
+
 INSTRUCTIONS: Create a personalized outreach email that:
-1. Opens with how I found them on ProductHunt and genuine interest in their product/mission
+1. Opens with how I found them on ProductHunt and genuine interest in their product/mission (use specific details from Product Summary)
 2. Introduces me with the most relevant aspects of my background for their specific needs
-3. Connects my experience/skills to their company's challenges or growth stage
+3. Connects my experience/skills to their company's challenges or growth stage (use Business Insights)
 4. References specific product features or business insights to show genuine understanding
 5. Presents my value proposition in context of what they're building
 6. Includes a natural mention of my availability and location preferences

@@ -17,7 +17,9 @@ from models.data_models import (
     LinkedInProfile, TeamMember, Prospect, EmailContent, 
     SenderProfile, ValidationError, EmailTemplate
 )
-from services.openai_client_manager import get_client_manager, CompletionRequest
+from services.ai_provider_manager import get_provider_manager, configure_provider_manager
+from services.providers.base_provider import ValidationStatus
+from services.openai_client_manager import CompletionRequest, CompletionResponse
 from utils.base_service import BaseService, ServiceConfig, service_operation
 from utils.config import Config
 from utils.error_handling import ErrorCategory
@@ -129,13 +131,14 @@ class AIService(BaseService):
     - Performance monitoring
     """
     
-    def __init__(self, config: Config, client_id: str = "ai_service"):
+    def __init__(self, config: Config, provider_name: Optional[str] = None, client_id: Optional[str] = None):
         """
         Initialize the AI Service.
         
         Args:
-            config: Configuration object with OpenAI settings
-            client_id: Identifier for the OpenAI client to use
+            config: Configuration object with AI provider settings
+            provider_name: Name of the AI provider to use (uses active provider if None)
+            client_id: Deprecated parameter for backward compatibility (ignored)
         """
         service_config = ServiceConfig(
             name="AIService",
@@ -146,15 +149,19 @@ class AIService(BaseService):
             cache_ttl=3600
         )
         
-        self.client_id = client_id
-        self.client_manager = get_client_manager()
-        
-        super().__init__(config, service_config)
+        self.provider_name = provider_name
+        self.provider_manager = get_provider_manager()
         
         # Result cache for expensive operations
         self._result_cache: Dict[str, Dict[str, Any]] = {}
         
-        # Email templates
+        super().__init__(config, service_config)
+        
+        # Handle backward compatibility (after logger is available)
+        if client_id is not None:
+            self.logger.warning("client_id parameter is deprecated. Use provider_name instead.")
+        
+        # Email templates (initialized after logger is available)
         self._email_templates = {
             EmailTemplate.COLD_OUTREACH: {
                 "system_prompt": self._get_cold_outreach_system_prompt(),
@@ -177,10 +184,18 @@ class AIService(BaseService):
     def _initialize_service(self) -> None:
         """Initialize AI service-specific components."""
         try:
-            self.client_manager.configure(self.config, self.client_id)
-            self.logger.info(f"Configured OpenAI client '{self.client_id}' for AI Service")
+            # Configure the provider manager with the system config
+            configure_provider_manager(self.config)
+            
+            # Log the active provider
+            active_provider = self.provider_manager.get_active_provider_name()
+            if active_provider:
+                self.logger.info(f"AI Service using provider: {active_provider}")
+            else:
+                self.logger.warning("No active AI provider configured")
+                
         except Exception as e:
-            self.logger.error(f"Failed to configure OpenAI client: {str(e)}")
+            self.logger.error(f"Failed to configure AI provider manager: {str(e)}")
             raise
     
     def _generate_cache_key(self, operation: AIOperationType, content: str, **kwargs) -> str:
@@ -275,7 +290,7 @@ class AIService(BaseService):
             )
             
             # Make completion request
-            response = self.client_manager.make_completion(request, self.client_id)
+            response = self.provider_manager.make_completion(request, self.provider_name)
             
             if not response.success:
                 raise Exception(response.error_message)
@@ -391,7 +406,7 @@ class AIService(BaseService):
             )
             
             # Make completion request
-            response = self.client_manager.make_completion(request, self.client_id)
+            response = self.provider_manager.make_completion(request, self.provider_name)
             
             if not response.success:
                 raise Exception(response.error_message)
@@ -487,7 +502,7 @@ class AIService(BaseService):
             )
             
             # Make completion request
-            response = self.client_manager.make_completion(request, self.client_id)
+            response = self.provider_manager.make_completion(request, self.provider_name)
             
             if not response.success:
                 raise Exception(response.error_message)
@@ -584,7 +599,7 @@ class AIService(BaseService):
             )
             
             # Make completion request
-            response = self.client_manager.make_completion(request, self.client_id)
+            response = self.provider_manager.make_completion(request, self.provider_name)
             
             if not response.success:
                 raise Exception(response.error_message)
@@ -724,7 +739,7 @@ class AIService(BaseService):
             )
             
             # Make completion request
-            response = self.client_manager.make_completion(request, self.client_id)
+            response = self.provider_manager.make_completion(request, self.provider_name)
             
             if not response.success:
                 raise Exception(response.error_message)
@@ -854,6 +869,89 @@ class AIService(BaseService):
             'cache_enabled': self.service_config.enable_caching,
             'cache_ttl': self.service_config.cache_ttl
         }
+    
+    def get_provider_info(self) -> Dict[str, Any]:
+        """
+        Get information about the current AI provider.
+        
+        Returns:
+            Dictionary with provider information
+        """
+        try:
+            active_provider = self.provider_manager.get_active_provider_name()
+            if not active_provider:
+                return {"error": "No active provider configured"}
+            
+            provider_status = self.provider_manager.get_provider_status()
+            return {
+                "active_provider": active_provider,
+                "provider_status": provider_status
+            }
+        except Exception as e:
+            return {"error": f"Failed to get provider info: {str(e)}"}
+    
+    def list_available_providers(self) -> List[str]:
+        """
+        List all available AI providers.
+        
+        Returns:
+            List of provider names
+        """
+        return self.provider_manager.list_providers()
+    
+    def list_configured_providers(self) -> List[str]:
+        """
+        List configured AI providers.
+        
+        Returns:
+            List of configured provider names
+        """
+        return self.provider_manager.list_configured_providers()
+    
+    def set_provider(self, provider_name: str) -> None:
+        """
+        Set the AI provider for this service instance.
+        
+        Args:
+            provider_name: Name of the provider to use
+        """
+        self.provider_name = provider_name
+        self.logger.info(f"AI Service provider set to: {provider_name}")
+    
+    def validate_current_provider(self) -> ValidationResult:
+        """
+        Validate the current AI provider configuration.
+        
+        Returns:
+            ValidationResult with validation details
+        """
+        try:
+            active_provider = self.provider_name or self.provider_manager.get_active_provider_name()
+            if not active_provider:
+                return ValidationResult(
+                    is_valid=False,
+                    issues=["No active provider configured"],
+                    suggestions=["Configure an AI provider using the CLI or environment variables"],
+                    spam_score=0.0
+                )
+            
+            provider_validation = self.provider_manager.validate_provider(active_provider)
+            
+            # Convert provider ValidationResult to our ValidationResult format
+            return ValidationResult(
+                is_valid=provider_validation.status == ValidationStatus.SUCCESS,
+                issues=[provider_validation.message] if provider_validation.status != ValidationStatus.SUCCESS else [],
+                suggestions=["Check provider configuration and credentials"],
+                spam_score=0.0
+            )
+            
+        except Exception as e:
+            return ValidationResult(
+                is_valid=False,
+                issues=[f"Provider validation failed: {str(e)}"],
+                suggestions=["Check provider configuration and network connectivity"],
+                spam_score=0.0
+            )
     
     def _extract_json_from_response(self, response_content: str) -> Dict[str, Any]:
         """Extract JSON object from AI response."""
@@ -1198,14 +1296,14 @@ class AIService(BaseService):
     def _perform_health_check(self) -> bool:
         """Perform AI service-specific health check."""
         try:
-            # Test OpenAI client connectivity
+            # Test AI provider connectivity
             test_request = CompletionRequest(
                 messages=[{"role": "user", "content": "Hello"}],
                 temperature=0.1,
                 max_tokens=10
             )
             
-            response = self.client_manager.make_completion(test_request, self.client_id)
+            response = self.provider_manager.make_completion(test_request, self.provider_name)
             return response.success
             
         except Exception as e:
@@ -1354,6 +1452,8 @@ Return only the JSON object, no additional text or explanation."""
         """Get system prompt for cold outreach email generation."""
         return """You are an expert at writing emotionally resonant, high-converting cold outreach emails for job seekers targeting early-stage startups and fast-moving companies.
 
+CRITICAL: You will be provided with detailed Business Insights, Product Summary, and Personalization Data. You MUST use this specific information rather than leaving placeholders or generic statements. DO NOT write things like "[insert company's mission]" or "[briefly reference a feature]" - use the actual data provided.
+
 Your emails must:
 - Be brief (under 150 words) and deeply personal, not generic
 - A short, raw **"tl;dr"** section at the top, showing obsessive motivation or alignment in plain words (1–2 lines)
@@ -1364,15 +1464,21 @@ Your emails must:
 - Describe sender's relevant experience with actual companies/products (ideally high-growth or lean teams)
 - Frame skills in the context of what the recipient's company is likely struggling with at their stage (e.g., scalability, speed, full-stack ownership, data infra)
 - Avoid overused corporate jargon (e.g., "synergy", "proactive", "leverage")—use real language that feels written by a motivated, obsessed builder
-- Reference the company's product, team, or mission with at least one specific and meaningful insight
+- Reference the company's product, team, or mission with SPECIFIC details from the provided Business Insights and Product Summary
+- Use the Personalization Points to make meaningful connections between sender's background and the company's needs
 - Include links to work, projects, or relevant proof (if applicable)
 - End with a low-pressure CTA that signals availability and openness for a chat—not a demand
 
+IMPORTANT: When referencing the company's product or mission, use SPECIFIC details from the provided data. For example:
+- Instead of "[company's mission]" → use actual mission details from Product Summary
+- Instead of "[key product feature]" → use actual features from Business Insights  
+- Instead of "[growth stage]" → use specific details about their funding, team size, or market position
+
 Structure:
 1. Bold, honest, or emotionally resonant opener that signals alignment
-2. One-sentence discovery mention (ProductHunt, etc.) + what hooked the sender
+2. One-sentence discovery mention (ProductHunt, etc.) + what hooked the sender (use specific product details)
 3. Sender intro: focused on relevant achievements in lean/high-growth contexts
-4. Specific ways their background can solve this company's challenges
+4. Specific ways their background can solve this company's challenges (based on Business Insights)
 5. Personal tone throughout—less "professional," more "driven teammate"
 6. Soft CTA with availability and preferred contact method
 
@@ -1425,6 +1531,8 @@ Industry Alignment: {sender_industry_match}
 Skill Relevance: {sender_skill_match}
 
 CONTEXT: I discovered {company} through their ProductHunt launch and am interested in potential opportunities.
+
+CRITICAL INSTRUCTIONS: Use the specific Business Insights and Personalization Data provided above. DO NOT use placeholders like "[insert company mission]" or "[briefly reference a feature]". Use the actual data to make specific, meaningful references to their product, market position, and growth stage.
 
 INSTRUCTIONS: Write the complete email now. Do not provide commentary or explanations. Follow this exact format:
 

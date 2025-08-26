@@ -145,7 +145,11 @@ class ProductHuntScraper:
     @retry_with_backoff(max_retries=3, base_delay=2.0)
     def get_latest_products(self, limit: int = 50) -> List[ProductData]:
         """
-        Scrape ProductHunt for the latest product launches using raw HTTP requests.
+        Scrape ProductHunt for the latest product launches.
+        
+        Uses enhanced strategy:
+        - For limits > 15: Use Selenium with "See all of today's products" button
+        - For limits <= 15: Try raw HTTP first, fallback to Selenium if needed
         
         Args:
             limit: Maximum number of products to retrieve
@@ -156,9 +160,17 @@ class ProductHuntScraper:
         Raises:
             Exception: If scraping fails after all retry attempts
         """
-        logger.info(f"Scraping ProductHunt for latest {limit} products using raw HTTP")
+        logger.info(f"Scraping ProductHunt for latest {limit} products")
         
         self.rate_limiter.wait_if_needed()
+        
+        # If limit > 15, use Selenium approach directly since raw HTTP typically only shows ~15 products
+        if limit > 15:
+            logger.info(f"Limit ({limit}) > 15, using enhanced Selenium approach to access all products")
+            return self._get_products_with_selenium(limit)
+        
+        # For smaller limits, try raw HTTP first (faster)
+        logger.info(f"Limit ({limit}) <= 15, trying raw HTTP approach first")
         
         # ProductHunt URL for latest products
         url = "https://www.producthunt.com/"
@@ -177,6 +189,11 @@ class ProductHuntScraper:
             # Extract product information from the page
             products = self._extract_products_from_raw_html(soup, limit)
             
+            # If we didn't get enough products and the limit is close to our threshold, try Selenium
+            if len(products) < limit and limit > 10:
+                logger.warning(f"Only found {len(products)} products with raw HTTP (wanted {limit}), trying Selenium approach")
+                return self._get_products_with_selenium(limit)
+            
             # If we didn't get any products, try alternative extraction methods
             if not products:
                 logger.warning("No products found with primary method, trying alternative extraction")
@@ -187,13 +204,18 @@ class ProductHuntScraper:
                 logger.warning("No products found with HTML parsing, trying API approach")
                 products = self._try_api_approach(limit)
             
-            logger.info(f"Successfully scraped {len(products)} products from ProductHunt")
+            # Last resort: try Selenium if we still have no products
+            if not products:
+                logger.warning("All raw HTTP methods failed, falling back to Selenium")
+                return self._get_products_with_selenium(limit)
+            
+            logger.info(f"Successfully scraped {len(products)} products from ProductHunt using raw HTTP")
             return products
             
         except requests.RequestException as e:
             logger.error(f"HTTP request error while scraping ProductHunt: {str(e)}")
             # Fallback to Selenium if HTTP fails
-            logger.info("Falling back to Selenium approach")
+            logger.info("Falling back to enhanced Selenium approach")
             return self._get_products_with_selenium(limit)
         except Exception as e:
             logger.error(f"Failed to scrape ProductHunt: {str(e)}")
@@ -1058,7 +1080,7 @@ class ProductHuntScraper:
     
     def _get_products_with_selenium(self, limit: int) -> List[ProductData]:
         """
-        Fallback method using Selenium when HTTP requests fail.
+        Enhanced Selenium method that clicks "See all of today's products" button to load more products.
         
         Args:
             limit: Maximum number of products to retrieve
@@ -1066,7 +1088,7 @@ class ProductHuntScraper:
         Returns:
             List of ProductData objects
         """
-        logger.info("Using Selenium fallback approach")
+        logger.info("Using enhanced Selenium approach with expansion button support")
         
         try:
             with self.webdriver_manager.get_driver("product_hunt_scraper") as driver:
@@ -1079,6 +1101,25 @@ class ProductHuntScraper:
                 except TimeoutException:
                     logger.warning("Selenium: Could not find expected elements, proceeding with current page state")
                 
+                # Count initial products
+                initial_products = driver.find_elements(By.CSS_SELECTOR, "a[href*='/products/']")
+                initial_count = len(set(link.get_attribute('href') for link in initial_products if link.get_attribute('href')))
+                logger.info(f"Found {initial_count} products initially visible")
+                
+                # Try to expand the product list by clicking the "See all" button
+                expanded = self._try_expand_product_list(driver, wait)
+                
+                if expanded:
+                    # Wait a bit for the expanded content to load
+                    time.sleep(2)
+                    
+                    # Count products after expansion
+                    expanded_products = driver.find_elements(By.CSS_SELECTOR, "a[href*='/products/']")
+                    expanded_count = len(set(link.get_attribute('href') for link in expanded_products if link.get_attribute('href')))
+                    logger.info(f"After expansion: {expanded_count} products visible (gained {expanded_count - initial_count})")
+                else:
+                    logger.info("Could not expand product list, using initial view")
+                
                 # Get page source and parse with BeautifulSoup
                 soup = BeautifulSoup(driver.page_source, 'html.parser')
                 
@@ -1088,11 +1129,145 @@ class ProductHuntScraper:
                 if not products:
                     products = self._extract_products_alternative_raw(soup, limit)
                 
+                logger.info(f"Successfully extracted {len(products)} products using Selenium approach")
                 return products
             
         except Exception as e:
-            logger.error(f"Selenium fallback also failed: {str(e)}")
+            logger.error(f"Enhanced Selenium approach failed: {str(e)}")
             return []
+    
+    def _try_expand_product_list(self, driver, wait: WebDriverWait) -> bool:
+        """
+        Try to click the "See all of today's products" button to expand the product list.
+        
+        Based on the actual button structure:
+        <button class="relative my-2 grow inline-block max-h-11 truncate rounded-full border-2 bg-primary px-4 py-2 text-center text-16 font-semibold text-secondary transition-all duration-300 hover:border-gray-300 hover:bg-gray-50 dark:hover:bg-gray-dark-800 border-gray-200 dark:border-gray-dark-800" type="button" data-sentry-element="Element" data-sentry-component="Button" data-sentry-source-file="index.tsx">
+            <span>See all of today's products</span>
+        </button>
+        
+        Args:
+            driver: Selenium WebDriver instance
+            wait: WebDriverWait instance
+            
+        Returns:
+            bool: True if expansion was successful, False otherwise
+        """
+        try:
+            # Look for the "See all of today's products" button using the exact structure
+            expand_button_selectors = [
+                # Target the span inside the button with exact text
+                "//button[.//span[text()=\"See all of today's products\"]]",
+                "//button[.//span[contains(text(), \"See all of today's products\")]]",
+                
+                # Target the button with specific data attributes and span content
+                "//button[@data-sentry-component='Button'][.//span[contains(text(), \"See all of today's products\")]]",
+                "//button[@data-sentry-element='Element'][.//span[contains(text(), \"See all of today's products\")]]",
+                
+                # Target by class patterns and span content (case-insensitive)
+                "//button[contains(@class, 'bg-primary')][.//span[contains(translate(text(), 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz'), \"see all of today's products\")]]",
+                "//button[contains(@class, 'rounded-full')][.//span[contains(translate(text(), 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz'), \"see all of today's products\")]]",
+                
+                # Fallback selectors for similar patterns
+                "//button[.//span[contains(translate(text(), 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz'), 'see all') and contains(translate(text(), 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz'), 'today')]]",
+                "//button[contains(@class, 'bg-primary')][.//span[contains(translate(text(), 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz'), 'today')]]",
+                
+                # Very broad fallback
+                "//button[contains(translate(text(), 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz'), \"see all of today's products\")]",
+                "//button[contains(translate(., 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz'), \"see all of today's products\")]"
+            ]
+            
+            expand_button = None
+            successful_selector = None
+            
+            for selector in expand_button_selectors:
+                try:
+                    elements = driver.find_elements(By.XPATH, selector)
+                    for element in elements:
+                        if element.is_displayed() and element.is_enabled():
+                            expand_button = element
+                            successful_selector = selector
+                            logger.info(f"Found expansion button with text: '{element.text}' using selector: {selector[:100]}...")
+                            break
+                    if expand_button:
+                        break
+                except Exception as e:
+                    logger.debug(f"Selector {selector[:50]}... failed: {e}")
+                    continue
+            
+            if not expand_button:
+                logger.warning("Could not find 'See all of today's products' button with any selector")
+                
+                # Try a final fallback by looking for buttons with relevant class patterns
+                try:
+                    fallback_buttons = driver.find_elements(By.XPATH, "//button[contains(@class, 'bg-primary') and contains(@class, 'rounded-full')]")
+                    for btn in fallback_buttons:
+                        if btn.is_displayed() and btn.text and 'today' in btn.text.lower():
+                            expand_button = btn
+                            logger.info(f"Found fallback expansion button with text: '{btn.text}'")
+                            break
+                except Exception as e:
+                    logger.debug(f"Fallback button search failed: {e}")
+                
+                if not expand_button:
+                    return False
+            
+            # Scroll the button into view
+            driver.execute_script("arguments[0].scrollIntoView({behavior: 'smooth', block: 'center'});", expand_button)
+            time.sleep(2)
+            
+            # Count products before clicking
+            products_before = driver.find_elements(By.CSS_SELECTOR, "a[href*='/products/']")
+            unique_before = set(link.get_attribute('href') for link in products_before if link.get_attribute('href'))
+            logger.info(f"Products before expansion: {len(unique_before)}")
+            
+            # Try to click the button
+            try:
+                # First try regular click
+                expand_button.click()
+                logger.info("Successfully clicked the expansion button")
+                
+                # Wait for the page to update and count products
+                time.sleep(3)  # Give the page time to load
+                
+                products_after = driver.find_elements(By.CSS_SELECTOR, "a[href*='/products/']")
+                unique_after = set(link.get_attribute('href') for link in products_after if link.get_attribute('href'))
+                logger.info(f"Products after expansion: {len(unique_after)}")
+                
+                if len(unique_after) > len(unique_before):
+                    logger.info(f"Page expanded successfully - gained {len(unique_after) - len(unique_before)} more products")
+                    return True
+                else:
+                    logger.info("Click successful but no additional products loaded (may still be valid)")
+                    return True  # Consider it successful since we found and clicked the button
+                    
+            except Exception as click_error:
+                logger.warning(f"Regular click failed: {click_error}")
+                
+                # Try JavaScript click as fallback
+                try:
+                    driver.execute_script("arguments[0].click();", expand_button)
+                    logger.info("Successfully clicked expansion button using JavaScript")
+                    
+                    # Wait for the page to update
+                    time.sleep(3)
+                    products_after_js = driver.find_elements(By.CSS_SELECTOR, "a[href*='/products/']")
+                    unique_after_js = set(link.get_attribute('href') for link in products_after_js if link.get_attribute('href'))
+                    logger.info(f"Products after JS expansion: {len(unique_after_js)}")
+                    
+                    if len(unique_after_js) > len(unique_before):
+                        logger.info(f"Page expanded successfully using JavaScript - gained {len(unique_after_js) - len(unique_before)} more products")
+                        return True
+                    else:
+                        logger.info("JavaScript click successful but no additional products loaded")
+                        return True
+                        
+                except Exception as js_error:
+                    logger.error(f"Both regular and JavaScript clicks failed: {js_error}")
+                    return False
+            
+        except Exception as e:
+            logger.error(f"Error trying to expand product list: {str(e)}")
+            return False
     
     def _extract_team_from_linkedin_links(self, soup: BeautifulSoup, company_name: str) -> List[TeamMember]:
         """

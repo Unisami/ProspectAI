@@ -41,6 +41,22 @@ class EmailTemplate(Enum):
     NETWORKING = "networking"
 
 
+class IssueCategory(Enum):
+    """Categories for user-reported issues."""
+    BUG = "Bug"
+    IMPROVEMENT = "Improvement"
+    QUESTION = "Question"
+    SETUP = "Setup"
+
+
+class IssueStatus(Enum):
+    """Status enum for issue tracking."""
+    OPEN = "Open"
+    IN_PROGRESS = "In Progress"
+    RESOLVED = "Resolved"
+    CLOSED = "Closed"
+
+
 class ValidationError(Exception):
     """Custom exception for data validation errors."""
     pass
@@ -222,6 +238,12 @@ class Prospect:
     email_content: str = ""
     email_generated_date: Optional[datetime] = None
     email_sent_date: Optional[datetime] = None
+    
+    # AI-structured data fields for enhanced personalization
+    product_summary: str = ""
+    business_insights: str = ""
+    linkedin_summary: str = ""
+    personalization_data: str = ""
     
     def __post_init__(self):
         """Validate prospect data after initialization."""
@@ -1188,4 +1210,99 @@ class SenderProfile:
             remote_preference=data.get('remote_preference', ''),
             salary_expectations=data.get('salary_expectations'),
             additional_context=additional_context
+        )
+
+
+@dataclass
+class Issue:
+    """Data model for user-reported issues."""
+    title: str
+    description: str
+    category: IssueCategory = IssueCategory.BUG
+    status: IssueStatus = IssueStatus.OPEN
+    created_at: datetime = field(default_factory=datetime.now)
+    context: Optional[Dict[str, Any]] = field(default_factory=dict)
+    issue_id: Optional[str] = None
+    
+    def __post_init__(self):
+        """Generate issue ID if not provided."""
+        if not self.issue_id:
+            # Create simple issue ID based on timestamp
+            timestamp = int(self.created_at.timestamp())
+            self.issue_id = f"#{timestamp % 100000}"  # Last 5 digits for readability
+    
+    def validate(self) -> ValidationResult:
+        """
+        Validate issue data fields.
+        
+        Returns:
+            ValidationResult with validation details
+        """
+        results = []
+        
+        # Validate title
+        results.append(ValidationFramework.validate_string_field(
+            self.title, 'title', min_length=5, max_length=200
+        ))
+        
+        # Validate description
+        results.append(ValidationFramework.validate_string_field(
+            self.description, 'description', min_length=10, max_length=5000
+        ))
+        
+        return ValidationFramework.validate_multiple_results(results)
+    
+    def to_dict(self) -> Dict[str, Any]:
+        """Convert to dictionary for serialization."""
+        return {
+            'issue_id': self.issue_id,
+            'title': self.title,
+            'description': self.description,
+            'category': self.category.value,
+            'status': self.status.value,
+            'created_at': self.created_at.isoformat(),
+            'context': self.context
+        }
+    
+    @classmethod
+    def from_dict(cls, data: Dict[str, Any]) -> 'Issue':
+        """
+        Create Issue instance from dictionary.
+        
+        Args:
+            data: Dictionary containing issue data
+            
+        Returns:
+            Issue instance
+            
+        Raises:
+            ValidationError: If data is invalid
+        """
+        # Handle datetime conversion
+        created_at = data.get('created_at')
+        if isinstance(created_at, str):
+            try:
+                created_at = datetime.fromisoformat(created_at.replace('Z', '+00:00'))
+            except ValueError:
+                created_at = datetime.now()
+        elif not isinstance(created_at, datetime):
+            created_at = datetime.now()
+        
+        # Handle enum conversion
+        category = data.get('category', IssueCategory.BUG.value)
+        if isinstance(category, str):
+            category = IssueCategory(category)
+        
+        status = data.get('status', IssueStatus.OPEN.value)
+        if isinstance(status, str):
+            status = IssueStatus(status)
+        
+        return cls(
+            issue_id=data.get('issue_id'),
+            title=data.get('title', ''),
+            description=data.get('description', ''),
+            category=category,
+            status=status,
+            created_at=created_at,
+            context=data.get('context', {})
         )
